@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="26" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/feeb73c2443ba7f5f941de072fb61640/images/9357859d74dbe13de4673153117b52a8.png)\n\nWe can use subtraction to find the missing whole: $\\pink\\Box - \\green7 = \\blue2$\n\nWe can also add all of the frogs together:  $\\green7 + \\blue2 = \\pink{\\Box}$&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/9357859d74dbe13de4673153117b52a8.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink9$ frogs&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 9, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Some frogs were dancing on a log. $7$ frogs jumped into the pond. There were $2$ frogs left on the log.\n\n**How many frogs were dancing on the log in the beginning? **\n\n[[☃ input-number 1]]  frogs\n\n\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/9357859d74dbe13de4673153117b52a8.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/feeb73c2443ba7f5f941de072fb61640/images/39f76d24cab23d43f6043b43f1766a67.png)\n\nWe can use subtraction to find the missing whole: $\\pink{\\Box} - \\green{4} = \\blue{16}$\n\nWe can also add all of the brownies together:  $\\green{4} + \\blue{16} = \\pink{\\Box}$&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/39f76d24cab23d43f6043b43f1766a67.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink{20}$ brownies&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 20, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There was a plate full of brownies. Tina ate $4$ of the brownies. There were $16$ brownies left.\n\n**How many brownies were on the plate before Tina ate some? **\n\n[[☃ input-number 1]]  brownies\n\n\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/39f76d24cab23d43f6043b43f1766a67.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/feeb73c2443ba7f5f941de072fb61640/images/c11cfa2b60eafd219c1d24a61de45cfb.png)\n\nWe can use subtraction to find the missing whole: $\\pink{\\Box} - \\green{5} = \\blue{12}$\n\nWe can also add all of the witches together:  $\\green{5} + \\blue{12} = \\pink{\\Box}$&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/c11cfa2b60eafd219c1d24a61de45cfb.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink{17}$ witches&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 17, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;A group of witches flew around the city. $5$ of them landed, and there were $12$ left in the sky.\n\n**How many witches flew around the city? **\n\n[[☃ input-number 1]]  witches\n\n\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/c11cfa2b60eafd219c1d24a61de45cfb.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/feeb73c2443ba7f5f941de072fb61640/images/20ade87c59244635ce49b0a791cc68ae.png)\n\nWe can use subtraction to find the missing whole: $\\pink{\\Box} - \\green{4} = \\blue{7}$\n\nWe can also add all of the monkeys together:  $\\green{4} + \\blue{7} = \\pink{\\Box}$&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/20ade87c59244635ce49b0a791cc68ae.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink{11}$ monkeys&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 11, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Some monkeys put on a magic show. $4$ of them took a break. $7$ continued the show.\n\n**How many monkeys began performing the show? **\n\n[[☃ input-number 1]]  monkeys\n\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/20ade87c59244635ce49b0a791cc68ae.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can use subtraction to find the missing whole: $\\pink{\\Box} - \\green3 = \\blue3$\n\nWe can also add all of the bears together:  $\\green3 + \\blue3 = \\pink{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink{6}$ bears&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;A group of circus bears made a pyramid. $3$ bears fell off the top, leaving $3$ on the bottom.\n\n**How many bears made the pyramid?  **\n\n [[☃ input-number 1]] bears\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](/feeb73c2443ba7f5f941de072fb61640/images/55cd10d64201f978898f32c37c82ceca.png)\n\nWe can use subtraction to find the missing whole: $\\pink{\\Box} - \\green{2} = \\blue{8}$\n\nWe can also add all of the beans together:  $\\green{2} + \\blue{8} = \\pink{\\Box}$&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/55cd10d64201f978898f32c37c82ceca.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink{10}$ beans&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 10, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;AJ bought some magic beans from the store. He dropped $2$ on his way home. When he got home, he had $8$ left.\n\n**How many magic beans did AJ buy? **\n\n[[☃ input-number 1]]  beans\n\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/55cd10d64201f978898f32c37c82ceca.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](/feeb73c2443ba7f5f941de072fb61640/images/94557dcecda32926d41c2b9e1160f0b6.png)\n\nWe can use subtraction to find the missing whole: $\\pink{\\Box} - \\green{7} = \\blue9$\n\nWe can also add all of the unicorns together:  $\\green{7} + \\blue9 = \\pink{\\Box}$&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/94557dcecda32926d41c2b9e1160f0b6.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink{16}$ unicorns&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 16, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There was a group of unicorns talking in a field. $7$ of them ran away. $9$ of them were left.\n\n**In total, how many unicorns were talking in a field? **\n\n[[☃ input-number 1]]  unicorns\n\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/94557dcecda32926d41c2b9e1160f0b6.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can use subtraction to find the missing whole: $\\pink{\\Box} - \\green2 = \\blue4$\n\nWe can also add all of the cars trucks:  $\\green2 + \\blue4 = \\pink{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink{6}$ trucks&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Some monster trucks were racing in a rally. $2$ crashed and only $4$ finished the race.\n\n**How many trucks started the race?  **\n\n [[☃ input-number 1]] trucks\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/feeb73c2443ba7f5f941de072fb61640/images/8d66723ef0eeb3622d88c062d3ef0493.png)\n\nWe can use subtraction to find the missing whole: $\\pink{\\Box} - \\green8 = \\blue5$\n\nWe can also add all of the bunnies together:  $\\green8 + \\blue5 = \\pink{\\Box}$&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/8d66723ef0eeb3622d88c062d3ef0493.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink{13}$ bunnies&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 13, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There was a group of bunnies in a field. $8$ hopped away. Now there are $5$ bunnies in the field.\n\n**How many bunnies were in the group to begin with? **\n\n[[☃ input-number 1]]  bunnies\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/8d66723ef0eeb3622d88c062d3ef0493.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can take away $\\pink{6}$ scoops from the $\\purple{9}$ scoops $\\purple{\\text{Sue}}$ has to see how many scoops $\\green{\\text{Tessa}}$ has.\n\n$\\purple{9} - \\pink{6} = \\green{\\Box}$\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/24ff7fdff8c7b5286dac8e343fe51742.png)![](/feeb73c2443ba7f5f941de072fb61640/images/bb248a1c59d95e55700e97930882ae9c.png)![](/feeb73c2443ba7f5f941de072fb61640/images/d716e16f23b99f43c5dc45fa1186aa46.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/bb248a1c59d95e55700e97930882ae9c.png&#34;: {&#34;width&#34;: 94, &#34;height&#34;: 300}, &#34;/feeb73c2443ba7f5f941de072fb61640/images/d716e16f23b99f43c5dc45fa1186aa46.png&#34;: {&#34;width&#34;: 94, &#34;height&#34;: 300}, &#34;/feeb73c2443ba7f5f941de072fb61640/images/24ff7fdff8c7b5286dac8e343fe51742.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 300}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Tessa&#39;s ice cream cone has $\\green{3}$ scoops.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Sue&#39;s ice cream cone has $6$ more scoops than Tessa&#39;s ice cream cone.\n\nSue&#39;s ice cream cone has $9$ scoops.\n\n**How many scoops are on Tessa&#39;s ice cream cone?**\n\n[[☃ input-number 1]] scoops\n\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/071a1415970c3d45ec32c46576571cc6.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 300}, &#34;/feeb73c2443ba7f5f941de072fb61640/images/24ff7fdff8c7b5286dac8e343fe51742.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purple{\\text{Long slide}} - \\pink{2} = \\green{\\text{Short slide}}$\n\n$\\purple{8} - \\pink{2} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The short slide is $\\green{6}$ meters long.\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/2f72f35be8529605974fee73722de395.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/2f72f35be8529605974fee73722de395.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 209}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Fox and squirrel are going down the slides.  Fox chose the long slide, which is $8$ meters long.  The long slide is $2$ meters longer than the short slide.\n\n**How long is the short slide?**  \n\n[[☃ input-number 1]] meters\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/6a7c8db0399cf8e745507e11c2a0f329.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/6a7c8db0399cf8e745507e11c2a0f329.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 209}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/feeb73c2443ba7f5f941de072fb61640/images/b84c3203c1e001f2e749d3f612c348d9.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/b84c3203c1e001f2e749d3f612c348d9.png&#34;: {&#34;width&#34;: 369, &#34;height&#34;: 400}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purple{\\text{Crayons}}-\\pink{6} = \\green{\\text{Colored pencils}}$\n\n$\\purple{14}-\\pink{6} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Anna has $\\green{8}$ colored pencils.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Anna is packing some art supplies to use during a long car trip.  She has $6$ more crayons than colored pencils.  Anna has $14$ crayons.\n\n**How many colored pencils does she have?**  \n\n[[☃ input-number 1]] colored pencils\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/b84c3203c1e001f2e749d3f612c348d9.png&#34;: {&#34;width&#34;: 369, &#34;height&#34;: 400}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](/feeb73c2443ba7f5f941de072fb61640/images/aebf1952523f2f4869b5dff1bebf2b02.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/aebf1952523f2f4869b5dff1bebf2b02.png&#34;: {&#34;width&#34;: 276, &#34;height&#34;: 300}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purple{\\text{Penguins}} - \\pink{6} = \\green{\\text{Lions}}$\n\n$\\purple{14} - \\pink{6} = \\green{\\Box}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\green{8}$ lions.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;The zoo has $14$ penguins.  There are $6$ more penguins than lions.\n\n**How many lions are at the zoo?**  \n\n[[☃ input-number 1]] lions&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\red{\\text{Horses yesterday}} - \\purple{3} = \\green{\\text{Horses today}}$\n\n$\\red{11} - \\purple{3} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\green{8}$ horses today.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Farmer Brown is not sure why his horses keep disappearing.  He had $11$ horses yesterday.  He had $3$ more horses yesterday than he has today.\n\n**How many horses are there today?**  \n\n[[☃ input-number 1]] horses\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/0d561efc92af169578b3afbf1d139e1a.png)\n$\\qquad\\qquad\\qquad\\qquad \\text{Yesterday}$&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/0d561efc92af169578b3afbf1d139e1a.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 212}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\red{\\text{Red lights}} - \\purple{2} = \\green{\\text{Green lights}}$\n\n$\\red{9} - \\purple{2} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Harry saw $\\green{7}$ green traffic lights.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Harry was driving through town and saw $9$ red traffic lights.  He saw $2$ more red traffic lights than green ones.\n\n**How many green traffic lights did Harry see?**  \n\n[[☃ input-number 1]] green traffic lights\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/47cb95c161d1405958df424433383bb8.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/47cb95c161d1405958df424433383bb8.png&#34;: {&#34;width&#34;: 175, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purple{\\text{Whales}} - \\pink{5} = \\green{\\text{Sharks}}$\n\n$\\purple{13} - \\pink{5} = \\green{\\Box}$\n\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/8d0c4dd63bd94712b7d8326e20958487.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\green{8}$ sharks in the aquarium.\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/8d0c4dd63bd94712b7d8326e20958487.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/8d0c4dd63bd94712b7d8326e20958487.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;A giant has an aquarium full of sharks and whales.  There are $5$ more whales than sharks.  There are  $13$ whales in the aquarium.\n\n**How many sharks are in the aquarium?**  \n\n[[☃ input-number 1]] sharks\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/3d0390d82f17e417aea42de4b5a83b7d.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/3d0390d82f17e417aea42de4b5a83b7d.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purple{\\text{Lea&#39;s roly-polies}} - \\red{1} = \\green{\\text{Don&#39;s roly-polies}}$\n\n$\\purple{9} - \\red{1}= \\green{\\Box}$\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/4dfcbd024fce44575bfe8cc520b7925a.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/4dfcbd024fce44575bfe8cc520b7925a.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 246}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Don has $\\green{8}$ roly-polies.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Lea has $9$ roly-polies in her bug house.  She has $1$ more than Don.  \n\n**How many roly-polies does Don have?**  \n\n[[☃ input-number 1]] roly-polies\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/cc6a99ada9dfa0c38eb9b9da9337dec4.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/cc6a99ada9dfa0c38eb9b9da9337dec4.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 246}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can take away $\\pink{4}$ books from the $\\purple{7}$ on the $\\purple{\\text{top shelf}}$ to see how many are on the $\\green{\\text{bottom shelf}}$.\n\n$\\purple{7} - \\pink{4} = \\green{\\Box}$\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/2cb337128c5c255bbf594599e776baee.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/2cb337128c5c255bbf594599e776baee.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 240}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\green{3}$ books on the bottom shelf.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $4$ more books on the top shelf, shown below, than on the bottom shelf .\n\n**How many books are on the bottom shelf?** \n \n[[☃ input-number 1]] books\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/ea1a0c623f4bd74aa4c74a7269b5b53a.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/ea1a0c623f4bd74aa4c74a7269b5b53a.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 320}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:feeb73c2443ba7f5f941de072fb61640/images/527d559a9e601e4cc705e74c0331e07e6302dad0)\n\nCarlos takes $\\pink{3\\text{ less}}$ minutes than Raj.\nRaj takes $\\pink{3\\text{ more}}$ minutes than Carlos.&#34;, &#34;images&#34;: {&#34;web+graphie:feeb73c2443ba7f5f941de072fb61640/images/527d559a9e601e4cc705e74c0331e07e6302dad0&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 315}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can take the $\\blue{4\\text{ minutes}}$ Carlos reads and add an extra $\\pink{3 \\text{ minutes}}$ to get the time Raj reads.\n\n$\\blue{4} + \\pink{3} = \\purple{7}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;It takes Raj $\\purple{7}$ minutes to read a chapter.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Raj and Carlos are reading.  Carlos reads a chapter in $4$ minutes, which is $3$ minutes less time than it takes Raj.\n\n**How long does it take Raj to read a chapter?**  \n\n[[☃ input-number 1]] minutes\n\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/d8cea319828ffd680948266d93f81400.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 314}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Ann&#39;s cherries}}+\\pink{2}=\\purple{\\text{Zoe&#39;s cherries}}$\n\n$\\green{4} + \\pink{2} =\\purple\\Box$\n\n![](web+graphie:feeb73c2443ba7f5f941de072fb61640/images/06d803202468cce7bc2f550166db642d06492c5a)&#34;, &#34;images&#34;: {&#34;web+graphie:feeb73c2443ba7f5f941de072fb61640/images/06d803202468cce7bc2f550166db642d06492c5a&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 341}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Zoe had $\\purple{6}$ cherries.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Ann and Zoe love ice cream with cherries on top.  Ann put $4$ cherries on hers.  Ann had $2$ fewer cherries than Zoe.\n\n**How many cherries did Zoe have?**  \n\n[[☃ input-number 1]] cherries\n\n&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/dbacb16265e3e9fc7cd3f2bf393cd2a5.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 340}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Stars on China&#39;s flag}}+\\pink{2}=\\purple{\\text{Stars on Tajikistan&#39;s flag}}$\n\n$\\green{5} + \\pink{2} =\\purple\\Box$\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/1c88418e044e47235e5ca275c051b8b5.png) $\\qquad$ ![](/feeb73c2443ba7f5f941de072fb61640/images/9bd8b287e424ee8f967eb03ee39b0862.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/1c88418e044e47235e5ca275c051b8b5.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}, &#34;/feeb73c2443ba7f5f941de072fb61640/images/9bd8b287e424ee8f967eb03ee39b0862.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{7}$ stars on the flag of Tajikistan.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;The flag of China, shown below, is red with $5$ stars.  It has $2$ fewer stars than the flag of Tajikistan.\n\n**How many stars are on the flag of Tajikistan?**  \n\n[[☃ input-number 1]] stars\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/1c88418e044e47235e5ca275c051b8b5.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/1c88418e044e47235e5ca275c051b8b5.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\red{\\text{Hunter&#39;s eggs}} + 3 = \\purple{\\text{Vera&#39;s eggs}}$  \n$\\red{4} + 3 = \\purple{7}$\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/d26571cba5aa3948656719312902547d.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/d26571cba5aa3948656719312902547d.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 300}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Vera found $7$ eggs.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Hunter found $3$ fewer eggs than his sister Vera.  Hunter found $4$ eggs.\n\n**How many eggs did Vera find?**\n  \n[[☃ input-number 1]] eggs\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/206dfd53e7a9397c12b3cff1b57e5a5e.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/206dfd53e7a9397c12b3cff1b57e5a5e.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purple{\\text{Shark}}+\\blue{4}=\\red{\\text{Red fox}}$\n\n$\\purple{1} + \\blue{4} =\\red\\Box$\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/a414b4d028637a736de072b5c904b101.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/a414b4d028637a736de072b5c904b101.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 280}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The mass of the $\\red{\\text{red fox}}$ is $\\red{5}$ kilograms.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;The mass of the toy shark is $4$ kilograms less than a red fox.  The mass of the toy shark is $1$ kilogram.  \n\n**What is the mass of the red fox?**  \n\n[[☃ input-number 1]] kilograms\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/87bd56c3a83241c1b6d2593112591244.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/87bd56c3a83241c1b6d2593112591244.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 280}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\red{\\text{Monkeys today}} + 3 = \\purple{\\text{Monkeys Saturday}}$  \n$\\red{6} + 3 = \\purple{9}$\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/08d7568fcfaeb9a02afe9361fa4ea923.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/08d7568fcfaeb9a02afe9361fa4ea923.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 357}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Javier saw $\\purple{9}$ monkeys last Saturday.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 9, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Javier went to the zoo today and saw $6$ monkeys. That is $3$ fewer than he saw last Saturday. \n\n**How many monkeys did Javier see last Saturday?**  \n\n[[☃ input-number 1]] monkeys\n\n![](/feeb73c2443ba7f5f941de072fb61640/images/f3df0bde948a7908801dbd04b6ccaa1e.png)&#34;, &#34;images&#34;: {&#34;/feeb73c2443ba7f5f941de072fb61640/images/f3df0bde948a7908801dbd04b6ccaa1e.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 357}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{\\text{The Rockers&#39; songs}} + \\pink{4} = \\purple{\\text{Dustin Beemer&#39;s songs}}$\n\n$\\blue{9} + \\pink{4} = \\purple{\\Box}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Dustin Beemer&#39;s CD has $\\purple{13}$ songs.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 13, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;The Rockers made a CD with $9$ songs on it.  Their CD had $4$ fewer songs than the CD made by Dustin Beemer. \n\n**How many songs are on Dustin Beemer&#39;s CD?**  \n\n[[☃ input-number 1]] songs &#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{\\text{Jack&#39;s laps}} + \\pink{6} = \\purple{\\text{Lea&#39;s laps}}$\n\n$\\blue{8} + \\pink{6} = \\purple{\\Box}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Lea swam $\\purple{14}$ laps.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 14, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Jack swam $8$ laps.  He swam $6$ fewer laps than Lea.  \n\n**How many laps did Lea swim?**  \n\n[[☃ input-number 1]] laps&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

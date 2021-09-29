@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="28" data-dump="[{&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green6+\\purple2=\\blue{?}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the foxes together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/907930001273e9993996bb22624c3228.png)\n\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/907930001273e9993996bb22624c3228.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{8}$ foxes.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$6$ foxes were eating.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/1eff7def7cb576f8c20050c5cf495bb4.png)\n\n$2$ more foxes began eating.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/fbc178feed9dccd0481037f1bacf2e69.png)\n\n**How many foxes are eating?**  \n[[☃ input-number 1]] foxes&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/fbc178feed9dccd0481037f1bacf2e69.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/f8f6d70813d6600a0e1885db56a35034.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/1eff7def7cb576f8c20050c5cf495bb4.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green2+\\purple3=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the sharks together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/4dd071986d0d0d33b96e0b33bbaeb98c.png)\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/4dd071986d0d0d33b96e0b33bbaeb98c.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{5}$ sharks.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;There were $2$ sharks.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/45d5300d9df294217eb18f42979380ac.png)\n\n$3$ more sharks came.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/8aacd7203eca05d6746ed9bdd6e7f913.png)\n\n**How many sharks are there now?**  \n[[☃ input-number 1]] sharks&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/d17eca3fb7bde114bb78e2bb99fa1d0c.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 60}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/8266706cb7e479772de7bc6015cb9f33.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 60}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/8aacd7203eca05d6746ed9bdd6e7f913.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/45d5300d9df294217eb18f42979380ac.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green5+\\purple1=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the ladybugs together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/9f0f0d3e38f95e18aff17a2d64d8396a.png)\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/9f0f0d3e38f95e18aff17a2d64d8396a.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{6}$ ladybugs.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;There were $5$ ladybugs.   \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/6b1443af4fb44eb31e7859662688d1e7.png)\n\n$1$ more ladybug came.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/2e56c72e97a2d2d2a1456db2c6b41ada.png)\n\n**How many ladybugs are there now?**  \n[[☃ input-number 1]] ladybugs&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/6b1443af4fb44eb31e7859662688d1e7.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/fb4d0310e12d908d23a9598db1fc6671.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 55}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/79dee166ff511a66859ea6b7bb6dcdc0.png&#34;: {&#34;width&#34;: 48, &#34;height&#34;: 48}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/2e56c72e97a2d2d2a1456db2c6b41ada.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green7 +\\purple2=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the squirrels together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/baee3bc03a2fdab1b4080d99e40b30ec.png)\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/baee3bc03a2fdab1b4080d99e40b30ec.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{9}$ squirrels.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 9, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$7$ squirrels were running.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/81c844b28534ed8f3b0f5a665b6507d5.png)\n\n$2$ more squirrels began running.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/a6db66da8ae9efb95b91741d7b8d61e1.png)\n\n**How many squirrels are running?**  \n[[☃ input-number 1]] squirrels&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/2be9529be9525a932a526a3a85ddcca8.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 41}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/a6db66da8ae9efb95b91741d7b8d61e1.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/331136f27f8ed0d414d165e018cc4e2d.png&#34;: {&#34;width&#34;: 75, &#34;height&#34;: 41}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/81c844b28534ed8f3b0f5a665b6507d5.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green3+\\purple6=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the flowers together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/320380bfaf2c694eb252204d7d09af6f.png)\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/320380bfaf2c694eb252204d7d09af6f.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{9}$ flowers bloomed.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 9, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$3$ flowers bloomed yesterday.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/e0f942a9f2703f43744e7f6c281f4e32.png)\n\n$6$ more bloomed today.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/c2eff39d61648f3e7c4a1ac559f4231d.png)\n\n**How many flowers bloomed?**  \n[[☃ input-number 1]] flowers&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/e0f942a9f2703f43744e7f6c281f4e32.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/b146fcb45eb7c456eabfb046e1a7a713.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 60}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/c2eff39d61648f3e7c4a1ac559f4231d.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/faf6c11ff2499fb68e562f04c6924eec.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 60}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green2+\\purple8=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the elephants together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/aaf4447e9842fb2ce74f01d3705040d9.png)\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/aaf4447e9842fb2ce74f01d3705040d9.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{10}$ elephants.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 10, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$2$ elephants are running.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/bc0f08c1856ab405444e1e06596750f4.png)\n\n$8$ more elephants began running.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/5a1a933f520b2b50a08b410807a0fabf.png)\n\n**How many elephants are running now?**  \n[[☃ input-number 1]] elephants&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/5a1a933f520b2b50a08b410807a0fabf.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/80924572dfa1fad7e08e82fc675be2c2.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 60}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/bc0f08c1856ab405444e1e06596750f4.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/e5fcfc3db00da5c83f062e4f66e44269.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 60}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green4+\\purple3=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the apples together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/412b6109493398f86c04b3c66b638fc4.png)\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/412b6109493398f86c04b3c66b638fc4.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{7}$ apples fell.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$4$ apples fell.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/371a7f7e7858475dbd67c3b85a9ff6d7.png)\n\n$3$ more apples fell.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/88ca09d5bef01048d5f4a0206d794cb3.png)\n\n**How many apples fell?**  \n[[☃ input-number 1]] apples&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/8df6253378a25d1d1a24776efe4b171c.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 54}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/371a7f7e7858475dbd67c3b85a9ff6d7.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/9b3c1d9fd8d06f1f5663c3764bc243af.png&#34;: {&#34;width&#34;: 160, &#34;height&#34;: 56}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/88ca09d5bef01048d5f4a0206d794cb3.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 57}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green7+\\purple3=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the animals together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/1c8d0554adb06513da93996005fed65a.png)\n\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/1c8d0554adb06513da93996005fed65a.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There were $\\blue{10}$ animals.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 10, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;$7$ elephants and $3$ foxes went hiking.  \n\n\n**How many animals were hiking?**  \n\n[[☃ input-number 1]] animals\n\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/75ea3cd900b2193542ab40824a3acc29.png&#34;: {&#34;width&#34;: 175, &#34;height&#34;: 65}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/7920865556b6ddf7993bd5e0223851ed.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 63}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green6+\\purple3=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all of the animals together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/91c94ba9a66189e2307a7d25d26bd637.png)&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/91c94ba9a66189e2307a7d25d26bd637.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There were $\\blue{9}$ animals.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 9, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;$6$ ponies and $3$ squirrels went skating.  \n\n**How many animals were skating?** \n \n[[☃ input-number 1]] animals\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/4c0e458fdde75cfd4688d36b56cf3489.png&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 65}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/71ea9ac8e4aa1c36eb469d8b1291b139.png&#34;: {&#34;width&#34;: 185, &#34;height&#34;: 65}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green2+\\purple2=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all of the animals together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/0a29476dc270d4c3cc140066d6d1d413.png)&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/0a29476dc270d4c3cc140066d6d1d413.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{4}$ animals are in the tree.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;$2$ mice and $2$ squirrels are in the tree.  \n\n\n**How many animals are in the tree?**  \n\n[[☃ input-number 1]]\n\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/406f6035d57586f95d6183771e179ca6.png&#34;: {&#34;width&#34;: 100, &#34;height&#34;: 55}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/3fd2238b4189806b8fe98134de210e48.png&#34;: {&#34;width&#34;: 100, &#34;height&#34;: 55}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green7+\\purple2=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all of the animals together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/bfa9cef2a1fda5bf6196ba2ce5a0fe44.png)&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/bfa9cef2a1fda5bf6196ba2ce5a0fe44.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{9}$ animals are dancing.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 9, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;$7$ mice and $2$ whales are dancing.\n\n\n**How many animals are dancing?** \n \n[[☃ input-number 1]]&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/31d428b2eea5534b36f2931730e7ad2b.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 75}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/4bcb3656af38c7e68ee8e1c6061789a8.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 50}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green4+\\purple4=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all of the rabbits and carrots together.\n\n![](web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/72046d10cbad83005203b29d81bee0b26defc88c)&#34;, &#34;images&#34;: {&#34;web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/72046d10cbad83005203b29d81bee0b26defc88c&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 134}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{8}$ rabbits and carrots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;$4$ rabbits and $4$ carrots are in the yard.\n\n\n**How many rabbits and carrots are there in all?**  \n[[☃ input-number 1]]&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/02381ff5a305ae5525c47be21cf3ecc5.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 52}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/a1090ed8a29968bb5de1ff70c091553a.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/9acafe8c29135205df628c67dfc2c7ef.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 52}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green4+\\purple5=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all of the flowers and ladybugs together.\n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/5463bbc7a00b4188d6f88301f09f0567.png)&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/5463bbc7a00b4188d6f88301f09f0567.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{9}$ flowers and ladybugs.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 9, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $4$ flowers and $5$ ladybugs. \n\n**How many flowers and ladybugs are there in all?**  \n\n[[☃ input-number 1]]\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/40db0b0f21cdaa23f382d1ee2b7520b2.png&#34;: {&#34;width&#34;: 220, &#34;height&#34;: 50}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/40487715b67ce0997418b32526b37b72.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 54}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green2+\\purple3=\\blue{?}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all of the animals together.\n\n![](web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/b7759fe7f0dcf9ed0fce3d5262afffdafe04cb3a)&#34;, &#34;images&#34;: {&#34;web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/b7759fe7f0dcf9ed0fce3d5262afffdafe04cb3a&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 134}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{5}$ animals are swimming.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;$2$ turtles and $3$ seals are swimming.\n\n\n**How many animals are swimming?** \n \n[[☃ input-number 1]]&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/df5c34eb5c7b235d0411d2a24f6266f2.png&#34;: {&#34;width&#34;: 175, &#34;height&#34;: 63}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/d2ab78617643074d56596b76f80bb9e1.png&#34;: {&#34;width&#34;: 175, &#34;height&#34;: 43}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the horses together.\n\n![](web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/fa2301d0c75416a317eac2ffde6f5ade5b4977c6)&#34;, &#34;images&#34;: {&#34;web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/fa2301d0c75416a317eac2ffde6f5ade5b4977c6&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 134}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$5 + 3 = 8$\n\n$\\green{8}$ horses won medals.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$5 +4 = 9$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5 + 3 = 8$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$3 + 8 = 11$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;$5$ horses won medals.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/ee8090736bc4b6a7c8c2e1fe1f74f604.png)  \n\n$3$ more horses won medals.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/25d3bd417d947212b4be5f3d1c6d9377.png)  \n\n**Find how many horses won medals.**\n\n[[☃ radio 1]]\n\n\n\n\n&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/25d3bd417d947212b4be5f3d1c6d9377.png&#34;: {&#34;width&#34;: 180, &#34;height&#34;: 63}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/ee8090736bc4b6a7c8c2e1fe1f74f604.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 64}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the monkeys together.\n\n![](web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/7f809bb0d9fbd3a329e462bbaf0ba05bf874f5a4)&#34;, &#34;images&#34;: {&#34;web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/7f809bb0d9fbd3a329e462bbaf0ba05bf874f5a4&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 134}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$4 + 4 = 8$\n\n$\\green{8}$ monkeys are jumping.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$4+2=6$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$4 + 4 = 8$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$2+2 = 4$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;$4$ monkeys were jumping.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/94c5b6515e9be5af70e36b424f4f4c42.png)  \n\n$4$ more monkeys started jumping.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/94c5b6515e9be5af70e36b424f4f4c42.png)\n\n**Find how many monkeys are jumping.**\n\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/94c5b6515e9be5af70e36b424f4f4c42.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 68}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the cheese slices together.\n\n![](web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/986809c86d2bae6a64fd5a069a064fe1b6af29c4)&#34;, &#34;images&#34;: {&#34;web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/986809c86d2bae6a64fd5a069a064fe1b6af29c4&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 134}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$3 + 4 = 7$\n\n$\\green{7}$ slices of cheese are melting.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$3+3=6$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$3 + 4 = 7$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$7 + 4 = 11$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;$3$ slices of cheese were melting.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/f31923135d286f000a425e946c8360d0.png)  \n\n$4$ more began to melt.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/1c8f1d0c5a23e22f828835edc41a78d9.png)\n\n**Find how many are melting.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/1c8f1d0c5a23e22f828835edc41a78d9.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 70}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/f31923135d286f000a425e946c8360d0.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 70}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the whales together.\n\n![](web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/719484f24fedb276edbcd7b25f6923ab929f7ced)&#34;, &#34;images&#34;: {&#34;web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/719484f24fedb276edbcd7b25f6923ab929f7ced&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 134}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$6 + 1 = 7$\n\n$\\green{7}$ whales are leaping.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$5+1= 6$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$6 + 1 = 7$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$7 + 1 = 8$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;$6$ whales were leaping.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/19fb7b25e246d400db37b9efbf36714c.png)\n\n$1$ more whale began leaping.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/1de9b23d23117a56bfca5a3d4aedddb3.png)\n\n\n**Find how many whales are leaping.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/19fb7b25e246d400db37b9efbf36714c.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 63}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/1de9b23d23117a56bfca5a3d4aedddb3.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 63}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the mice together.\n\n![](web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/a5c60d4cd06b5fa5f2147cefc5bcd107e0c10537)&#34;, &#34;images&#34;: {&#34;web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/a5c60d4cd06b5fa5f2147cefc5bcd107e0c10537&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 134}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$4 + 3 = 7$\n\n$\\green{7}$ mice ran away.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$5+ 3 = 8$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$4 + 3 = 7$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$4 + 7 = 11$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;$4$ mice ran away.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/42073ca79aa4bbdc03f89c3b6355f5b8.png)\n\n$3$ more mice ran away.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/96b7e5cca9280f6c045a7d6b964d93f9.png)\n\n\n\n**Find how many mice ran away.**\n\n\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/42073ca79aa4bbdc03f89c3b6355f5b8.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 65}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/96b7e5cca9280f6c045a7d6b964d93f9.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 66}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the bananas together.\n\n![](web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/b20547601d384832584dd3fbfe46ad0f9dbd966c)&#34;, &#34;images&#34;: {&#34;web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/b20547601d384832584dd3fbfe46ad0f9dbd966c&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 134}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$2 + 5 = 7$\n\nThe monkey ate $\\green{7}$ bananas.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$3+2 = 5$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$2 + 5 = 7$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$5 + 7 = 12$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;A monkey ate $2$ bananas.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/13b9c0b23d28841d6159eebbf584833d.png)  \nHe ate $5$ more bananas.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/63c420487bfed07971440d81cc109f68.png)\n\n**Find how many bananas he ate.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/63c420487bfed07971440d81cc109f68.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 70}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/13b9c0b23d28841d6159eebbf584833d.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 70}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the animals together.\n\n![](web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/6e7baeb9fb3d5d2a4d24db19bf58fce61fb0ebac)&#34;, &#34;images&#34;: {&#34;web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/6e7baeb9fb3d5d2a4d24db19bf58fce61fb0ebac&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 134}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$3+2=5$\n\n$\\green{5}$ animals are playing ball.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$2+1=3$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$3+2=5$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$5+2=7$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;$3$ foxes were playing ball.  \n![](web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/caa9f331ba4c6d5b05ac7409e10c0f085ad81242)\n\n$2$ horses joined them.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/8d691fbf2784e058d99edf275cf878f4.png)\n\n**Find how many animals are playing.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/8d691fbf2784e058d99edf275cf878f4.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 63}, &#34;web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/caa9f331ba4c6d5b05ac7409e10c0f085ad81242&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 64}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count all the pieces of fruit together.\n\n![](web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/16734f2e996bdad138bdfb9baefc65759c9a48b0)&#34;, &#34;images&#34;: {&#34;web+graphie:36fb4ca1cab3ea734651c444117dbf0c/images/16734f2e996bdad138bdfb9baefc65759c9a48b0&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 134}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$1+4=5$\n\nSam picked $\\green{5}$ pieces of fruit.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$1+4=5$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$3+1=4$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$4+2=6$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;Sam picked $1$ apple.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/ba7400e149d80b9e4fed3e68e4a322af.png)\n\nHe picked $4$ bananas.  \n![](/36fb4ca1cab3ea734651c444117dbf0c/images/586103d7a2ce56df4e50bd3e6ae1eb21.png)\n\n**Find how many pieces of fruit he picked.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/586103d7a2ce56df4e50bd3e6ae1eb21.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 63}, &#34;/36fb4ca1cab3ea734651c444117dbf0c/images/ba7400e149d80b9e4fed3e68e4a322af.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 63}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$6 + 3 = 9$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Reem picked $9$ apples in all.   \n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/5916a5ebfdf75e685575fd9c1055e5f1.png)&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/5916a5ebfdf75e685575fd9c1055e5f1.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 48}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/6d98d94269ec341327acda4248cdc500.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/5916a5ebfdf75e685575fd9c1055e5f1.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/362067dbb0ce8d4da00d92d10a41fc67.png)&#34;}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Reem picked $6$ apples on Monday.  \nHe picked $3$ more apples on Tuesday. \n\n**How many apples did he pick in all?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$4 + 2 = 6$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;She caught $6$ ladybugs in all.   \n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/8b74c57e250652c2587ed32468d46d25.png)&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/8b74c57e250652c2587ed32468d46d25.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 46}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/b126cfec7ccd312cba7f9fe7c1768b0d.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/8b74c57e250652c2587ed32468d46d25.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/3b0c6e5fbf67dac6eba3602cd63bc37f.png)&#34;}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Anne caught $4$ ladybugs on Tuesday.  \nShe caught $2$ more ladybugs on Wednesday. \n\n**How many ladybugs did she catch in all?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$8 + 1 = 9$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;She trained $9$ ponies in all.   \n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/0c261f2f00a8b4d029747fe64b5122a8.png)&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/0c261f2f00a8b4d029747fe64b5122a8.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 52}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/0c261f2f00a8b4d029747fe64b5122a8.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/8750aeaca7584fc09d98d8899de80ab7.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/bbfa55370748226de6f7ab2cc95ff567.png)&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Mel trained $8$ ponies in the spring.  \nShe trained $1$ more pony in the summer. \n\n**How many ponies did she train in all?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$7 + 3 = 10$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;He planted $10$ flowers in all.   \n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/1b14848f679b29385e209d16bb0fc9b8.png)&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/1b14848f679b29385e209d16bb0fc9b8.png&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 41}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/4674c4607b51e5d9ecc0a932da182702.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/d8595613e688ca1f5244df37bad30aba.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/312a42f632d8b53dc9dd11fa992bb8aa.png)&#34;}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Sid planted $7$ flowers on Saturday.  \nHe planted $3$ more flowers on Sunday. \n\n**How many flowers did he plant in all?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$2 + 2 = 4$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;She fed $4$ sharks in all.   \n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/7c54335b374aaff465a2bd1d035f913c.png)&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/7c54335b374aaff465a2bd1d035f913c.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 60}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/7f89051668ba4c8367bab6a18b1a2df3.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/49e509fa2266bfe7387e7bcff282518f.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/7c54335b374aaff465a2bd1d035f913c.png)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;Gwen fed $2$ sharks in the morning.  \nShe fed $2$ more sharks in the afternoon. \n\n**How many sharks did she feed in all?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$3 + 3 = 6$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;He saw $6$ squirrels in all.   \n\n![](/36fb4ca1cab3ea734651c444117dbf0c/images/30dfc1f607c690094120da9a846ac2b9.png)&#34;, &#34;images&#34;: {&#34;/36fb4ca1cab3ea734651c444117dbf0c/images/30dfc1f607c690094120da9a846ac2b9.png&#34;: {&#34;width&#34;: 230, &#34;height&#34;: 44}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/9011b51e2b80942d36a3e1ae28528d26.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/014e413baca34f2c13d7bda4f5bfe85f.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](/36fb4ca1cab3ea734651c444117dbf0c/images/5bb9eab1b1bf301e7e8a330e734ac8a1.png)&#34;}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;Aaron saw $3$ squirrels last week.  \nHe saw $3$ more squirrels this week. \n\n**How many squirrels did he see in all?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

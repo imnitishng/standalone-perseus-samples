@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="20" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of addition as the following:\n\n$\\blueE{\\text{part}}+\\goldE{\\text{ part}} = \\maroonD{\\text{total}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s keep adding to $\\blueE{45}$ until we have a total of $\\maroonD{81}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/19aadc6e84e2911130d94fc56cd9f2f4f0ff407d)\n\n$\\blueE{45} + \\goldE{\\Box} = \\maroonD{81}$ &#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/19aadc6e84e2911130d94fc56cd9f2f4f0ff407d&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We added $\\goldE{36}$ more blocks.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/e8daf671b02195e8a146acaf77560754c4d56187)\n&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/e8daf671b02195e8a146acaf77560754c4d56187&#34;: {&#34;width&#34;: 112, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$45 + \\goldE{36}=81$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 36, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$45 +{} $ [[☃ numeric-input 1]] $=81$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/c231be5750c22a76c5a2f8c6f64b31424b34e829)\n&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/c231be5750c22a76c5a2f8c6f64b31424b34e829&#34;: {&#34;width&#34;: 465, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of addition as the following:\n\n$\\blueE{\\text{part}}+\\goldE{\\text{ part}} = \\maroonD{\\text{total}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s keep adding to $\\blueE{34}$ until we have a total of $\\maroonD{66}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/0639f2feb8f4a79363a881417891c4ae18b066bd)\n\n$\\blueE{34} + \\goldE{\\Box} = \\maroonD{66}$ &#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/0639f2feb8f4a79363a881417891c4ae18b066bd&#34;: {&#34;width&#34;: 178, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We added $\\goldE{32}$ more blocks.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/ba39fca56965511d56416fa286b8291713089128)\n&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/ba39fca56965511d56416fa286b8291713089128&#34;: {&#34;width&#34;: 90, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$34 + \\goldE{32}=66$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 32, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$34 +{}$ [[☃ numeric-input 1]] $=66$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/5485ecddb968563838ede83f53e1cec6c1585586)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/5485ecddb968563838ede83f53e1cec6c1585586&#34;: {&#34;width&#34;: 421, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of addition as the following:\n\n$\\maroonD{\\text{total}} = \\blueE{\\text{part}}+\\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s keep adding to $\\blueE{61}$ until we have a total of $\\maroonD{74}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/c831a2a15d74d86ebef3ce5e8f0290cf83b2ee80)\n\n$ \\maroonD{74}=\\blueE{61} + \\goldE{\\Box}$ &#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/c831a2a15d74d86ebef3ce5e8f0290cf83b2ee80&#34;: {&#34;width&#34;: 178, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We added $\\goldE{13}$ more blocks.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/47df95d8bb3c148116faf3f9c67ba3d2ac3c4386)\n&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/47df95d8bb3c148116faf3f9c67ba3d2ac3c4386&#34;: {&#34;width&#34;: 46, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$74=61 + \\goldE{13}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 13, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$74=61+ {}$ [[☃ numeric-input 1]]   \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/a840993d8031350b6abdc549685a3f25402e82c6)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/a840993d8031350b6abdc549685a3f25402e82c6&#34;: {&#34;width&#34;: 509, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of addition as the following:\n\n$\\blueE{\\text{part}}+\\goldE{\\text{ part}} = \\maroonD{\\text{total}}$&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/cd73b238e75d1d333cbfe334cfeaa06dc6c484e9&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s keep adding to $\\blueE{23}$ until we have a total of $\\maroonD{58}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/88661dad0a09f3d6b6c8ea111638da0d409ff0ba)\n\n$\\blueE{23} + \\goldE{\\Box} = \\maroonD{58}$ &#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/88661dad0a09f3d6b6c8ea111638da0d409ff0ba&#34;: {&#34;width&#34;: 156, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We added $\\goldE{35}$ more blocks.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/4d1787b5515d0e463846d941f8266769ccaddf9c)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/4d1787b5515d0e463846d941f8266769ccaddf9c&#34;: {&#34;width&#34;: 90, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$23 +\\goldE{35}=58$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 35, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$23 +{}$ [[☃ numeric-input 1]] $=58$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/bc83e743f456f15f9f9e20f7d4da4283db23cfb7)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/bc83e743f456f15f9f9e20f7d4da4283db23cfb7&#34;: {&#34;width&#34;: 377, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of addition as the following:\n\n$\\blueE{\\text{part}}+\\goldE{\\text{ part}} = \\maroonD{\\text{total}}$&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/6fbd683fa0e7d3458208c8897d6f898bfb3dcbc6&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s keep adding to $\\blueE{59}$ until we have a total of $\\maroonD{87}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/a7aff30bc0e47d8c159571fc031dc7446627722f)\n\n$\\blueE{59} + \\goldE{\\Box} = \\maroonD{87}$ &#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/a7aff30bc0e47d8c159571fc031dc7446627722f&#34;: {&#34;width&#34;: 222, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We added $\\goldE{28}$ more blocks.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/26584f46ba2426e5329ecf0e1458ce5021ead542)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/26584f46ba2426e5329ecf0e1458ce5021ead542&#34;: {&#34;width&#34;: 90, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$59 + \\goldE{28}=87$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 28, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$59 +{} $ [[☃ numeric-input 1]] $=87$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/ff967bb5a8caf138ec382ed96d98388daf3dedab)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/ff967bb5a8caf138ec382ed96d98388daf3dedab&#34;: {&#34;width&#34;: 531, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of addition as the following:\n\n$\\blueE{\\text{part}} + \\goldE{\\text{ part}}= \\maroonD{\\text{total}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s keep adding to $\\goldE{16}$ until we have a total of $\\maroonD{59}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/c501d3fc2ad6231a83d230fcec64164d773d51b8)\n\n$\\blueE{\\Box} + \\goldE{16}= \\maroonD{59}$ &#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/c501d3fc2ad6231a83d230fcec64164d773d51b8&#34;: {&#34;width&#34;: 156, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We added $\\blueE{43}$ more blocks.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/c554b030030afd0074a16b2da90f4e4d6bc74d76)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/c554b030030afd0074a16b2da90f4e4d6bc74d76&#34;: {&#34;width&#34;: 112, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blueE{43}+16=59$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 43, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n[[☃ numeric-input 1]] ${}+ 16 =59$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/bbdbf9a047fc66bc9782df3211894c812a83fca1)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/bbdbf9a047fc66bc9782df3211894c812a83fca1&#34;: {&#34;width&#34;: 377, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of addition as the following:\n\n$\\blueE{\\text{part}} + \\goldE{\\text{ part}}= \\maroonD{\\text{total}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s keep adding to $\\goldE{72}$ until we have a total of $\\maroonD{95}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/5fe975bdf927783db87066a605ff3d061c8d19f3)\n\n$\\blueE{\\Box} + \\goldE{72}= \\maroonD{95}$ &#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/5fe975bdf927783db87066a605ff3d061c8d19f3&#34;: {&#34;width&#34;: 222, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We added $\\blueE{23}$ more blocks.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/d6ccb5033541f13d4fe614d2af59af1a26f67b1f)\n&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/d6ccb5033541f13d4fe614d2af59af1a26f67b1f&#34;: {&#34;width&#34;: 68, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blueE{23}+72=95$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 23, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n[[☃ numeric-input 1]] ${}+ 72 =95$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/cee0caef5050b8d6d17cf18619e9bcde163eccfa)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/cee0caef5050b8d6d17cf18619e9bcde163eccfa&#34;: {&#34;width&#34;: 553, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of addition as the following:\n\n$\\maroonD{\\text{total}} = \\blueE{\\text{part}} + \\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s keep adding to $\\goldE{57}$ until we have a total of $\\maroonD{73}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/784902051c996a68735a72e82e1548fcae8db108)\n\n$\\maroonD{73}=\\blueE{\\Box} + \\goldE{57}$ &#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/784902051c996a68735a72e82e1548fcae8db108&#34;: {&#34;width&#34;: 178, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We added $\\blueE{16}$ more blocks.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/e61f951d8937862044703abb53476f3906303a08)\n&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/e61f951d8937862044703abb53476f3906303a08&#34;: {&#34;width&#34;: 68, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$ 73=\\blueE{16}+57$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 16, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**   \n*Hint: Use the place value blocks to help solve.*\n\n$73=$ [[☃ numeric-input 1]] ${}+57$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/7f55b601397e544eab2d5b6777afe42cb2669f50)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/7f55b601397e544eab2d5b6777afe42cb2669f50&#34;: {&#34;width&#34;: 487, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of addition as the following:\n\n$\\maroonD{\\text{total}} = \\blueE{\\text{part}} + \\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s keep adding to $\\goldE{38}$ until we have a total of $\\maroonD{60}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/8e5a2708bccd6216c509ee61c0a0ebbca045723d)\n\n$\\maroonD{60} = \\blueE{\\Box} + \\goldE{38}$ &#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/8e5a2708bccd6216c509ee61c0a0ebbca045723d&#34;: {&#34;width&#34;: 134, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We added $\\blueE{22}$ more blocks.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/f3c914ad8708c86c75a340a5b772dce72bc44cbc)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/f3c914ad8708c86c75a340a5b772dce72bc44cbc&#34;: {&#34;width&#34;: 68, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$60= \\blueE{22}+38$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 22, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$60=$ [[☃ numeric-input 1]] ${}+38$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/624dfb3088c7aa432eff05222a23f3b6c641c0f3)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/624dfb3088c7aa432eff05222a23f3b6c641c0f3&#34;: {&#34;width&#34;: 399, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of addition as the following:\n\n$\\maroonD{\\text{total}} = \\blueE{\\text{part}} + \\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s keep adding to $\\goldE{83}$ until we have a total of $\\maroonD{91}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/59952554debe557752300aabc7db7e38a370e569)\n\n$\\maroonD{91} = \\blueE{\\Box} + \\goldE{83}$ &#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/59952554debe557752300aabc7db7e38a370e569&#34;: {&#34;width&#34;: 222, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We added $\\blueE{8}$ more blocks.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/33cda996ab90a6d945f36be15234dc2230e7f0b6)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/33cda996ab90a6d945f36be15234dc2230e7f0b6&#34;: {&#34;width&#34;: 46, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$91 = \\blueE{8}+83$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 8, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$91=$ [[☃ numeric-input 1]] $+ \\,83 $  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/5d7e4e41cc9819f1d49ed85280972fe8532f97ad)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/5d7e4e41cc9819f1d49ed85280972fe8532f97ad&#34;: {&#34;width&#34;: 575, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of subtraction as:\n\n$\\maroonD{\\text{total}} - \\blueE{\\text{part}} = \\goldE{\\text{ part}}$\n\nWe can relate subtraction to addition:\n\n$\\maroonD{\\text{total}} = \\blueE{\\text{part}} + \\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/a10abe18482eac7435e2221badac34f597a8832e&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, we can add $\\blueE9$ to $\\goldE{72}$ to find the $\\maroonD{\\text{total}}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/78b3b973042e9cf1707a18b42b4f5a22dd4f9b3f)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/78b3b973042e9cf1707a18b42b4f5a22dd4f9b3f&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\maroonD{81}$ blocks. \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/d8e5f2526532275dfcf48238be8b0c9b81211581)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/d8e5f2526532275dfcf48238be8b0c9b81211581&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\maroonD{81}-9=72$\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 81, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n [[☃ numeric-input 1]] ${}-  9=72$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/f9c7ec7b35c798bdb855bb6c4c5de6d720edec81)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/f9c7ec7b35c798bdb855bb6c4c5de6d720edec81&#34;: {&#34;width&#34;: 377, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of subtraction as:\n\n$\\maroonD{\\text{total}} - \\blueE{\\text{part}} = \\goldE{\\text{ part}}$\n\nWe can relate subtraction to addition:\n\n$\\maroonD{\\text{total}} = \\blueE{\\text{part}} + \\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, we can add $\\blueE{24}$ to $\\goldE{43}$ to find the $\\maroonD{\\text{total}}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/a06b2b09be781c1480a5c0f813c42bef50cec18d)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/a06b2b09be781c1480a5c0f813c42bef50cec18d&#34;: {&#34;width&#34;: 178, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\maroonD{67}$ blocks. \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/ac03ae4c645109d51ede6259513491fb9b521c73)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/ac03ae4c645109d51ede6259513491fb9b521c73&#34;: {&#34;width&#34;: 178, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\maroonD{67}-24=43$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 67, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n [[☃ numeric-input 1]] ${}-24=43$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/801d127cb01d02dfe06f50b729fce41bc0ce645e)\n&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/801d127cb01d02dfe06f50b729fce41bc0ce645e&#34;: {&#34;width&#34;: 332, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of subtraction as:\n\n$\\maroonD{\\text{total}} - \\blueE{\\text{part}} = \\goldE{\\text{ part}}$\n\nWe can relate subtraction to addition:\n\n$\\maroonD{\\text{total}} = \\blueE{\\text{part}} + \\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, we can add $\\blueE{18}$ to $\\goldE{67}$ to find the $\\maroonD{\\text{total}}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/952363dda47b7620de91bd8ae0586d9431f30569)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/952363dda47b7620de91bd8ae0586d9431f30569&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\maroonD{85}$ blocks. \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/d5cdad5412f5ec88025e5768d4ae5ed626cdc175)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/d5cdad5412f5ec88025e5768d4ae5ed626cdc175&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\maroonD{85}-18=67$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 85, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n [[☃ numeric-input 1]] ${}- 18=67$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/4794a8342359f16a32462a6916ec2fc5adae0fd4)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/4794a8342359f16a32462a6916ec2fc5adae0fd4&#34;: {&#34;width&#34;: 399, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of subtraction as:\n\n$\\blueE{\\text{ part}} = \\maroonD{\\text{total}} - \\goldE{\\text{part}}$\n\nWe can relate subtraction to addition:\n\n$\\maroonD{\\text{total}} = \\blueE{\\text{part}} + \\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, we can add $\\blueE{36}$ to $\\goldE{41}$ to find the $\\maroonD{\\text{total}}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/fb43a1b3e55009f0b0ce55ab3cae01f4101173a7)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/fb43a1b3e55009f0b0ce55ab3cae01f4101173a7&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\maroonD{77}$ blocks. \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/59211269de0cc833f7adb3a0bac57fbe6c0c048a)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/59211269de0cc833f7adb3a0bac57fbe6c0c048a&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$36=\\maroonD{77}-41$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 77, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$36=$ [[☃ numeric-input 1]] ${}-41$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/efa4dca628e1a426d849668081547e35825a8582)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/efa4dca628e1a426d849668081547e35825a8582&#34;: {&#34;width&#34;: 377, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of subtraction as:\n\n$\\blueE{\\text{ part}} = \\maroonD{\\text{total}} - \\goldE{\\text{part}}$\n\nWe can relate subtraction to addition:\n\n$\\maroonD{\\text{total}} = \\blueE{\\text{part}} + \\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, we can add $\\blueE{14}$ to $\\goldE{65}$ to find the $\\maroonD{\\text{total}}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/be750f5e9b42df1bac08e18354642afd73f5cfd3)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/be750f5e9b42df1bac08e18354642afd73f5cfd3&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\maroonD{79}$ blocks. \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/cb4ac4006f8c88f7822298d4d430c33011bf3219)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/cb4ac4006f8c88f7822298d4d430c33011bf3219&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$14=\\maroonD{79}-65$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 79, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$14=$ [[☃ numeric-input 1]] ${}- 65$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/827868a0fa528d5e9e0b25ddaab4beffcd799315)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/827868a0fa528d5e9e0b25ddaab4beffcd799315&#34;: {&#34;width&#34;: 354, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of subtraction as:\n\n$\\maroonD{\\text{total}} - \\blueE{\\text{part}} = \\goldE{\\text{ part}}$\n\nWe can also think of subtraction as:\n\n$\\maroonD{\\text{total}} - \\goldE{\\text{ part}} =  \\blueE{\\text{part}}$&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/ccba33a527e314381690f653b8093836dddb6113&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, we can subtract $\\goldE{57}$ from $\\maroonD{94}$ to find the missing $\\blueE{\\text{part}}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/f13ccbf4c4f5c5022649c1e8030623f08ddc8c29)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/f13ccbf4c4f5c5022649c1e8030623f08ddc8c29&#34;: {&#34;width&#34;: 222, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blueE{37}$ blocks left. \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/84699298880278e62b7442683b8931860b822ea7)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/84699298880278e62b7442683b8931860b822ea7&#34;: {&#34;width&#34;: 112, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$94- \\blueE{37}=57$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 37, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$94 - {}$ [[☃ numeric-input 1]] $=57$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/e4df133467bfd845ec595b1df64cc3da2e64e8be)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/e4df133467bfd845ec595b1df64cc3da2e64e8be&#34;: {&#34;width&#34;: 553, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of subtraction as:\n\n$\\maroonD{\\text{total}} - \\blueE{\\text{part}} = \\goldE{\\text{ part}}$\n\nWe can also think of subtraction as:\n\n$\\maroonD{\\text{total}} - \\goldE{\\text{ part}} =  \\blueE{\\text{part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, we can subtract $\\goldE{18}$ from $\\maroonD{62}$ to find the missing $\\blueE{\\text{part}}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/921b9bc2b646507e2e688cea6c9259171bb6130c)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/921b9bc2b646507e2e688cea6c9259171bb6130c&#34;: {&#34;width&#34;: 156, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blueE{44}$ blocks left. \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/a9ee354dba0b40100adad7774e88d0d55a2ba1b9)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/a9ee354dba0b40100adad7774e88d0d55a2ba1b9&#34;: {&#34;width&#34;: 112, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$62 - \\blueE{44}=18$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 44, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$62 -{} $ [[☃ numeric-input 1]] $=18$  \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/98e9804ca3bcf6720c0402c2ec46f9d775f1a456)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/98e9804ca3bcf6720c0402c2ec46f9d775f1a456&#34;: {&#34;width&#34;: 399, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of subtraction as:\n\n$\\goldE{\\text{ part}} = \\maroonD{\\text{total}} - \\blueE{\\text{part}} $\n\nWe can also think of subtraction as:\n\n$\\blueE{\\text{part}} = \\maroonD{\\text{total}} - \\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, we can subtract $\\goldE{26}$ from $\\maroonD{85}$ to find the missing $\\blueE{\\text{part}}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/094612b1e1961e15f61332c9fa4733abed40abc4)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/094612b1e1961e15f61332c9fa4733abed40abc4&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blueE{59}$ blocks left. \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/b5821975899ba9f9c9b0b190c1b2fc9179b42382)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/b5821975899ba9f9c9b0b190c1b2fc9179b42382&#34;: {&#34;width&#34;: 156, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$26 = 85 - \\blueE{59}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 59, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$26 = 85 - {}$ [[☃ numeric-input 1]]   \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/0f3be6e9835431d2748472e17fd07be95ad61807)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/0f3be6e9835431d2748472e17fd07be95ad61807&#34;: {&#34;width&#34;: 443, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of subtraction as:\n\n$\\goldE{\\text{ part}} = \\maroonD{\\text{total}} - \\blueE{\\text{part}} $\n\nWe can also think of subtraction as:\n\n$\\blueE{\\text{part}} = \\maroonD{\\text{total}} - \\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, we can subtract $\\goldE{30}$ from $\\maroonD{53}$ to find the missing $\\blueE{\\text{part}}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/e24fcd534b2473b0f15d2d5a699dd9ed32d7c838)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/e24fcd534b2473b0f15d2d5a699dd9ed32d7c838&#34;: {&#34;width&#34;: 112, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blueE{23}$ blocks left. \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/e69ffee68c6276eb656f3aba2cec9bd600e348ce)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/e69ffee68c6276eb656f3aba2cec9bd600e348ce&#34;: {&#34;width&#34;: 68, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$30=53 - \\blueE{23}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 23, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$30 = 53 - {}$ [[☃ numeric-input 1]]   \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/1ddfc81d026393e44a290a1013f8596777ce88e2)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/1ddfc81d026393e44a290a1013f8596777ce88e2&#34;: {&#34;width&#34;: 354, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of subtraction as:\n\n$\\goldE{\\text{ part}} = \\maroonD{\\text{total}} - \\blueE{\\text{part}} $\n\nWe can also think of subtraction as:\n\n$\\blueE{\\text{part}} = \\maroonD{\\text{total}} - \\goldE{\\text{ part}}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, we can subtract $\\goldE{41}$ from $\\maroonD{79}$ to find the missing $\\blueE{\\text{part}}$.\n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/24ab0079f2d9db68a2b4616645f7fd17a2503de4)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/24ab0079f2d9db68a2b4616645f7fd17a2503de4&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blueE{38}$ blocks left. \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/03252b1f8650ae61e3702477ab0ddcea8d044833)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/03252b1f8650ae61e3702477ab0ddcea8d044833&#34;: {&#34;width&#34;: 112, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$41 = 79 - \\blueE{38}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 38, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**What number makes this equation true?**  \n*Hint: Use the place value blocks to help solve.*\n\n$41 = 79 - {}$ [[☃ numeric-input 1]]   \n\n![](web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/b86103ea3bd4c9e695f6043fda5e942358561249)&#34;, &#34;images&#34;: {&#34;web+graphie:5f9aeb820c1ff41b2fd7b9fb90913d9c/images/b86103ea3bd4c9e695f6043fda5e942358561249&#34;: {&#34;width&#34;: 465, &#34;height&#34;: 120}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

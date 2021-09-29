@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="29" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the $\\goldE{\\text{total}}$ number of acorns, we start with the number that Momma Chipmunk&#39;s $\\blueE{\\text{babies ate}}$, and add the number that $\\maroonD{\\text{Momma Chipmunk ate}}$.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/db5004b2de672233030b4fcf6b7c58ba5302f688)\n\n$\\blueE{34} + \\maroonD{18} = \\goldE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/db5004b2de672233030b4fcf6b7c58ba5302f688&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s add to find the total number of acorns. \n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/d7d04df468438b49922a03f247219fb188c49e16)\n\n$\\blueE{34} + \\maroonD{18} = \\goldE{52}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/d7d04df468438b49922a03f247219fb188c49e16&#34;: {&#34;width&#34;: 365, &#34;height&#34;: 130}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Momma Chipmunk had a total of $\\goldE{52}$ acorns.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 52, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Momma Chipmunk had some acorns.  Her babies ate $34$ of the acorns.  Then, she ate the $18$ acorns that were left.\n\n**What is the total number of acorns that Momma Chipmunk had?**  \n\n[[☃ input-number 1]] acorns&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/176ba792cc147b464ce1606b43d62337.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 56}, &#34;/3c0ee0a730744af8c17aece8f2958496/images/33742e98a205d4319dbcb729ef01a5ae.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 56}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the $\\goldE{\\text{total}}$ number of stars, we start with the number that Raj saw in the $\\blueE{\\text{north}}$ and then add the number that he saw in the $\\maroonD{\\text{south}}$.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/9f808f15b5883e6aa9b6d0790c554d0a18d4abc1)\n\n$\\blueE{34} + \\maroonD{40} = \\goldE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/9f808f15b5883e6aa9b6d0790c554d0a18d4abc1&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s add to find the total number of stars. \n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/dbf4fec566474453d6ee4a15fb15b51f9bebb87c)\n\n$\\blueE{34} + \\maroonD{40} = \\goldE{74}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/dbf4fec566474453d6ee4a15fb15b51f9bebb87c&#34;: {&#34;width&#34;: 437, &#34;height&#34;: 130}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Raj counted a total of $\\goldE{74}$ stars in the night sky.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 74, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Raj counted the stars in the night sky.  He looked to the north and counted $34$ stars.  Then, he looked to the south and counted $40$ stars. \n\n**How many stars did Raj count in all?**  \n\n[[☃ input-number 1]] stars\n\n&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/89d015244d7dba7439c2ddfabf37a2e9.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}, &#34;/3c0ee0a730744af8c17aece8f2958496/images/6020de4341fd90f1e1ea6dae9035f65b.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the $\\goldE{\\text{total}}$ number of fence posts, we start with the number of fence posts on $\\blueE{\\text{Hazel&#39;s fence}}$, and then add the number of fence posts on $\\maroonD{\\text{Pauly&#39;s fence}}$.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/cf7f05073fbdcd660644ff9adffac27ab1a593c1)\n\n$\\blueE{26} + \\maroonD{19} = \\goldE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/cf7f05073fbdcd660644ff9adffac27ab1a593c1&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s add to find the total number of fence posts. \n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/b57f20aafe9adbeeeacffce0546554086ec99943)\n\n$\\blueE{26} + \\maroonD{19} = \\goldE{45}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/b57f20aafe9adbeeeacffce0546554086ec99943&#34;: {&#34;width&#34;: 341, &#34;height&#34;: 130}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The farmer used a total of $\\goldE{45}$ fence posts.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 45, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;A farmer built a fence for Hazel Horse and Pauly Pony.  The farmer used $26$ fence posts to build Hazel Horse&#39;s fence and $19$ fence posts to build Pauly Pony&#39;s fence.  \n\n**How many fence posts did the farmer use in all?**  \n\n[[☃ input-number 1]] fence posts&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/0a11f301a9eb8d5db9b44b6deff2a1c1.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 98}, &#34;/3c0ee0a730744af8c17aece8f2958496/images/83fbd55fce36755842cc5cd6e6cce234.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 98}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the $\\goldE{\\text{total}}$ number of whales, we start with the number that she saw on $\\blueE{\\text{Monday}}$, and add the number that she saw on $\\maroonD{\\text{Tuesday}}$.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/e10e98327cbcee79dce88d64f8f83629294ebd6e)\n\n$\\blueE{17} + \\maroonD{33} = \\goldE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/e10e98327cbcee79dce88d64f8f83629294ebd6e&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s add to find the total number of whales.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/dd6fea96f1447a1e1823703226b3015392f81e57)\n\n$\\blueE{17} + \\maroonD{33} = \\goldE{50}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/dd6fea96f1447a1e1823703226b3015392f81e57&#34;: {&#34;width&#34;: 341, &#34;height&#34;: 130}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The whale watcher saw a total of $\\goldE{50}$ whales on Monday and Tuesday.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 50, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;A whale watcher keeps a count of how many whales she sees each day.  On Monday, she saw $17$ whales. On Tuesday, she saw $33$ whales.\n\n\n**What is the total number of whales she saw on Monday and Tuesday?**  \n\n[[☃ input-number 1]] whales&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/16ba0317e3e04841f27ff2b55c9bcc11.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 76}, &#34;/3c0ee0a730744af8c17aece8f2958496/images/21169934cd7b6550b5b54921e47c52f6.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 76}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/c67aecefc138c0993ed447e8952a18e45795fb8d) \n ![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/731b6a0ed1e69858b709284dc48e4944469b4fd7)\n&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/731b6a0ed1e69858b709284dc48e4944469b4fd7&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 189}, &#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/c67aecefc138c0993ed447e8952a18e45795fb8d&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 189}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the $\\green{\\text{total}}$ number of places Reem and Aubrey scored baskets, we start with the number of places that $\\red{\\text{Reem}}$ scored baskets, and then add the number of places $\\blue{\\text{Aubrey}}$ scored baskets.\n\n![](/3c0ee0a730744af8c17aece8f2958496/images/693fb5449cb616f1c33dab202887fee3.png)\n\n$\\red{12} + \\blue{16} = \\green{\\Box}$&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/693fb5449cb616f1c33dab202887fee3.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Reem and Aubrey scored baskets from a total of $\\green{28}$ places.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 28, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;In Saturday&#39;s basketball game, Reem scored a basket from $12$ places on the court.   Aubrey scored a basket from $16$ different places on the court.\n\n**How many places on the court did Reem and Aubrey score baskets from all together?**  \n\n[[☃ input-number 1]] places\n\n\n&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/2b69c4618a6637762a2c0577f668975c.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 189}, &#34;/3c0ee0a730744af8c17aece8f2958496/images/31d33b79c2ef0410416c6766e581e09e.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 189}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/3c0ee0a730744af8c17aece8f2958496/images/9b2d599e83e0a461e867f3f48a43f553.png)&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/9b2d599e83e0a461e867f3f48a43f553.png&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 311}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the $\\blue{\\text{total}}$ number of apples, we start with the number of apples on  the $\\green{\\text{tree}}$ and then add the number of apples on the $\\pink{\\text{ground}}$.\n\n![](/3c0ee0a730744af8c17aece8f2958496/images/3412f16b95c518a49e8c8539b4b0a8c2.png)\n\n$\\green{17} + \\pink{14} = \\blue{\\Box}$&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/3412f16b95c518a49e8c8539b4b0a8c2.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Carlos counted a total of $\\blue{31}$ apples.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 31, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Carlos noticed that apples were starting to fall off the apple tree in his front yard.  Carlos counted $17$ apples still on the tree and $14$ apples on the ground.\n\n**How many apples did Carlos count in all?**  \n\n[[☃ input-number 1]] apples\n\n\n\n&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/9b2d599e83e0a461e867f3f48a43f553.png&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 311}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;William built $\\blue{54}$ houses and $\\red{33}$ castles.\n\n$\\blue{54} + \\red{33} = \\green{\\square}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;William built $\\green{87}$ buildings in Blockcraft.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 87, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;William built $54$ houses and $33$ castles in Blockcraft.  \n\n**How many total buildings did William build in Blockcraft?**  \n\n\n[[☃ input-number 1]] buildings\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the $\\goldE{\\text{total}}$ number of school busses, we start with the number of $\\blueE{\\text{Smiley School District}}$ busses, and add the number of $\\maroonD{\\text{Brighter School District}}$ busses.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/20efed22f240ba837096baec160b86371658de4a)\n\n$\\blueE{65} + \\maroonD{34} = \\goldE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/20efed22f240ba837096baec160b86371658de4a&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s add to find the total number of school busses.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/eae543680e3a33b58ecc3bd2c91b1f18bf162ed7)\n\n$\\blueE{65} + \\maroonD{34} = \\goldE{99}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/eae543680e3a33b58ecc3bd2c91b1f18bf162ed7&#34;: {&#34;width&#34;: 581, &#34;height&#34;: 130}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Smiley and Brighter school district have $\\goldE{99}$ school buses in all.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 99, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Smiley School District has $65$ school buses.   Brighter School District has $34$ school buses.  \n\n**How many school buses do both school districts have in all?**  \n\n[[☃ input-number 1]] school buses&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the $\\goldE{\\text{total}}$ number of jump ropes, we start with the number of jump ropes the $\\blueE{\\text{Second grade class}}$ has, and add the number of jump ropes the $\\maroonD{\\text{parents donate}}$.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/ee25697033e64d21e0d8a0f597501ec74f7a656b)\n\n$\\blueE{26} + \\maroonD{35} = \\goldE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/ee25697033e64d21e0d8a0f597501ec74f7a656b&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s add to find the total number of jump ropes.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/f9fb50e88614a7f661b224f84fe532908c7d1902)\n\n$\\blueE{26} + \\maroonD{35} = \\goldE{61}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/f9fb50e88614a7f661b224f84fe532908c7d1902&#34;: {&#34;width&#34;: 413, &#34;height&#34;: 130}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The second grade class has $\\goldE{61}$ jump ropes in all.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 61, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;A second grade class has $26$ jump ropes.  A parent donates $35$ more jump ropes to the class.  \n\n**How many jump ropes does the second grade class have in all?**  \n\n[[☃ input-number 1]] jump ropes&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/7ce3263bf34c08d2de7214da0cc55d00.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 266}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the $\\goldE{\\text{total}}$ number of bananas, we start with the number of George ate for $\\blueE{\\text{Lunch}}$, and add the number of bananas eaten at $\\maroonD{\\text{Dinner}}$.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/aafb33e24f409e54a83ff9d87cf227da1d588022)\n\n$\\blueE{19} + \\maroonD{29} = \\goldE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/aafb33e24f409e54a83ff9d87cf227da1d588022&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s add to find the total number of bananas.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/e86dacf7d3213a3f1eb41e0454ccfa881077f6c5)\n\n$\\blueE{19} + \\maroonD{29} = \\goldE{48}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/e86dacf7d3213a3f1eb41e0454ccfa881077f6c5&#34;: {&#34;width&#34;: 365, &#34;height&#34;: 130}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;George ate $\\goldE{48}$ bananas today. &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 48, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;George ate $19$ bananas for lunch and $29$ bananas for dinner.  \n\n**How many bananas did George eat today?**  \n\n[[☃ input-number 1]] bananas&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/1f1e93ca8cafb15d2d0c4513145cc6934582947a&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 358}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can add the tricks on Thursday and Friday.\n\n$\\blue{21} + \\red{54} = \\green{\\square}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Merlin performed $\\green{75}$ magic tricks on Thursday and Friday.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 75, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Merlin the magician performed $21$ magic tricks on Thursday and $54$ magic tricks on Friday.  \n\n**How many total magic tricks did Merlin perform on Thursday and Friday?**  \n\n[[☃ input-number 1]] magic tricks\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the $\\goldE{\\text{total}}$ number of coins, we start with the number of $\\blueE{\\text{Silver}}$ coin King Arthur has, and add the number of $\\maroonD{\\text{Gold}}$ coins.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/09ea78aa873dbacb7909a3e030875003dd0e6513)\n\n$\\blueE{30} + \\maroonD{43} = \\goldE{\\Box}$\n&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/09ea78aa873dbacb7909a3e030875003dd0e6513&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s add to find the total number of coins.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/e5b62e8e28ce2435b73d0df761055fafc883e81b)\n\n$\\blueE{30} + \\maroonD{43} = \\goldE{73}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/e5b62e8e28ce2435b73d0df761055fafc883e81b&#34;: {&#34;width&#34;: 437, &#34;height&#34;: 130}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;King Arthur had $\\goldE{73}$ coins in his pocket.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 73, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;King Arthur had $30$ gold coins and $43$ silver coins in his pocket.  \n\n**How many coins did he have in all?**  \n\n[[☃ input-number 1]] coins\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find out how many teeth were left, we start with the $\\blue{71}$ teeth at the beginning and subtract the $\\pink{48}$ that fell out the pouch.\n\n$\\blue{71}-\\pink{48} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There were $\\green{23}$ teeth left in the pouch.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 23, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;The Tooth Fairy collected $71$ teeth last night.  When she got home, she found a hole in her pouch.  $48$ teeth had fallen out.  \n\n**How many teeth were left in her pouch?**  \n\n[[☃ input-number 1]] teeth\n\n![](/3c0ee0a730744af8c17aece8f2958496/images/d1c70f1b0189eef70ef5ad39bc86568b.png)&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/d1c70f1b0189eef70ef5ad39bc86568b.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 127}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find out how many students are left, we start with the $\\blue{22}$ students at the beginning and subtract the $\\pink{4}$ students that mysteriously disappeared.\n\n$\\blue{22}-\\pink{4} = \\green{\\Box}$\n\n![](/3c0ee0a730744af8c17aece8f2958496/images/edd11cdf04cc0e639aed52498da3bb4e.png)&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/edd11cdf04cc0e639aed52498da3bb4e.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\green{18}$ students left.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 18, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There were $22$ students in Mrs. Benton&#39;s class.  Then, $4$ students disappeared in a mysterious science fair accident.\n\n**How many students are left?**  \n\n[[☃ input-number 1]] students\n\n![](/3c0ee0a730744af8c17aece8f2958496/images/7232d1c0abb96979f7e4c0cdf4ed5d5f.png)\n&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/7232d1c0abb96979f7e4c0cdf4ed5d5f.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many minutes are $\\blueE{\\text{left}}$, we start with the $\\purpleD{\\text{40}}$ minutes and subtract the $\\maroonD{22}$ minutes that have already been played.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/b4f1179e48ab0c1fc6495838e458a520a98e58bb)\n\n$\\purpleD{40} - \\maroonD{22} = \\blueE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/b4f1179e48ab0c1fc6495838e458a520a98e58bb&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many minutes are left.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/27d1ef16d9a67e0152c8488499325075eef4cb1f)\n\n$\\purpleD{40} - \\maroonD{22} = \\blueE{18}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/27d1ef16d9a67e0152c8488499325075eef4cb1f&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blueE{18}$ minutes left.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 18, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;There is a total of $40$ minutes in a basketball game.  $22$ minutes have already been played.  \n\n**How many minutes are left?**  \n\n[[☃ numeric-input 1]] minutes&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/183e5e15f4bf56b5efdba87bbe89aa77.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 144}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find out how many wishes are left, we start with the $\\purpleD{25}$ wishes at the beginning and subtract the $\\maroonD{13}$ wishes Andrea used.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/c3d30bd3d1989ee5bae323a128d89272e5e2e8a8)\n\n$\\purpleD{25} - \\maroonD{13} = \\blueE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/c3d30bd3d1989ee5bae323a128d89272e5e2e8a8&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many wishes are left.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/7c29088c1fc901048522e5847ffb54b4a2a87a1b)\n\n$\\purpleD{25} - \\maroonD{13} = \\blueE{12}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/7c29088c1fc901048522e5847ffb54b4a2a87a1b&#34;: {&#34;width&#34;: 91, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blueE{12}$ wishes left.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 12, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Andrea finds a magical wand that will grant $25$ wishes.  Andrea makes $13$ wishes. \n\n**How many wishes are left?**  \n\n[[☃ numeric-input 1]] wishes&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/b3193325cb0968b495cd3805f3571d0a.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 212}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many paper airplanes are left, we start with the $\\purpleD{47}$ total airplanes at the park and subtract the $\\maroonD{16}$ paper airplanes that crashed. \n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/7743f73c5ca7094a45144dd029fcc24395a4193d)\n\n$\\purpleD{47}-\\maroonD{16}= \\blueE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/7743f73c5ca7094a45144dd029fcc24395a4193d&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many paper airplanes are left.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/3a8e33330b347d43ccb6a48b8ec149ae3727863d)\n\n$\\purpleD{47} - \\maroonD{16} = \\blueE{31}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/3a8e33330b347d43ccb6a48b8ec149ae3727863d&#34;: {&#34;width&#34;: 179, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blueE{31}$ paper airplanes do not crash.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 31, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Alan makes $47$ paper airplanes.  He takes the airplanes to the park and flies all of them.  $16$ airplanes crash.  \n\n**How many paper airplanes do not crash?**  \n\n[[☃ numeric-input 1]] airplanes\n\n&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/7b6806980582d4b7979091f9c2fca9a1.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 266}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/3c0ee0a730744af8c17aece8f2958496/images/931929b70c8ff7327a13426cb8a59808.png)&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/931929b70c8ff7327a13426cb8a59808.png&#34;: {&#34;width&#34;: 266, &#34;height&#34;: 300}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the number of foxes, we need to find the difference between the total number of $\\blue{\\text{animals}}$ and the number of $\\pink{\\text{mice}}$, so we subtract.  \n\n$\\blue{57}-\\pink{39} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\green{18}$ foxes playing tag.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 18, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There were $39$ mice playing tag in the forest.  Then a group of foxes joined the game.  Now $57$ animals are playing tag.\n\n**How many foxes are playing tag?**  \n\n[[☃ input-number 1]] foxes\n\n\n&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/931929b70c8ff7327a13426cb8a59808.png&#34;: {&#34;width&#34;: 266, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many building blocks Joanna got for her birthday, we can start with the $\\purpleD{92}$ blocks she has now and subtract the $\\blueE{63}$ building blocks she had.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/1d093ef1015aa4a91361b95f68e577002b586d1e)\n\n$\\purpleD{92}-\\blueE{63}= \\maroonD{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/1d093ef1015aa4a91361b95f68e577002b586d1e&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many building blocks Joanna got for her birthday.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/f78ae863a8cd43edf26bae15a1841f44517645be)\n\n$\\purpleD{92}-\\blueE{63}= \\maroonD{29}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/f78ae863a8cd43edf26bae15a1841f44517645be&#34;: {&#34;width&#34;: 297, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Joanna got $\\maroonD{29}$ building blocks for her birthday.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 29, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Joanna had $63$ building blocks.  \n\nShe got more building blocks for her birthday.  Joanna now has $92$\n building blocks.  \n\n**How many building blocks did Joanna get for her birthday?**  \n\n[[☃ numeric-input 1]] building blocks\n\n\n&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/dfc82f9b6d6f770b5b582580167662b3.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 135}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the number of new spikes, we need to find the difference between the total number of $\\purpleD{\\text{spikes}}$ and the number of spikes when he was $\\blueE{\\text{born}}$, so we subtract.  \n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/8c0ccd4343d43a3c5ac97821218362cf1466a3b5)\n\n$\\purpleD{80}-\\blueE{28}= \\maroonD{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/8c0ccd4343d43a3c5ac97821218362cf1466a3b5&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many new spikes Sparky grew.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/0f7d62b32a9ae97b2780b1d54ed3a65e85c11876)\n\n$\\purpleD{80}-\\blueE{28}= \\maroonD{52}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/0f7d62b32a9ae97b2780b1d54ed3a65e85c11876&#34;: {&#34;width&#34;: 238, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Sparky grew $\\maroonD{52}$ new spikes.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 52, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Sparky the dragon was born with $28$ spikes.  He grew several more spikes as he got older.  Now Sparky has $80$ spikes.  \n\n**How many new spikes did Sparky grow?**  \n\n[[☃ numeric-input 1]] spikes&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/3b56dfdcf2789dabcd53b82c621d6098.png&#34;: {&#34;width&#34;: 266, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many spiders are still hidden, we can start with the $\\purpleD{55}$ spiders Sergio hid and subtract the $\\blueE{47}$ spiders that his dad found.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/ed3b329dfea7004fa26a41fb26e869d2ce47a626)\n\n$\\purpleD{55}-\\blueE{47}= \\maroonD{\\Box}$\n&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/ed3b329dfea7004fa26a41fb26e869d2ce47a626&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many spiders are still hidden.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/662507eb753d488e4187264c7ef18f30fb40b4c8)\n\n$\\purpleD{55}-\\blueE{47}= \\maroonD{8}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/662507eb753d488e4187264c7ef18f30fb40b4c8&#34;: {&#34;width&#34;: 179, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\maroonD{8}$ spiders are still hidden in the garage.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 8, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Sergio hides $55$ spiders in the garage.  His dad finds $47$ spiders.  \n\n**How many spiders are still hidden?** \n \n[[☃ numeric-input 1]] spiders&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/34373cd25dc748676555e7ea1f132bd4.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the amount of snow that fell on Friday, we need the difference between the $\\red{84}$ total centimeters and the $\\purple{55}$ centimeters that fell on Thursday, so we subtract.  \n\n\n$\\red{84}-\\purple{55} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](/3c0ee0a730744af8c17aece8f2958496/images/73a8ac9fd7237297b4781a206860a109.png)&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/73a8ac9fd7237297b4781a206860a109.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 400}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Another way is to find how many centimeters would be added to $\\purple{55}$ to make $\\red{84}$.\n\n$\\purple{55} + \\green{\\Box} = \\red{84}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{29}$ centimeters of snow fell on Friday.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 29, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;After Thursday&#39;s snow storm, the snow in Chillytown was $55 \\text{ cm}$ deep.  On Friday, the snow kept coming and several more centimeters fell.  Now, the snow in Chillytown is $84\\text{ cm}$ deep.\n\n**How many centimeters of snow fell on Friday?**  \n\n[[☃ input-number 1]] cm\n\n&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/73a8ac9fd7237297b4781a206860a109.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 400}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/c4a3a5994d762c7a7aa388b2e4ce8160dc220e0a)&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/c4a3a5994d762c7a7aa388b2e4ce8160dc220e0a&#34;: {&#34;width&#34;: 375, &#34;height&#34;: 400}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the number of meters Fiona climbed after her apple, we need the difference between the $\\red{63}$ total meters and the $\\purple{41}$ meters she had already climbed, so we subtract.  \n\n\n$\\red{63}-\\purple{41} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Another way is to find how many meters would be added to $\\purple{41}$ to make $\\red{63}$.\n\n$\\purple{41} + \\green{\\Box} = \\red{63}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Fiona climbed $\\green{22}$ meters after eating her apple.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 22, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Fiona Fox had climbed $41 \\text { m}$ to rescue her friend when she stopped to have a snack.  After finishing her apple, she climbs the rest of the way.  In all, she climbs $63 \\text { m}$.\n\n**How many meters did Fiona climb after eating her apple?**  \n\n[[☃ input-number 1]] meters\n\n\n&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/c0fecae50d10e29ae9423fa133ccb4f8.png&#34;: {&#34;width&#34;: 375, &#34;height&#34;: 400}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We start with the total number of $\\blue{88}$ baskets and subtract the $\\pink{65}$ baskets that Gemma made. \n\n$\\blue{88} - \\pink{65} = \\green{\\square}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Barry made $\\green{23}$ baskets.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 23, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Barry and Gemma are shooting hoops.  Together, they have made $88$ baskets.  Gemma has made $65$ baskets.  \n \n**How many baskets has Barry made?**  \n\n[[☃ input-number 1]] baskets\n\n![](/3c0ee0a730744af8c17aece8f2958496/images/7d66691ac27caa0acae09259a5606cb4.png)&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/7d66691ac27caa0acae09259a5606cb4.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 144}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We start with the total number of $\\blue{97}$ pieces of confetti and subtract the $\\pink{86}$ pieces of confetti that the vacuum cleaner picked up.\n\n$\\blue{97} - \\pink{86} = \\green{\\square}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\green{11}$ pieces of confetti still on the floor.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 11, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Happy New Year! After the party, there were $97$ pieces of confetti on the floor.  A vacuum cleaner was able to pick-up $86$ pieces of confetti.  \n \n**How many pieces of confetti are still on the floor?**  \n\n[[☃ input-number 1]] pieces of confetti\n\n&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/62da161ebf5702952579963c96d7ef57.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 150}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find out how many grams $\\blueE{\\text{Frank}}$ weighs, we can start with the  total number of $\\purpleD{92}$ grams and subtract the $\\maroonD{51}$ grams that Miles weighs.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/ec88c5c1cfd80679013d8fb9b35d93fe91fb072c)\n\n$\\purpleD{92} - \\maroonD{51} = \\blueE{\\square}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/ec88c5c1cfd80679013d8fb9b35d93fe91fb072c&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how much Frank weighs.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/c856394d561c59480eac33fa6c2ea937a8a2c739)\n\n$\\purpleD{92}-\\maroonD{51}= \\blueE{41}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/c856394d561c59480eac33fa6c2ea937a8a2c739&#34;: {&#34;width&#34;: 297, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Frank weighs $\\blueE{41}$ grams.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 41, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Miles the toy monkey and Frank the toy fox weigh $92$ grams all together.  Miles weighs $51$ grams.\n\n**How many grams does Frank weigh?**  \n\n[[☃ numeric-input 1]] grams&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/526772f63328d6fc00e8dffc6f29380b.png&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 245}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We start with the total number of $\\purpleD{97}$ seeds and subtract the $\\maroonD{49}$ seeds that blew off.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/505e46956a0b6134dcf8c9cd26c742f09834fc1c)\n\n$\\purpleD{97} - \\maroonD{49} = \\blueE{\\square}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/505e46956a0b6134dcf8c9cd26c742f09834fc1c&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many seeds are left.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/812ee053f8257bc199641aaf77f76eb0f6747f08)\n\n$\\purpleD{97}-\\maroonD{49}= \\blueE{48}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/812ee053f8257bc199641aaf77f76eb0f6747f08&#34;: {&#34;width&#34;: 326, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blueE{48}$ seeds remain on the sunflower.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 48, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;A sunflower had $97$ seeds.  A strong gust of wind comes along and blows $49$ seeds off of the sunflower.  \n \n**How many of the seeds remain on the sunflower?**  \n\n[[☃ numeric-input 1]] seeds&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/3c4ddacd30c48696a216be8515909200.png&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 297}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the number of campers without sleeping bags, we start with the total number of $\\purpleD{65}$ campers and subtract the $\\maroonD{53}$ that did bring sleeping bags.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/412bbe16d75d99d47f83da8265cc37792e37b793)\n\n$\\purpleD{65}-\\maroonD{53}= \\blueE{\\square}$\n&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/412bbe16d75d99d47f83da8265cc37792e37b793&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many campers didn&#39;t bring sleeping bags.\n\n![](web+graphie:3c0ee0a730744af8c17aece8f2958496/images/af69adf5c1983fde549d0204263b5cd11ad92e9d)\n\n$\\purpleD{65}-\\maroonD{53}= \\blueE{12}$&#34;, &#34;images&#34;: {&#34;web+graphie:3c0ee0a730744af8c17aece8f2958496/images/af69adf5c1983fde549d0204263b5cd11ad92e9d&#34;: {&#34;width&#34;: 208, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blueE{12}$ campers did not bring sleeping bags.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 12, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;There are $65$ campers at Fun Camp.  Only $53$ campers brought sleeping bags.  \n\n**How many campers did not bring sleeping bags?**  \n\n[[☃ numeric-input 1]] campers&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find the number of ogres that do not go to the dentist, we start with the total number of $\\blue{49}$ ogres and subtract the $\\pink{14}$ ogres that do go to the dentist.\n\n$\\blue{49}-\\pink{14}= \\green{\\square}$\n\n![](/3c0ee0a730744af8c17aece8f2958496/images/70fed0ef01a65a994ef32784b289fe14.png)\n\n&#34;, &#34;images&#34;: {&#34;/3c0ee0a730744af8c17aece8f2958496/images/70fed0ef01a65a994ef32784b289fe14.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{35}$ Ogres do not go to the dentist.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 35, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $49$ ogres living in the forest.  Only $14$ of the ogres go to the dentist.  \n\n**How many ogres do not go to the dentist?**  \n\n[[☃ input-number 1]] ogres&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

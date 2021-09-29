@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="20" data-dump="[{&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC6\\blueD3\\greenD8-\\blueD1\\greenD5\\\\\n\\\\\n=&amp;\\purpleC{600}+\\blueD{30}-\\blueD{10} +\\greenD{8}-\\greenD{5}\\\\\n\\\\\n=&amp;\\purpleC{600}+\\blueD{20} +\\greenD{3}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=623$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 623, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$638-15=$  [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC2\\blueD7\\greenD1-\\blueD6\\greenD1\\\\\n\\\\\n=&amp;\\purpleC{200}+\\blueD{70}-\\blueD{60} +\\greenD{1}-\\greenD{1}\\\\\n\\\\\n=&amp;\\purpleC{200}+\\blueD{10} +\\greenD{0}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=210$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 210, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$271-61=$  [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC1\\blueD4\\greenD2-\\blueD3\\greenD0\\\\\n\\\\\n=&amp;\\purpleC{100}+\\blueD{40}-\\blueD{30} +\\greenD{2}-\\greenD{0}\\\\\n\\\\\n=&amp;\\purpleC{100}+\\blueD{10} +\\greenD{2}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=112$ &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 112, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$142-30=$  [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC6\\blueD8\\greenD8-\\blueD5\\greenD3\\\\\n\\\\\n=&amp;\\purpleC{600}+\\blueD{80}-\\blueD{50} +\\greenD{8}-\\greenD{3}\\\\\n\\\\\n=&amp;\\purpleC{600}+\\blueD{30} +\\greenD{5}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=635$ &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 635, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$688-53=$  [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC4\\blueD5\\greenD3-\\blueD3\\greenD1\\\\\n\\\\\n=&amp;\\purpleC{400}+\\blueD{50}-\\blueD{30} +\\greenD{3}-\\greenD{1}\\\\\n\\\\\n=&amp;\\purpleC{400}+\\blueD{20} +\\greenD{2}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=422$ &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 422, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$453-31=$  [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC7\\blueD6\\greenD4-\\blueD4\\greenD4\\\\\n\\\\\n=&amp;\\purpleC{700}+\\blueD{60}-\\blueD{40} +\\greenD{4}-\\greenD{4}\\\\\n\\\\\n=&amp;\\purpleC{700}+\\blueD{20} +\\greenD{0}\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=720$ &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 720, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$764-44=$  [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC9\\blueD7\\greenD6-\\blueD6\\greenD2\\\\\n\\\\\n=&amp;\\purpleC{900}+\\blueD{70}-\\blueD{60} +\\greenD{6}-\\greenD{2}\\\\\n\\\\\n=&amp;\\purpleC{900}+\\blueD{10} +\\greenD{4}\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=914$ &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 914, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$976-62=$  [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC3\\blueD4\\greenD6-\\blueD3\\greenD4\\\\\n\\\\\n=&amp;\\purpleC{300}+\\blueD{40}-\\blueD{30} +\\greenD{6}-\\greenD{4}\\\\\n\\\\\n=&amp;\\purpleC{300}+\\blueD{10} +\\greenD{2}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=312$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 312, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$346-34=$  [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC5\\blueD9\\greenD5-\\blueD4\\greenD2\\\\\n\\\\\n=&amp;\\purpleC{500}+\\blueD{90}-\\blueD{40} +\\greenD{5}-\\greenD{2}\\\\\n\\\\\n=&amp;\\purpleC{500}+\\blueD{50} +\\greenD{3}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=553$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 553, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$595-42=$  [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC8\\blueD7\\greenD7-\\blueD2\\greenD6\\\\\n\\\\\n=&amp;\\purpleC{800}+\\blueD{70}-\\blueD{20} +\\greenD{7}-\\greenD{6}\\\\\n\\\\\n=&amp;\\purpleC{800}+\\blueD{50} +\\greenD{1}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=851$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 851, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$877-26=$  [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s use the place value blocks on the chart to help us solve.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;In order to subtract, we need to take away $\\maroonD{218}$ blocks from the $\\purpleD{536}$ blocks.\n\n![](web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/b870c3fef44c6dcaf49f1947bc40755ecb6bc10d)\n\nSince there are only $\\purpleD6$ ones, we can break apart $1$ ten into $\\purpleD{10}$ ones.&#34;, &#34;images&#34;: {&#34;web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/b870c3fef44c6dcaf49f1947bc40755ecb6bc10d&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 368}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now, we can take away $\\maroonD{218}$ blocks.\n\n![](web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/e68ca6a426f31ac1544e4a7f64d0ed2da163dc85)\n&#34;, &#34;images&#34;: {&#34;web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/e68ca6a426f31ac1544e4a7f64d0ed2da163dc85&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 240}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purpleD{318}$ blocks left.\n\n![](web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/af3451d12de1161a64a4469b9612d6fefae389a4)&#34;, &#34;images&#34;: {&#34;web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/af3451d12de1161a64a4469b9612d6fefae389a4&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\Large{\\purpleD{536} - \\maroonD{218} =\\purpleD{318}}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 318, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Subtract.**  \n*Hint: Use the place value blocks to help solve.*\n\n$\\Large{\\purpleD{536} - \\maroonD{218} ={}}$ [[☃ numeric-input 1]] \n\n![](web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/542eeea352620ae5a5165b70192e16d66c2805c4)&#34;, &#34;images&#34;: {&#34;web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/542eeea352620ae5a5165b70192e16d66c2805c4&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 368}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s use the place value blocks on the chart to help us solve.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The first set of blocks has $\\purpleD6$ hundreds, $\\purpleD2$ tens, and $\\purpleD5$ ones.\n\n![](web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/5041714e93b50d32639daa01d6dbc7ff47c51503)\n\nSo our first number is $\\purpleD{625}$.&#34;, &#34;images&#34;: {&#34;web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/5041714e93b50d32639daa01d6dbc7ff47c51503&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 240}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The second set of blocks has $\\maroonD2$ hundreds, $\\maroonD1$ ten, and $\\maroonD4$ ones.\n\n![](web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/695db2c8c5a6d3a5369821c13d8660f769f5772d)\n\nSo the second number is $\\maroonD{214}$.&#34;, &#34;images&#34;: {&#34;web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/695db2c8c5a6d3a5369821c13d8660f769f5772d&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 112}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This expression represents the place value blocks:\n\n$625 - 214$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;$625 - 214$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$825 - 214$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$526 - 412$&#34;, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which expression can be represented from the place value blocks below?**\n\n![](web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/43ae6c6836754e0a3addb360f5e72efce60f7c8c)\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:1c79e4b170b80cca4c12c109f5628eb3/images/43ae6c6836754e0a3addb360f5e72efce60f7c8c&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 368}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC3\\blueD0\\greenD6-\\purpleC1\\blueD0\\greenD2\\\\\n\\\\\n=&amp;\\purpleC{300}-\\purpleC{100}+\\greenD{6}-\\greenD{2}\\\\\n\\\\\n=&amp;\\purpleC{200}+\\greenD{4}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=204$  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 204, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$306-102=$ [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC5\\blueD3\\greenD5-\\purpleC3\\blueD2\\greenD1\\\\\n\\\\\n=&amp;\\purpleC{500}-\\purpleC{300}+\\blueD{30}-\\blueD{20} +\\greenD{5}-\\greenD{1}\\\\\n\\\\\n=&amp;\\purpleC{200}+\\blueD{10} +\\greenD{4}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=214$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 214, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$535-321=$[[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC7\\blueD2\\greenD8-\\purpleC6\\blueD2\\greenD5\\\\\n\\\\\n=&amp;\\purpleC{700}-\\purpleC{600}+\\blueD{20}-\\blueD{20} +\\greenD{8}-\\greenD{5}\\\\\n\\\\\n=&amp;\\purpleC{100}+\\blueD{0} +\\greenD{3}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=103$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 103, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$728-625=$ [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC2\\blueD5\\greenD1-\\purpleC1\\blueD1\\greenD1\\\\\n\\\\\n=&amp;\\purpleC{200}-\\purpleC{100}+\\blueD{50}-\\blueD{10} +\\greenD{1}-\\greenD{1}\\\\\n\\\\\n=&amp;\\purpleC{100}+\\blueD{40} +\\greenD{0}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=140$  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 140, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$251-111=$ [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC7\\blueD6\\greenD4-\\purpleC5\\blueD3\\greenD1\\\\\n\\\\\n=&amp;\\purpleC{700}-\\purpleC{500}+\\blueD{60}-\\blueD{30} +\\greenD{4}-\\greenD{1}\\\\\n\\\\\n=&amp;\\purpleC{200}+\\blueD{30} +\\greenD{3}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=233$  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 233, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$764-531=$ [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC9\\blueD6\\greenD4-\\purpleC7\\blueD1\\greenD2\\\\\n\\\\\n=&amp;\\purpleC{900}-\\purpleC{700}+\\blueD{60}-\\blueD{10} +\\greenD{4}-\\greenD{2}\\\\\n\\\\\n=&amp;\\purpleC{200}+\\blueD{50} +\\greenD{2}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=252$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 252, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$964-712=$[[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC8\\blueD4\\greenD5-\\purpleC5\\blueD0\\greenD3\\\\\n\\\\\n=&amp;\\purpleC{800}-\\purpleC{500}+\\blueD{40}-\\blueD{0} +\\greenD{5}-\\greenD{3}\\\\\n\\\\\n=&amp;\\purpleC{300}+\\blueD{40} +\\greenD{2}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=342$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 342, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$845-503=$ [[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}&amp;\\purpleC4\\blueD9\\greenD7-\\purpleC1\\blueD6\\greenD4\\\\\n\\\\\n=&amp;\\purpleC{400}-\\purpleC{100}+\\blueD{90}-\\blueD{60} +\\greenD{7}-\\greenD{4}\\\\\n\\\\\n=&amp;\\purpleC{300}+\\blueD{30} +\\greenD{3}\\end{align}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$=333$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 333, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$497-164=$[[☃ input-number 4]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

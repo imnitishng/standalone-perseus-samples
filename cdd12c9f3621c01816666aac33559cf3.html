@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="19" data-dump="[{&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue7$ mice are playing.  \n$\\pink5$ mice are inside.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/ff8fd5175b61b7091c1970726aefd31a.png)\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/eece39f9be6a57199acde73eedec0222.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}, &#34;/cdd12c9f3621c01816666aac33559cf3/images/ff8fd5175b61b7091c1970726aefd31a.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue7-\\pink5=\\green2$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/c1a6d276fec3650115962027c2e0ad36.png)\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/149b5022fef19581e590ef370d61055f.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}, &#34;/cdd12c9f3621c01816666aac33559cf3/images/c1a6d276fec3650115962027c2e0ad36.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green2$ mice are outside.\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/c1a6d276fec3650115962027c2e0ad36.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;$7$ mice are playing.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/41258e330a8edd9af8b78b3b2d336e17.png)\n\n$5$ mice are playing inside.  \n\n**[[☃ input-number 1]] mice are playing outside.**&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/41258e330a8edd9af8b78b3b2d336e17.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue7$ squirrels.  \n$\\green4$ of them are friendly.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/8ce19efd1612ed923046a131a7f30fce.png)\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/8ce19efd1612ed923046a131a7f30fce.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue7-\\green4=\\pink3$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/e348e77b75493feebec16d3d06747d09.png)\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/e348e77b75493feebec16d3d06747d09.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink3$ are not friendly. \n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/e348e77b75493feebec16d3d06747d09.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $7$ squirrels.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/70f5c426559c1770dbd920d4ca7caddf.png)\n\n$4$ of them are friendly.  \n\n**[[☃ input-number 1]] are not friendly.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/165ef42b118ded9d4e57c67206e84de8.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 100}, &#34;/cdd12c9f3621c01816666aac33559cf3/images/70f5c426559c1770dbd920d4ca7caddf.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue6$ eggs.  \n$\\green4$ have hatched.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/0c914110a91326a79eceb2ffc60bd407.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/0c914110a91326a79eceb2ffc60bd407.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue6-\\green4=\\pink2$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/73493fa58cfd0533885685c28427f78b.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/73493fa58cfd0533885685c28427f78b.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink2$ eggs have not hatched.\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/73493fa58cfd0533885685c28427f78b.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;A bird laid $6$ eggs.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/00b4ffd27ec322e77f98584bd1a0ac31.png)\n\n$4$ eggs have hatched.  \n\n**[[☃ input-number 1]] eggs have not hatched.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/00b4ffd27ec322e77f98584bd1a0ac31.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue6$ bones.  \nHe hid $\\green2$ bones outside.   \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/cd029ed7e7a34d35bf455e519a11514b.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/cd029ed7e7a34d35bf455e519a11514b.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue6-\\green2=\\pink4$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/239c3a9488c8567448cc70decf823e53.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/239c3a9488c8567448cc70decf823e53.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;He hid $\\pink4$ bones inside.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Puppy Pete hid $6$ bones.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/aebee1f43774f4a412e10d2340051de4.png)\n\nHe hid $2$ bones outside.  \n\n**He hid [[☃ input-number 1]] bones inside.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/aebee1f43774f4a412e10d2340051de4.png&#34;: {&#34;width&#34;: 455, &#34;height&#34;: 145}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue8$ cows.  \n$\\green4$ are on the $\\green{\\text{green}}$ team.   \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/8563c5e3d86ca73e6041be3788256031.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/8563c5e3d86ca73e6041be3788256031.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue8-\\green4=\\pink4$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/461f3282c0ada2295b7cf6ddebc44b30.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/461f3282c0ada2295b7cf6ddebc44b30.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink4$ cows are on the $\\pink{\\text{pink}}$ team.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;$8$ cows are playing soccer.  The $\\green{\\text{green}}$ team is playing the $\\pink{\\text{pink}}$ team.\n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/519630cfb44a256dcaf8092298e8b648.png)\n\n$4$ are on the $\\green{\\text{green}}$ team.  \n\n**$$[[☃ input-number 1]] are on the $\\pink{\\text{pink}}$ team.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/519630cfb44a256dcaf8092298e8b648.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There were $\\blue7$ hens.  \n$\\green2$ fell asleep.   \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/bb4aac86d5fb3d231c3440e86f175832.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/bb4aac86d5fb3d231c3440e86f175832.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue7-\\green2=\\pink5$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/07882ac2a65032f98480a315047261d3.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/07882ac2a65032f98480a315047261d3.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink5$ hens are awake.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There were $7$ hens.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/46a81d2a365d541a0143cdda64e6deea.png)\n\n$2$ hens fell asleep.  \n\n**[[☃ input-number 1]] hens are awake.**\n\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/46a81d2a365d541a0143cdda64e6deea.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue8$ people ate hot dogs.  \n$\\green2$ were adults.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/bf7827eda968d7e7608850bb10bc5f8a.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/bf7827eda968d7e7608850bb10bc5f8a.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue8-\\green2=\\pink6$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/189e610eecdd5226293d05162601d6e0.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/189e610eecdd5226293d05162601d6e0.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink6$ kids ate hot dogs.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;$8$ people each ate a hot dog.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/3985b2b9024cde3fead982db30be8d2b.png)\n\n$2$ were adults.  \n\n**[[☃ input-number 1]] were kids.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/3985b2b9024cde3fead982db30be8d2b.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue8$ sheep.  \n$\\green7$ are in the barn.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/c6805588c49ff3258f229bd80be45869.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/c6805588c49ff3258f229bd80be45869.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue8-\\green7=\\pink1$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/f65264efb75f2d6e4013fe6c1c445a0c.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/f65264efb75f2d6e4013fe6c1c445a0c.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink1$ sheep is not in the barn.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;A farmer has $8$ sheep.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/6d60444c466d93bb73327964a1c12afa.png)\n\n$7$ sheep are in the barn.  \n\n**[[☃ input-number 1]] sheep is not in the barn.**  \n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/6d60444c466d93bb73327964a1c12afa.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue6$ rabbits.  \n$\\green3$ rabbits like carrots.   \n\n![](web+graphie:cdd12c9f3621c01816666aac33559cf3/images/9898cd8df68824f07ad7e694f83e626de6b5e635)&#34;, &#34;images&#34;: {&#34;web+graphie:cdd12c9f3621c01816666aac33559cf3/images/9898cd8df68824f07ad7e694f83e626de6b5e635&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue6-\\green3=\\red3$\n\n![](web+graphie:cdd12c9f3621c01816666aac33559cf3/images/ca79d72e7d65043a79963edbd7bfefe0491d9e60)&#34;, &#34;images&#34;: {&#34;web+graphie:cdd12c9f3621c01816666aac33559cf3/images/ca79d72e7d65043a79963edbd7bfefe0491d9e60&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\red3$ rabbits do not like carrots.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $6$ rabbits.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/454886d9113b50d76f9929673b7097cd.png)\n\n$3$ rabbits like carrots.  \n\n**[[☃ input-number 1]] rabbits do not like carrots.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/454886d9113b50d76f9929673b7097cd.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue9$ turtles.  \n$\\green7$ are swimming.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/dad0333b62b097ee4b552a4d24ae6fd5.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/dad0333b62b097ee4b552a4d24ae6fd5.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue9-\\green7=\\pink2$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/6dd0dc0e93441fca4605c94e80d0e874.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/6dd0dc0e93441fca4605c94e80d0e874.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink2$ turtles are not swimming.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $9$ turtles.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/8b540799304951850122894c0b4b783e.png)\n\n$7$ turtles are swimming.  \n\n**[[☃ input-number 1]] turtles are not swimming.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/8b540799304951850122894c0b4b783e.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue9$ seals.  \n$\\green3$ ate a fish.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/144e8d76179a353093be375a9b6a3c0d.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/144e8d76179a353093be375a9b6a3c0d.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue9-\\green3=\\pink6$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/74f4820c3c5adacd7774db281b9fb383.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/74f4820c3c5adacd7774db281b9fb383.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink6$ did not eat a fish.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $9$ seals.   \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/e7ec3346c026ec9fa9f5cfc0e4882668.png)\n\n$3$ seals ate a fish.  \n\n**[[☃ input-number 1]] seals did not eat a fish.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/e7ec3346c026ec9fa9f5cfc0e4882668.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\green9$ pigs.  \n$\\red4$ are in the mud.   \n\n![](web+graphie:cdd12c9f3621c01816666aac33559cf3/images/496ef84abd38f7f45c2374dffaf00da6355456c5)&#34;, &#34;images&#34;: {&#34;web+graphie:cdd12c9f3621c01816666aac33559cf3/images/496ef84abd38f7f45c2374dffaf00da6355456c5&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green9-\\red4=\\blue5$\n\n![](web+graphie:cdd12c9f3621c01816666aac33559cf3/images/bf80f6b9efbea933240bef3ab026c5bdc8ba2a13)&#34;, &#34;images&#34;: {&#34;web+graphie:cdd12c9f3621c01816666aac33559cf3/images/bf80f6b9efbea933240bef3ab026c5bdc8ba2a13&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue5$ pigs are not in the mud.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $9$ pigs.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/a9ff47c3a3f00e8fd152aef6b8d7a026.png)\n\n$4$ pigs are in the mud.  \n\n**[[☃ input-number 1]] pigs are not in the mud.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/a9ff47c3a3f00e8fd152aef6b8d7a026.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{10}$ penguins.  \n$\\green8$ like flowers.   \n\n![](web+graphie:cdd12c9f3621c01816666aac33559cf3/images/2fc52d3976455c017b7b1a8c0fd12eeda252218c)&#34;, &#34;images&#34;: {&#34;web+graphie:cdd12c9f3621c01816666aac33559cf3/images/2fc52d3976455c017b7b1a8c0fd12eeda252218c&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{10}-\\green8=\\pink2$\n\n![](web+graphie:cdd12c9f3621c01816666aac33559cf3/images/fc37667234615286d5e198635279277557be1bdd)&#34;, &#34;images&#34;: {&#34;web+graphie:cdd12c9f3621c01816666aac33559cf3/images/fc37667234615286d5e198635279277557be1bdd&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink2$ do not like flowers.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $10$ penguins.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/f0727b54d182652669ed75bbe983807b.png)\n\n$8$ of them like flowers.  \n\n**[[☃ input-number 1]] do not like flowers.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/f0727b54d182652669ed75bbe983807b.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{10}$ raccoons.  \n$\\green6$ are fast.   \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/e4d8967dc24a4329d3862381a01c8fbb.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/e4d8967dc24a4329d3862381a01c8fbb.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{10}-\\green6=\\pink4$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/2a452598d0cca01ee1b2720cb930f542.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/2a452598d0cca01ee1b2720cb930f542.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink4$ raccoons are not fast.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $10$ raccoons.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/3389d36fc00c8710e2469de0273b45ed.png)\n\n$6$ are fast.  \n\n**[[☃ input-number 1]] are not fast.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/3389d36fc00c8710e2469de0273b45ed.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There were $\\blue5$ chicks.  \n$\\green3$ fell asleep.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/87fe3c8ae2e0873f18e2737e80fc6839.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/87fe3c8ae2e0873f18e2737e80fc6839.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue5-\\green3=\\pink2$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/53f4e18ab66da55a6cb4250ef2951583.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/53f4e18ab66da55a6cb4250ef2951583.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink2$ chicks are awake.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $5$ chicks.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/e6a4bfb8c26caed0be8c541ac8d3a6dd.png)\n\n$3$ chicks fell asleep.  \n\n**[[☃ input-number 1]] chicks are awake.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/e6a4bfb8c26caed0be8c541ac8d3a6dd.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 75}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue4$ people ate ice cream.  \n$\\green1$ was a child.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/8532c1a7d7085a70311fad23d869c2cb.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/8532c1a7d7085a70311fad23d869c2cb.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue4-\\green1=\\pink3$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/1dfb0897cb24bbf6602106dc6200fb68.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/1dfb0897cb24bbf6602106dc6200fb68.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink3$ adults ate ice cream.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;$4$ people ate ice cream.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/112e198d9e83d7b6f80132083e3b9733.png)\n\n$1$ was a child.  \n\n**[[☃ input-number 1]] were adults.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/112e198d9e83d7b6f80132083e3b9733.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 75}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue4$ dogs.  \n$\\green2$ have collars.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/b61b13f3cc218e7a52d536d79b9d0489.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/b61b13f3cc218e7a52d536d79b9d0489.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue4-\\green2=\\pink2$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/970edd77da2f33703977ffba9318bd0a.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/970edd77da2f33703977ffba9318bd0a.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink2$ dogs have no collar.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $4$ dogs.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/60fe987a2fb04d6d34af02f835eec04d.png)\n\n$2$ dogs have collars.  \n\n**[[☃ input-number 1]] dogs have no collar.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/60fe987a2fb04d6d34af02f835eec04d.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue3$ otters.  \n$\\green2$ are swimming\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/0afc3a9e6b4acdda3ed39e4c4b62424e.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/0afc3a9e6b4acdda3ed39e4c4b62424e.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue3-\\green2=\\pink1$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/0da04b1945a43a5f28406d8a103438e7.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/0da04b1945a43a5f28406d8a103438e7.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink1$ otter is not swimming.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $3$ otters.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/b7c4750f62695541ffc26808e7b09aab.png)\n\n$2$ are swimming.  \n\n**[[☃ input-number 1]] is not swimming.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/b7c4750f62695541ffc26808e7b09aab.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 75}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There were $\\blue{10}$ walruses.  \n$\\green2$ fell asleep.  \n\n![](/cdd12c9f3621c01816666aac33559cf3/images/3114d36e311a00e847b330ec4b5fba42.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/3114d36e311a00e847b330ec4b5fba42.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{10}-\\green2=\\pink8$\n\n![](/cdd12c9f3621c01816666aac33559cf3/images/aae83f17c4aa5f50b47ff59480682ddd.png)&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/aae83f17c4aa5f50b47ff59480682ddd.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\pink8$ are awake.\n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are $10$ walruses.  \n\n$\\qquad\\quad$![](/cdd12c9f3621c01816666aac33559cf3/images/e2a0751db845e01bd4b7c8dbfb1ee922.png)\n\n$2$ fell asleep.  \n\n**[[☃ input-number 1]] are awake.**\n\n&#34;, &#34;images&#34;: {&#34;/cdd12c9f3621c01816666aac33559cf3/images/e2a0751db845e01bd4b7c8dbfb1ee922.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 156}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

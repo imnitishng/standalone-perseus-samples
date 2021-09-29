@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="20" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${2 \\text{ ones}}$ from ${72}$ to ${66}$.\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleC{66}+\\blueD{72}=&amp;\\,\\,\\purpleC{66}+(\\blueD{2} + \\blueD{70})\\\\\n=&amp;(\\purpleC{66}+ \\blueD2)+\\blueD{70}\\\\\n=&amp;\\,\\,\\greenD{68}+\\blueD{70}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $68$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 2&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 68, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n| | \n- | - | -\n$\\purpleE{66} + \\blueE{72}~$ is the same as [[☃ numeric-input 2]] $+{}\\blueE{70}$ |&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${3 \\text{ ones}}$ from ${33}$ to ${45}$.\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleD{45}+\\blueD{33}=&amp;\\,\\,\\purpleD{45}+(\\blueD{3} + \\blueD{30})\\\\\n=&amp;(\\purpleD{45}+ \\blueD3)+\\blueD{30}\\\\\n=&amp;\\,\\,\\greenD{48}+\\blueD{30}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $48$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 48, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$45 + 33~$ is the same as  [[☃ numeric-input 1]] $+\\,30$  \n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${3 \\text{ ones}}$ from ${93}$ to ${45}$.\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&gt; $\\begin{align}\\\\\n\\purpleC{93}+\\blueD{45}=&amp;(\\purpleC{90}+\\purpleC{3}) + \\blueD{45}\\\\\n=&amp;\\,\\,\\purpleC{90}+ (\\purpleC3+\\blueD{45})\\\\\n=&amp;\\,\\,\\purpleC{90}+\\greenD{48}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $48$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 48, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;type&#34;: &#34;numeric-input&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$93+45~$ is the same as $~90+$ [[☃ numeric-input 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${2 \\text{ ones}}$ from ${22}$ to ${63}$.\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;&gt; $\\begin{align}\\\\\n\\purpleD{22}+\\blueD{63}=&amp;(\\purpleD{20}+\\purpleD{2}) + \\blueD{63}\\\\\n=&amp;\\,\\,\\purpleD{20}+ (\\purpleD2+\\blueD{63})\\\\\n=&amp;\\,\\,\\purpleD{20}+\\greenD{65}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $65$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 65, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$22+63~$ is the same as $~20+$ [[☃ numeric-input 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${2 \\text{ ones}}$ from ${34}$ to ${78}$.\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleC{78}+\\blueD{34}=&amp;\\,\\,\\purpleC{78}+(\\blueD{2} + \\blueD{32})\\\\\n=&amp;(\\purpleC{78}+ \\blueD2)+\\blueD{32}\\\\\n=&amp;\\,\\,{80}+\\greenD{32}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $32$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 32, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;type&#34;: &#34;numeric-input&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$78+34~$ is the same as $~80 +$ [[☃ numeric-input 1]]   \n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${3 \\text{ ones}}$ from ${16}$ to ${57}$.\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleD{57}+\\blueD{16}=&amp;\\,\\,\\purpleD{57}+(\\blueD{3} + \\blueD{13})\\\\\n=&amp;(\\purpleD{57}+ \\blueD3)+\\blueD{13}\\\\\n=&amp;\\,\\,{60}+\\greenD{13}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $13$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 13, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$57+16~$ is the same as $~60 +$ [[☃ numeric-input 1]]   \n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${1 \\text{ one}}$ from ${51}$ to ${83}$.\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleC{51}+\\blueD{83}=&amp;(\\purpleC{50}+\\purpleC{1}) + \\blueD{83}\\\\\n=&amp;\\,\\,\\purpleC{50}+ (\\purpleC1+\\blueD{83})\\\\\n=&amp;\\,\\,\\greenD{50}+{84}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $50$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 50, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;type&#34;: &#34;numeric-input&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$51+83~$ is the same as  [[☃ numeric-input 1]] $+\\,84$  \n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${3 \\text{ ones}}$ from ${33}$ to ${26}$.\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleD{33}+\\blueD{26}=&amp;(\\purpleD{30}+\\purpleD{3}) + \\blueD{26}\\\\\n=&amp;\\,\\,\\purpleD{30}+ (\\purpleD3+\\blueD{26})\\\\\n=&amp;\\,\\,\\greenD{30}+{29}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $30$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 30, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$33+26~$ is the same as  [[☃ numeric-input 1]] $+\\,29$  \n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${1 \\text{ one}}$ from ${24}$ to ${29}$.\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleC{29}+\\blueD{24}=&amp;\\,\\,\\purpleC{29}+(\\blueD{1} + \\blueD{23})\\\\\n=&amp;(\\purpleC{29}+ \\blueD1)+\\blueD{23}\\\\\n=&amp;\\,\\,\\greenD{30}+\\blueD{23}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $30$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 30, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;type&#34;: &#34;numeric-input&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$29+24~$ is the same as  [[☃ numeric-input 1]] $+\\,23$  &#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${2 \\text{ ones}}$ from ${36}$ to ${88}$.\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleD{88}+\\blueD{36}=&amp;\\,\\,\\purpleD{88}+(\\blueD{2} + \\blueD{34})\\\\\n=&amp;(\\purpleD{88}+ \\blueD2)+\\blueD{34}\\\\\n=&amp;\\,\\,\\greenD{90}+\\blueD{34}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $90$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 90, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$88+36~$ is the same as  [[☃ numeric-input 1]] $+\\,34$  &#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${8 \\text{ ones}}$ from ${108}$ to ${621}$.\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleC{108}+\\blueD{621}=&amp;(\\purpleC{100}+\\purpleC{8}) + \\blueD{621}\\\\\n=&amp;\\,\\,\\purpleC{100}+ (\\purpleC8+\\blueD{621})\\\\\n=&amp;\\,\\,\\purpleC{100}+\\greenD{629}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $629$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 629, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;type&#34;: &#34;numeric-input&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$108+621~$ is the same as $~100 +$ [[☃ numeric-input 1]]   \n  &#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${7 \\text{ ones}}$ from ${507}$ to ${372}$.\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleD{507}+\\blueD{372}=&amp;(\\purpleD{500}+\\purpleD{7}) + \\blueD{372}\\\\\n=&amp;\\,\\,\\purpleD{500}+ (\\purpleD7+\\blueD{372})\\\\\n=&amp;\\,\\,\\purpleD{500}+\\greenD{379}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $379$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 379, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$507+372~$ is the same as $~500 +$ [[☃ numeric-input 1]]   \n  &#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${1\\text{ ten}}$ from ${710}$ to ${138}$.\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleC{138}+\\blueD{710}=&amp;\\,\\,\\purpleC{138}+(\\blueD{10} + \\blueD{700})\\\\\n=&amp;(\\purpleC{138}+ \\blueD{10})+\\blueD{700}\\\\\n=&amp;\\,\\,\\greenD{148}+\\blueD{700}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $148$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 148, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;type&#34;: &#34;numeric-input&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$138+710~$ is the same as  [[☃ numeric-input 1]]  $+\\,700$  \n &#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${4\\text{ ones}}$ from ${568}$ to ${396}$.\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleC{568}+\\blueD{396}=&amp;(\\purpleC{564}+\\purpleC{4}) + \\blueD{396}\\\\\n=&amp;\\,\\,\\purpleC{564}+ (\\purpleC{4}+\\blueD{396})\\\\\n=&amp;\\,\\,\\greenD{564}+{400}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $564$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 564, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;type&#34;: &#34;numeric-input&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$568+396~$ is the same as  [[☃ numeric-input 1]]  $+\\,400$  \n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${18}$ from ${118}$ to ${560}$.\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleD{118}+\\blueD{560}=&amp;(\\purpleD{100}+\\purpleD{18}) + \\blueD{560}\\\\\n=&amp;\\,\\,\\purpleD{100}+ (\\purpleD{18}+\\blueD{560})\\\\\n=&amp;\\,\\,\\purpleD{100}+\\greenD{578}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $578$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 578, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$118+560~$ is the same as $~100 +$ [[☃ numeric-input 1]]   \n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${12}$ from ${512}$ to ${270}$.\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleC{512}+\\blueD{270}=&amp;(\\purpleC{500}+\\purpleC{12}) + \\blueD{270}\\\\\n=&amp;\\,\\,\\purpleC{500}+ (\\purpleC{12}+\\blueD{270})\\\\\n=&amp;\\,\\,\\purpleC{500}+\\greenD{282}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $282$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 282, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;type&#34;: &#34;numeric-input&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$512+270~$ is the same as $~500 +$ [[☃ numeric-input 1]]   \n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${3\\text{ tens}}$ from ${330}$ to ${641}$.\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleD{641}+\\blueD{330}=&amp;\\,\\,\\purpleD{641}+(\\blueD{30} + \\blueD{300})\\\\\n=&amp;(\\purpleD{641}+ \\blueD{30})+\\blueD{300}\\\\\n=&amp;\\,\\,\\greenD{671}+\\blueD{300}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $671$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 671, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$641+330~$ is the same as  [[☃ numeric-input 1]]  $+\\,300$  \n &#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${3 \\text{ tens}}$ from ${684}$ to ${270}$.\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleD{684}+\\blueD{270}=&amp;(\\purpleD{654}+\\purpleD{30}) + \\blueD{270}\\\\\n=&amp;\\,\\,\\purpleD{654}+ (\\purpleD{30}+\\blueD{270})\\\\\n=&amp;\\,\\,\\purpleD{654}+\\greenD{300}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $300$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 300, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$684+270~$ is the same as $~654+$ [[☃ numeric-input 1]]   \n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${2 \\text{ tens}}$ from ${355}$ to ${480}$.\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleC{355}+\\blueD{480}=&amp;(\\purpleC{335}+\\purpleC{20}) + \\blueD{480}\\\\\n=&amp;\\,\\,\\purpleC{335}+ (\\purpleC{20}+\\blueD{480})\\\\\n=&amp;\\,\\,\\purpleC{335}+\\greenD{500}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $500$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 500, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;type&#34;: &#34;numeric-input&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$355+480~$ is the same as $~335 +$ [[☃ numeric-input 1]]   \n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can move ${6\\text{ ones}}$ from ${247}$ to ${794}$.\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$$\\begin{align}\\\\\n\\purpleD{247}+\\blueD{794}=&amp;(\\purpleD{241}+\\purpleD{6}) + \\blueD{794}\\\\\n=&amp;\\,\\,\\purpleD{241}+ (\\purpleD{6}+\\blueD{794})\\\\\n=&amp;\\,\\,\\greenD{241}+{800}\\\\\n\\end{align}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer is $241$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 241, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;small&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Fill in the blank.**\n\n$247+794~$ is the same as  [[☃ numeric-input 1]]  $+\\,800$  \n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

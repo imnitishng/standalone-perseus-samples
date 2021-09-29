@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="21" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many fewer $\\blueE{\\text{snowballs}}$ than $\\purpleD{\\text{icicles}}$ Elsa has, we need the difference.  So, we subtract.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/5c08e7d54d1c69470cd5f2a5fac80d1b99bd146e)\n\n$\\purpleD{32} - \\blueE{17} = \\maroonD{\\square}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/5c08e7d54d1c69470cd5f2a5fac80d1b99bd146e&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many fewer snowballs.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/6a604936f8e773576717c35a769c813a1a8b2253)\n\n$\\purpleD{32} - \\blueE{17} = \\maroonD{15}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/6a604936f8e773576717c35a769c813a1a8b2253&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Elsa has $\\maroonD{15}$ fewer snowballs than icicles.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 15, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Elsa has $17$ snowballs and $32$ icicles. \n\n**How many fewer snowballs than icicles does Elsa have?**  \n\n[[☃ input-number 1]] fewer snowballs\n&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/66cff94ff3c9aeb7b3ca08a0acf88338.png&#34;: {&#34;width&#34;: 369, &#34;height&#34;: 400}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We need to find the difference between the $\\green{43}$ unicorns and the $\\purple{72}$ donuts, so we subtract.\n\n$\\purple{72} - \\green{43} = \\pink{\\square}$  \n\n![](/d45ea4433b1992852873cc8fdcd8785a/images/6437fb26b8f9994d023efb180131993c.png)&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/6437fb26b8f9994d023efb180131993c.png&#34;: {&#34;width&#34;: 276, &#34;height&#34;: 300}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\pink{29}$ more donuts than unicorns.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 29, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;A group of $43$ unicorns is playing a game of Catch the Donut on your horn.  There are $72$ donuts.\n\n**How many more donuts than unicorns are there?**  \n\n[[☃ input-number 1]] donuts&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many fewer pieces are $\\green{\\text{Finn&#39;s set}}$ than in $\\purple{\\text{Lena&#39;s set}}$, we need the difference, so we subtract.\n\n$\\purple{87} - \\green{62} = \\pink{\\square}$\n\n![](/d45ea4433b1992852873cc8fdcd8785a/images/656a5af3c268e82d7ea6366489a13e0d.png)&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/656a5af3c268e82d7ea6366489a13e0d.png&#34;: {&#34;width&#34;: 276, &#34;height&#34;: 300}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Or we can solve using addition:\n\n$\\green{62} + \\pink{\\Box} = \\purple{87}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Finn&#39;s set has $\\pink{25}$ fewer pieces than Lena&#39;s set.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 25, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Finn and Lena got new building sets.   Finn&#39;s set has $62$ pieces and Lena&#39;s set has $87$ pieces.\n\n**How many fewer pieces does Finn&#39;s set have than Lena&#39;s?** \n \n[[☃ input-number 1]] fewer pieces\n\n![](/d45ea4433b1992852873cc8fdcd8785a/images/dfc82f9b6d6f770b5b582580167662b3.png) ![](/d45ea4433b1992852873cc8fdcd8785a/images/5f2632cca65edfc58d03508ac5c39bfe.png)\n\n&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/dfc82f9b6d6f770b5b582580167662b3.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 135}, &#34;/d45ea4433b1992852873cc8fdcd8785a/images/5f2632cca65edfc58d03508ac5c39bfe.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 151}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/6fcdc26e0398cfc7d55472611aa202970e7e27e2)&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/6fcdc26e0398cfc7d55472611aa202970e7e27e2&#34;: {&#34;width&#34;: 370, &#34;height&#34;: 400}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We need to find the difference between the $\\green{37}$ beads Rania has now and the $\\purple{54}$ beads that could fit on the necklace, so we subtract.\n\n$\\purple{54} - \\green{37} = \\pink{\\square}$\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Rania could put $\\pink{17}$ more beads on the necklace.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 17, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Rania has put $37$ beads on a string to make a necklace.  The string is long enough to hold $54$ beads.\n\n**How many more beads could Rania put on the necklace?**  \n\n[[☃ input-number 1]] beads\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/6fcdc26e0398cfc7d55472611aa202970e7e27e2&#34;: {&#34;width&#34;: 370, &#34;height&#34;: 400}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We need to find the difference between the $\\green{32}$ times Yanis can jump rope and the  $\\purple{78}$ times Anna can jump rope, so we subtract.\n\n$\\purple{78} - \\green{32} = \\pink{\\square}$  \n\n![](/d45ea4433b1992852873cc8fdcd8785a/images/83016f4ae0412f0dffdfee15e415f556.png)&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/83016f4ae0412f0dffdfee15e415f556.png&#34;: {&#34;width&#34;: 276, &#34;height&#34;: 300}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Or we can find how many more times $\\green{\\text{Yanis}}$ would have to jump rope to equal $\\purple{\\text{Anna}}$.\n\n$\\green{32} + \\pink{\\Box} = \\purple{78}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Anna can jump rope $\\pink{46}$ more times in a minute than Yanis.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 46, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Yanis can jump rope $32$ times in a minute.  His friend Anna can jump rope $78$ times in a minute. \n\n**How many more times can Anna jump rope in a minute?**\n  \n[[☃ input-number 1]] more jumps&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many fewer $\\blueE{\\text{cats}}$ than $\\purpleD{\\text{dogs}}$ the animal shelter has, we need the difference.  So, we subtract.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/4716fcf857c4e5d7a23ac29f4b85308947f832a9)\n\n$\\purpleD{97} - \\blueE{54} = \\maroonD{\\square}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/4716fcf857c4e5d7a23ac29f4b85308947f832a9&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many fewer cats.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/a07fff9dbdad5efe33e8136e26701d34413bde52)\n\n$\\purpleD{97} - \\blueE{54} = \\maroonD{43}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/a07fff9dbdad5efe33e8136e26701d34413bde52&#34;: {&#34;width&#34;: 326, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The animal shelter has $\\maroonD{43}$ fewer cats than dogs.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 43, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;The animal shelter has $54$ cats and $97$ dogs.  \n\n**How many fewer cats than dogs does the animal shelter have?**  \n\n[[☃ numeric-input 1]] fewer cats&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/126029cbe2314cc81a745999cdae28e8.png&#34;: {&#34;width&#34;: 369, &#34;height&#34;: 400}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many fewer flavors $\\blueE{\\text{Penguin&#39;s Treats}}$ has than $\\purpleD{\\text{Polar Bear Ice Cream}}$, we need the difference.  So, we subtract.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/5887e4404f31227ed878129b6dfaa23fa438b32d)\n\n$\\purpleD{49} - \\blueE{32} = \\maroonD{\\square}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/5887e4404f31227ed878129b6dfaa23fa438b32d&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many fewer flavors.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/8b2cf25261dc89079077c525ff30f8e278d354d2)\n\n$\\purpleD{49} - \\blueE{32} = \\maroonD{17}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/8b2cf25261dc89079077c525ff30f8e278d354d2&#34;: {&#34;width&#34;: 179, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Penguin&#39;s Treats has $\\maroonD{17}$ fewer flavors than Polar Bear Ice Cream.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 17, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Polar Bear Ice Cream has $49$ flavors of ice cream.  Penguin&#39;s Treats has $32$ flavors.  \n\n**How many fewer flavors does Penguin&#39;s Treats have?** \n \n[[☃ numeric-input 1]] fewer flavors&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/06683a77a9fd28debb5e861af4f205e9.png&#34;: {&#34;width&#34;: 369, &#34;height&#34;: 400}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many total acorns $\\blueE{\\text{Daisy}}$ collected, we need to subtract $\\maroonD{13}$ from $\\purpleD{\\text{Squirrely&#39;s}}$ acorns.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/136a0c4ddab769a8de2c8401ed97a4e9ce0783e5)\n\n$\\purpleD{48} - \\maroonD{13} = \\blueE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/136a0c4ddab769a8de2c8401ed97a4e9ce0783e5&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many acorns Daisy has.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/f92d10f54e030cdfff94d018115e9f4ddb1c411e)\n\n$\\purpleD{48} - \\maroonD{13} = \\blueE{35}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/f92d10f54e030cdfff94d018115e9f4ddb1c411e&#34;: {&#34;width&#34;: 179, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Daisy collected $\\blueE{35}$ acorns.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 35, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Squirrely collected $48$ acorns for the winter.  Her friend Daisy collected $13$ fewer acorns than Squirrely.  \n\n**How many acorns did Daisy collect? **  \n\n[[☃ numeric-input 1]] acorns&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/5c4e08cd434f8caea26f6523e82f9061.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 314}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many markers $\\blueE{\\text{Naz}}$ used, we need to subtract $\\maroonD{26}$ from $\\purpleD{\\text{Vic&#39;s}}$ amount of markers.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/22eade4a731cc0aa59e585f0663de2cf378e73c1)\n\n$\\purpleD{68} - \\maroonD{26} = \\blueE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/22eade4a731cc0aa59e585f0663de2cf378e73c1&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many markers Naz used.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/050636cbc2f3b77a2469607c6a7d7faf45fc9a79)\n\n$\\purpleD{68} - \\maroonD{26} = \\blueE{42}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/050636cbc2f3b77a2469607c6a7d7faf45fc9a79&#34;: {&#34;width&#34;: 238, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Naz used $\\blueE{42}$ markers.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 42, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Vic used $68$ markers to draw his picture.  His friend Naz drew her picture with $26$ fewer markers than Vic.  \n\n**How many markers did Naz use? **  \n\n[[☃ numeric-input 1]] markers\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/eed29bdcb4666eac98f067c531d7dd693eea0148&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 315}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/98b55de8da972eb2620a87b4e1a6b061e6a5b212)&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/98b55de8da972eb2620a87b4e1a6b061e6a5b212&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 371}, &#34;/d45ea4433b1992852873cc8fdcd8785a/images/544d5d840f71a18f6db91026621c9f87.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 314}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purple{\\text{Jenna&#39;s seashells}} -\\pink{16} = \\green{\\text{Adam&#39;s seashells}}$\n\n$\\purple{57} -\\pink{16} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Adam collected $\\green{41}$ seashells.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 41, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Jenna collected $57$ seashells on her walk.  Her friend Adam couldn&#39;t carry as many seashells in his pail, so he collected $16$ fewer seashells than Jenna.  \n\n**How many seashells did Adam collect? **  \n\n[[☃ input-number 1]] seashells\n\n&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/544d5d840f71a18f6db91026621c9f87.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 314}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many books $\\blueE{\\text{Matt}}$ read, we need to subtract $\\maroonD{36}$ from the number of books $\\purpleD{\\text{Rob}}$ read.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/037c54a57378e949ee281ee92aefd9910c02dabb)\n\n$\\purpleD{71} - \\maroonD{36} = \\blueE{\\Box}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/037c54a57378e949ee281ee92aefd9910c02dabb&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s subtract to find how many books Matt read.\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/5755015457b1c6f30af08d8c2607cdf57c222446)\n\n$\\purpleD{71} - \\maroonD{36} = \\blueE{35}$&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/5755015457b1c6f30af08d8c2607cdf57c222446&#34;: {&#34;width&#34;: 238, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Matt read $\\blueE{35}$ books.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 35, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Rob read $71$ books for the Book Worm Contest.  His brother Matt read $36$ fewer books than Rob.  \n\n**How many books did Matt read? **  \n\n[[☃ numeric-input 1]] books\n\n&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/339d4e57d0ccb13c9665dd4dd45b57b8.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 314}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/8d5f8ae8bcca69091b67b3e6d8beec5fa129221a)&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/8d5f8ae8bcca69091b67b3e6d8beec5fa129221a&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 371}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purple{\\text{Vincent&#39;s cars}} -\\pink{35} = \\green{\\text{Will&#39;s cars}}$\n\n$\\purple{87} -\\pink{35} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Will drove by $\\green{52}$ cars.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 52, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Vincent drove by $87$ cars on the way to his house.  His dad, Will, took a shorter way home, and drove by $35$ fewer cars than Vincent.  \n\n**How many cars did Will drive by? **  \n\n[[☃ input-number 1]] cars\n\n&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/8e621c3caa47dda7e67e0fec424dcb4b.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 314}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how many points the $\\green{\\text{Giraffes}}$ scored, we can start with the $\\purple{87}$ points scored by the $\\purple{\\text{Penguins}}$, and subtract $\\pink{13}$ points.\n\n$\\purple{87} - \\pink{13} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The Giraffes scored $\\green{74}$ points.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: &#34;74&#34;, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;In a basketball game, the Giraffes scored $13$ fewer points than the Penguins.  The Penguins scored $87$ points.  \n\n**How many points did the Giraffes score?** \n \n[[☃ input-number 1]] points\n\n![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/7ea8d6fa08250141323564ab26205f2b9ddbc460)&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/7ea8d6fa08250141323564ab26205f2b9ddbc460&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 176}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/d45ea4433b1992852873cc8fdcd8785a/images/5a6a95e98ab46b6ab1aca6f157eb855d.png)&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/5a6a95e98ab46b6ab1aca6f157eb855d.png&#34;: {&#34;width&#34;: 369, &#34;height&#34;: 400}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Jo&#39;s height}} + \\pink{7} = \\purple{\\text{Dee&#39;s height}}$\n\n$\\green{8} + \\pink{7} = \\purple{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Dee is $\\purple{15}$ centimeters tall.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 15, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Jo and Dee are fairies.  Jo is $8$ centimeters tall.  Dee is $7$ centimeters taller than Jo.  \n\n**How tall is Dee?**  \n\n[[☃ input-number 1]] centimeters\n\n&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/5a6a95e98ab46b6ab1aca6f157eb855d.png&#34;: {&#34;width&#34;: 369, &#34;height&#34;: 400}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Emma&#39;s number}} + \\pink{15} = \\purple{\\text{Tom&#39;s number}}$\n\n$\\green{17} + \\pink{15} = \\purple{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Tom spun number $\\purple{32}$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 32, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Emma and Tom spun the big wheel to win a prize.  Emma got number $17$.  Tom got a number that was $15$ more than Emma&#39;s number.  \n\n**What number did Tom spin?**  \n\n[[☃ input-number 1]] \n\n![](/d45ea4433b1992852873cc8fdcd8785a/images/721a50e2550a01e34661d50f9effb44e.png)\n\n\n\n\n\n&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/721a50e2550a01e34661d50f9effb44e.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 400}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/7529998040e15eed823e8c9d477e3a6e2b0f5e97)&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/7529998040e15eed823e8c9d477e3a6e2b0f5e97&#34;: {&#34;width&#34;: 388, &#34;height&#34;: 400}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Roly}} + \\pink{30} = \\purple{\\text{Max}}$\n\n$\\green{60} + \\pink{30} = \\purple{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Max&#39;s apartment is $\\purple{90}$ millimeters above the ground.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 90, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Roly the pill bug and Max the ladybug live in an apartment building.  Roly&#39;s apartment is $60$ millimeters above the ground.  Max&#39;s apartment is $30$ millimeters higher than Roly&#39;s.\n\n**How far above the ground is Max&#39;s apartment?**  \n\n[[☃ input-number 1]] millimeters\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:d45ea4433b1992852873cc8fdcd8785a/images/7529998040e15eed823e8c9d477e3a6e2b0f5e97&#34;: {&#34;width&#34;: 388, &#34;height&#34;: 400}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Lisa&#39;s rubber bands}} + \\pink{\\text{38}} = \\purple{\\text{Peter&#39;s rubber bands}}$\n\n$\\green{58} + \\pink{38} = \\purple{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Peter&#39;s rubber band ball is made of $\\purple{96}$ rubber bands.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 96, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Lisa made a rubber band ball out of $58$ rubber bands.  Peter&#39;s rubber band ball is made of $38$ more rubber bands than Lisa&#39;s ball. \n\n**How many rubber bands are in Peter&#39;s ball?**\n  \n[[☃ input-number 1]] rubber bands\n\nLisa&#39;s ball  \n![](/d45ea4433b1992852873cc8fdcd8785a/images/a862c6a188007abea73d7f1be84e59d6.png)\n\nPeter&#39;s ball  \n![](/d45ea4433b1992852873cc8fdcd8785a/images/e2cb7579d69b756d8f873ccbddc8dbf8.png)&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/e2cb7579d69b756d8f873ccbddc8dbf8.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}, &#34;/d45ea4433b1992852873cc8fdcd8785a/images/a862c6a188007abea73d7f1be84e59d6.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/d45ea4433b1992852873cc8fdcd8785a/images/96e680033221f610b8ff0d5c1bca1e08.png)\n\n$\\green{\\text{Liv&#39;s balls}} + \\pink{12} = \\purple{\\text{Ira&#39;s balls}}$\n\n$\\green{41} + \\pink{12} = \\purple{\\Box}$&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/96e680033221f610b8ff0d5c1bca1e08.png&#34;: {&#34;width&#34;: 369, &#34;height&#34;: 400}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Ira has caught $\\purple{53}$ balls.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 53, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Liv and Ira are throwing balls in the air and catching them.  Liv has caught $41$ balls.  Ira has caught $12$ more balls than Liv.\n\n**How many balls has Ira caught?**  \n\n[[☃ input-number 1]] balls\n\n&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/96e680033221f610b8ff0d5c1bca1e08.png&#34;: {&#34;width&#34;: 369, &#34;height&#34;: 400}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Leaning Tower of Pisa}} + \\pink{\\text{37}} = \\purple{\\text{Statue of Liberty}}$\n\n$\\green{56} + \\pink{37} = \\purple{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The Statue of Liberty is $\\purple{93}$ meters tall.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 93, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;The Leaning Tower of Pisa is $56$ meters tall.  The Statue of Liberty (including the pedestal) is $37$ meters taller than the Leaning Tower of Pisa.\n\n**How tall is the Statue of Liberty?**  \n\n[[☃ input-number 1]] meters\n\n\n![](/d45ea4433b1992852873cc8fdcd8785a/images/2b4ac714938a9eb69109fca5d06186c5.jpeg)$\\qquad$![](/d45ea4433b1992852873cc8fdcd8785a/images/abfb29ad8cc397aa6e2e2df917fcbe1d.jpeg)&#34;, &#34;images&#34;: {&#34;/d45ea4433b1992852873cc8fdcd8785a/images/2b4ac714938a9eb69109fca5d06186c5.jpeg&#34;: {&#34;width&#34;: 157, &#34;height&#34;: 239}, &#34;/d45ea4433b1992852873cc8fdcd8785a/images/abfb29ad8cc397aa6e2e2df917fcbe1d.jpeg&#34;: {&#34;width&#34;: 174, &#34;height&#34;: 240}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Green Eggs and Ham}} + \\pink{18} = \\purple{\\text{The Little Prince}}$\n\n$\\green{65} + \\pink{18} = \\purple{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;*The Little Prince* has $\\purple{83}$ pages.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 83, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Hailey&#39;s favorite book, *Green Eggs and Ham*, has $65$ pages.  Carlos&#39;s favorite book, *The Little Prince*, has $18$ more pages than *Green Eggs and Ham*.  \n\n**How many pages does *The Little Prince* have?**  \n\n[[☃ input-number 1]] pages&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Baby giraffe spots}} + \\pink{\\text{23}} = \\purple{\\text{Adult giraffe spots}}$\n\n$\\green{47} + \\pink{23} = \\purple{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The adult giraffe has $\\purple{70}$ spots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 70, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There are two giraffes at a watering hole.  The baby giraffe has $47$ spots.  The adult giraffe has $23$ more spots than the baby.  \n \n**How many spots does the adult giraffe have?**\n  \n[[☃ input-number 1]] spots&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

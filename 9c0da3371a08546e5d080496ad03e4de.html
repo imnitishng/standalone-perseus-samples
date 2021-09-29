@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="18" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the tallest line all the way to the left.&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/5aa512ff3b2df304ec4ed032ab21215a.png&#34;: {&#34;width&#34;: 434, &#34;height&#34;: 218}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from tallest to shortest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/ec74b0c035824f72a7c91f593e322bfc.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/e5b7a1d7104d3571c20b43a6ab7ca08f.png&#34;: {&#34;width&#34;: 296, &#34;height&#34;: 240}, &#34;/9c0da3371a08546e5d080496ad03e4de/images/ec74b0c035824f72a7c91f593e322bfc.png&#34;: {&#34;width&#34;: 127, &#34;height&#34;: 256}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/f12e8cd78a7a4ae87269ee4700817cc9.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/d06f4ccc83cbada19157e1cbd0f102cf.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/561e50743932b1fb798524f39daaf077.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from tallest to shortest.**  \n*Put the tallest line on the left.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/c34f9479c645c368c5b67508dc5ed92e.png&#34;: {&#34;width&#34;: 294, &#34;height&#34;: 239}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the tallest line all the way to the left.&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/5aa512ff3b2df304ec4ed032ab21215a.png&#34;: {&#34;width&#34;: 434, &#34;height&#34;: 218}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from tallest to shortest:\n\n\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/176f8d4245cb4904c652ca6fbf776d1e.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/176f8d4245cb4904c652ca6fbf776d1e.png&#34;: {&#34;width&#34;: 113, &#34;height&#34;: 251}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/9ebda09c7662d7a52aed01c303841ca3.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/e67fb3cc855875fe0090bf19bc34885c.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/3618907e6481cb4801e66af8277f8c7b.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from tallest to shortest.**  \n*Put the tallest line on the left.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/c34f9479c645c368c5b67508dc5ed92e.png&#34;: {&#34;width&#34;: 294, &#34;height&#34;: 239}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the tallest line all the way to the left.&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/5aa512ff3b2df304ec4ed032ab21215a.png&#34;: {&#34;width&#34;: 434, &#34;height&#34;: 218}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from tallest to shortest:\n\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/6c03b30aa24a219376826ed1bd833b0c.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/e5b7a1d7104d3571c20b43a6ab7ca08f.png&#34;: {&#34;width&#34;: 296, &#34;height&#34;: 240}, &#34;/9c0da3371a08546e5d080496ad03e4de/images/6c03b30aa24a219376826ed1bd833b0c.png&#34;: {&#34;width&#34;: 119, &#34;height&#34;: 251}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/75a1c58ecfa2ffd53d4d2a9250e667fa.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/3b7260a73ede6e8a025dbb2432026900.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/957564ce8ca8025e16feac0104da3740.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from tallest to shortest.**  \n*Put the tallest line on the left.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/c34f9479c645c368c5b67508dc5ed92e.png&#34;: {&#34;width&#34;: 294, &#34;height&#34;: 239}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the shortest line all the way to the left.&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/5aa512ff3b2df304ec4ed032ab21215a.png&#34;: {&#34;width&#34;: 434, &#34;height&#34;: 218}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from shortest to tallest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/73a5d9c05101e458becc80b7e448cb6e.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/73a5d9c05101e458becc80b7e448cb6e.png&#34;: {&#34;width&#34;: 115, &#34;height&#34;: 244}, &#34;/9c0da3371a08546e5d080496ad03e4de/images/176f8d4245cb4904c652ca6fbf776d1e.png&#34;: {&#34;width&#34;: 113, &#34;height&#34;: 251}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/9ebda09c7662d7a52aed01c303841ca3.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/957564ce8ca8025e16feac0104da3740.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/75a1c58ecfa2ffd53d4d2a9250e667fa.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from shortest to tallest.**  \n*Put the shortest line on the left.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/c34f9479c645c368c5b67508dc5ed92e.png&#34;: {&#34;width&#34;: 294, &#34;height&#34;: 239}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the shortest line all the way to the left.&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/5aa512ff3b2df304ec4ed032ab21215a.png&#34;: {&#34;width&#34;: 434, &#34;height&#34;: 218}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from shortest to tallest:\n\n\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/784a72bbb287c2c33b625d7f94b51393.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/784a72bbb287c2c33b625d7f94b51393.png&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 255}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/957564ce8ca8025e16feac0104da3740.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/75a1c58ecfa2ffd53d4d2a9250e667fa.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/561e50743932b1fb798524f39daaf077.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from shortest to tallest.**  \n*Put the shortest line on the left.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/c34f9479c645c368c5b67508dc5ed92e.png&#34;: {&#34;width&#34;: 294, &#34;height&#34;: 239}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the shortest line all the way to the left.&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/5aa512ff3b2df304ec4ed032ab21215a.png&#34;: {&#34;width&#34;: 434, &#34;height&#34;: 218}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from shortest to tallest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/9b53588ec75a2f103386bfd176fdb641.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/784a72bbb287c2c33b625d7f94b51393.png&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 255}, &#34;/9c0da3371a08546e5d080496ad03e4de/images/9b53588ec75a2f103386bfd176fdb641.png&#34;: {&#34;width&#34;: 126, &#34;height&#34;: 261}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/957564ce8ca8025e16feac0104da3740.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/d06f4ccc83cbada19157e1cbd0f102cf.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/f12e8cd78a7a4ae87269ee4700817cc9.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from shortest to tallest.**  \n*Put the shortest line on the left.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/c34f9479c645c368c5b67508dc5ed92e.png&#34;: {&#34;width&#34;: 294, &#34;height&#34;: 239}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the shortest line all the way to the top.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from shortest to longest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/5aa512ff3b2df304ec4ed032ab21215a.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/5aa512ff3b2df304ec4ed032ab21215a.png&#34;: {&#34;width&#34;: 434, &#34;height&#34;: 218}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;vertical&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/214aaccfe38a8e7967ae62826b464be1.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/1f3a5dcca1d823c36ed3288ae494a036.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/b2d32c33aa3967c94cbac840315cea83.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from shortest to longest.**  \n*Put the shortest line on top.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the shortest line all the way to the top.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from shortest to longest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/1d60e44508bb48298fe475bdc313c5de.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/1d60e44508bb48298fe475bdc313c5de.png&#34;: {&#34;width&#34;: 443, &#34;height&#34;: 225}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;vertical&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/b20b8cb3df93eb6514f59273ccd87926.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/be7da36c72912b5ca05695c72749b301.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/6b4703675b274811c338bb5937c9c3f1.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from shortest to longest.**  \n*Put the shortest line on top.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the shortest line all the way to the top.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from shortest to longest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/d03e5b8fedee48feb75b57a682105f98.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/d03e5b8fedee48feb75b57a682105f98.png&#34;: {&#34;width&#34;: 429, &#34;height&#34;: 214}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;vertical&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/13b1ed389e05f4f7498952c404c400d2.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/144538e26b3f65d21b5ba0a083996a05.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/68a619abbcf155bc5b5bc237cbb67d7e.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from shortest to longest.**  \n*Put the shortest line on top.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the longest line all the way to the top.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from longest to shortest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/9f5ad3da4b57bb73211a005002a9fcf5.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/9f5ad3da4b57bb73211a005002a9fcf5.png&#34;: {&#34;width&#34;: 444, &#34;height&#34;: 217}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;vertical&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/12ecf4043c3be475d3c66c2c1d1bf81d.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/28dbda8f9ed430a9a7e6ed1326b95e6a.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/178f84a5b7341d945e0741e6db885e49.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from longest to shortest.**  \n*Put the longest line on top.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the longest line all the way to the top.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from longest to shortest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/0beb70c93a9f1398f54d8b812785d1c8.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/0beb70c93a9f1398f54d8b812785d1c8.png&#34;: {&#34;width&#34;: 436, &#34;height&#34;: 218}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;vertical&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/c3bca5c9b4d54ab6bb4764af42dd62c5.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/01e00e25de9cd3b697ed6f0a0e219367.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/032d67a30becba97ca8df0e9af17a280.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from longest to shortest.**  \n*Put the longest line on top.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the longest line all the way to the top.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the lines into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These lines are in order from longest to shortest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/55e25951c48d78c10cf566484efc9dc5.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/55e25951c48d78c10cf566484efc9dc5.png&#34;: {&#34;width&#34;: 438, &#34;height&#34;: 224}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;vertical&#34;, &#34;correct&#34;: [&#34;![](/9c0da3371a08546e5d080496ad03e4de/images/918940b06ef1f1125759e85c85264be7.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/ccef4962cb3dba2d5f7ee7865125a741.png)&#34;, &#34;![](/9c0da3371a08546e5d080496ad03e4de/images/dd664df545b7b932d63ef30f99bf1848.png)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the lines from longest to shortest.**  \n*Put the longest line on top.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the tallest penguin all the way to the left.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the penguins into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These penguins are in order from tallest to shortest:\n\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/49448eeee9c1c43e540c3060414dc328.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/49448eeee9c1c43e540c3060414dc328.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 171}, &#34;/9c0da3371a08546e5d080496ad03e4de/images/c80c533e9e5807e5d3f8948def6d299e.png&#34;: {&#34;width&#34;: 344, &#34;height&#34;: 135}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/2a0869e620052bd65e1245da7f1ced48f5711012)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/b84712baa789fb74410baece0ce8f124f5dad245)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/8596121737c1958f2f285f684d6ba0192bc97c40)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the penguins from tallest to shortest.**  \n*Put the tallest penguin on the left.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the tallest ice cream cone all the way to the left.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the ice cream cones into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These ice cream cones are in order from tallest to shortest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/e6a2d45677a18e1fdea1cedb341f829b.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/e6a2d45677a18e1fdea1cedb341f829b.png&#34;: {&#34;width&#34;: 402, &#34;height&#34;: 160}, &#34;/9c0da3371a08546e5d080496ad03e4de/images/49448eeee9c1c43e540c3060414dc328.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 171}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/d1f1b42b5e3fa8f6b8bad13bbb211e7c6092c1dc)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/c75a467b3690c39ab3d3c274a0b19fc67aa96372)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/2fd9037c89458d1f7b478aad8fa8a00a9d60e222)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the ice cream cones from tallest to shortest.**  \n*Put the tallest ice cream cone on the left.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the longest shark all the way to the top.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the sharks into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These sharks are in order from longest to shortest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/bb818d668067dac272b6fb9e1e93bcbc.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/bb818d668067dac272b6fb9e1e93bcbc.png&#34;: {&#34;width&#34;: 175, &#34;height&#34;: 405}, &#34;/9c0da3371a08546e5d080496ad03e4de/images/49448eeee9c1c43e540c3060414dc328.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 171}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;vertical&#34;, &#34;correct&#34;: [&#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/c896f554098ebd48f7d940a058c8f782361faf06)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/eb6e35276b96f1858c79ba91801159b79628cdea)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/5643242760b556d4a012be7dae97c32cf071f2e9)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the sharks from longest to shortest.**  \n*Put the longest shark on the top.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the shortest hot dog all the way to the top.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the hot dogs into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These hot dogs are in order from shortest to longest:\n\n\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/428b46db07ebdd84b214bf2b440b4236.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/428b46db07ebdd84b214bf2b440b4236.png&#34;: {&#34;width&#34;: 189, &#34;height&#34;: 427}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;vertical&#34;, &#34;correct&#34;: [&#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/86a5b2e744507fd81c2c36db52373528e1447838)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/c35e15e18064fe80c7fde9503b01561b65aac0ca)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/5e250ae1316938e2dd89ebc8a3e79f012d63d51c)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the hot dogs from shortest to longest.**  \n*Put the shortest hot dog on the top.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the shortest cow all the way to the left.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the cows into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These cows are in order from shortest to tallest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/d10410d4fe1a666dfdd8a7c8c4ab36c1.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/428b46db07ebdd84b214bf2b440b4236.png&#34;: {&#34;width&#34;: 189, &#34;height&#34;: 427}, &#34;/9c0da3371a08546e5d080496ad03e4de/images/d10410d4fe1a666dfdd8a7c8c4ab36c1.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 176}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/35bde5905d69fd8bd2a323629ca2fcff32fd6dc0)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/db34e2aa4d4e67ce71d002a800a856c7b4af935c)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/a842bf6c7393706110477092406f1f80442e09b5)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the cows from shortest to tallest.**  \n*Put the shortest cow on the left.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Drag the shortest chick all the way to the left.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Now drag the rest of the chicks into place.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;These chicks are in order from shortest to tallest:\n\n![](/9c0da3371a08546e5d080496ad03e4de/images/ceb2c201f161ab73a2a8926ec88cba4a.png)&#34;, &#34;images&#34;: {&#34;/9c0da3371a08546e5d080496ad03e4de/images/ceb2c201f161ab73a2a8926ec88cba4a.png&#34;: {&#34;width&#34;: 363, &#34;height&#34;: 176}, &#34;/9c0da3371a08546e5d080496ad03e4de/images/d10410d4fe1a666dfdd8a7c8c4ab36c1.png&#34;: {&#34;width&#34;: 381, &#34;height&#34;: 176}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/60051d24ea3e28fb80d98240187f4c32aa694ff8)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/5a083fedef8b22960f4dd3ed9ff4426bfeeefb24)&#34;, &#34;![](web+graphie:9c0da3371a08546e5d080496ad03e4de/images/0ee71997f8c90ce3b8dfbfa3dc7d901ac519e530)&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;**Order the chicks from shortest to tallest.**  \n*Put the shortest chick on the left.*\n \n[[☃ sorter 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

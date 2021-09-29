@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="21" data-dump="[{&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Sam fed $\\red{10}$ sharks.  \nJo fed $\\green{7}$ sharks.  \n\n$\\red{10}$ is more than $\\green{7}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Sam fed more sharks.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;Sam&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;Jo&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;optional&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 10, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;optional&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;Sam fed ![](/00c7cb3a0fe494d2140e8df004aea907/images/9441ee45a0bd66962292e546a5ae2f3c.png)\n\nJo fed ![](/00c7cb3a0fe494d2140e8df004aea907/images/1ed0df7bd3d8dd7bc471bb337be0f38e.png)\n\n**Who fed more sharks?**\n[[☃ radio 1]]\n&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/9441ee45a0bd66962292e546a5ae2f3c.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 33}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/1ed0df7bd3d8dd7bc471bb337be0f38e.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 33}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Emma saw $\\red{8}$ elephants.  \nAnnie saw $\\green{5}$ elephants.  \n\n$\\red{8}$ is more than $\\green{5}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Emma saw more elephants.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;Emma&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;Annie&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Emma saw ![](/00c7cb3a0fe494d2140e8df004aea907/images/f5b17d7aa38ac7b990218b23a536021e.png)\n\nAnnie saw ![](/00c7cb3a0fe494d2140e8df004aea907/images/bc9d35956b8ff83956ab2cbf8c425b84.png)\n\n**Who saw more elephants?**  \n[[☃ radio 1]]\n&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/bc9d35956b8ff83956ab2cbf8c425b84.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 28}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/f5b17d7aa38ac7b990218b23a536021e.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 28}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Raj ate $\\red{2}$ bananas.  \nMaddie ate $\\green{4}$ bananas.  \n\n$\\green{4}$ is more than $\\red{2}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Maddie ate more bananas.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;Raj&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;Maddie&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Raj ate ![](/00c7cb3a0fe494d2140e8df004aea907/images/f70b0d94053e7f66bf0029dd291a71b4.png) \n\nMaddie ate ![](/00c7cb3a0fe494d2140e8df004aea907/images/bd613b8074d3f013198c05af7690d28f.png)\n\n**Who ate more bananas?**  \n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/f70b0d94053e7f66bf0029dd291a71b4.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 38}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/bd613b8074d3f013198c05af7690d28f.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 38}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Jon has $\\green{9}$ monkeys.  \nPing has $\\red{10}$ monkeys.  \n\n$\\green{9}$ is less than $\\red{10}$.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/f6c5f6f15e7bedb33c37a5b17433ea17.png&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 53}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/df33984748b0e8fe504f864aa1e3ef9c.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 64}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/f246167df117399cd71e77e5aade07a0.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 64}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/8d5db72961cfca3de19112fb6ca8cc9e.png&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Jon has fewer monkeys.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;Jon&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;Ping&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Jon has ![](/00c7cb3a0fe494d2140e8df004aea907/images/6e18f5eeecd99a5c37aa802e72b0db74.png)  \n\nPing has ![](/00c7cb3a0fe494d2140e8df004aea907/images/755c61a4bab089a3c6f4786367e204a3.png)  \n\n**Who has fewer monkeys?** \n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/6e18f5eeecd99a5c37aa802e72b0db74.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 87}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/755c61a4bab089a3c6f4786367e204a3.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 87}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Lena found $\\red{3}$ ladybugs.  \nJose found $\\green{8}$ ladybugs.  \n\n$\\red{3}$ is less than $\\green{8}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Lena found fewer ladybugs.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;Lena&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;Jose&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Lena found ![](/00c7cb3a0fe494d2140e8df004aea907/images/fe74df82fae634de2a6ed25a9551936d.png)\n\nJose found ![](/00c7cb3a0fe494d2140e8df004aea907/images/335fdb9f7ac1bbd20765eec7e98962c4.png) \n\n**Who found fewer ladybugs?**   \n[[☃ radio 1]]\n&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/ba56c512ab6a439717eb2f5b3f5e6d8f.png&#34;: {&#34;width&#34;: 175, &#34;height&#34;: 65}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/fe74df82fae634de2a6ed25a9551936d.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 40}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/335fdb9f7ac1bbd20765eec7e98962c4.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 40}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Wes picked $\\red{3}$ flowers.  \nJules picked $\\green{5}$ flowers.  \n\n$\\red{3}$ is less than $\\green{5}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Wes picked fewer flowers.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;Wes&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;Jules&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Wes picked ![](/00c7cb3a0fe494d2140e8df004aea907/images/2756a80177ab197604795d8d9ce27ec7.png)  \n\nJules picked ![](/00c7cb3a0fe494d2140e8df004aea907/images/2c24cedc4db49e4dcabe4c8f7078f53c.png)  \n\n**Who picked fewer flowers?**  \n[[☃ radio 1]]\n&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/2756a80177ab197604795d8d9ce27ec7.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 40}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/2c24cedc4db49e4dcabe4c8f7078f53c.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 40}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Zack has $\\red{3}$ foxes.  \nZoe has $\\green{2}$ foxes.  \n\n$\\green{2}$ is less than $\\red{3}$.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/9da227a7b3bc1ef3467164a5f3b592d6.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 43}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/0d70a92d56a26a6c4286d8f6b8b9b2eb.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 43}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/5dbb532fa50b70742322daad7e5f259e.png&#34;: {&#34;width&#34;: 125, &#34;height&#34;: 44}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/d6e3e3cc3ca543fe84ad1a990c02cfa3.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 68}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/8fc9f8c5bce1d5efd48fded110931f4d.png&#34;: {&#34;width&#34;: 100, &#34;height&#34;: 50}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Zoe has fewer foxes.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;Zack&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;Zoe&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Zack has ![](/00c7cb3a0fe494d2140e8df004aea907/images/711bf1286483ad18ac252f6f4501defd.png) \n\nZoe has ![](/00c7cb3a0fe494d2140e8df004aea907/images/a3c2999e829ab52344fb8ad921ec04bb.png)\n\n**Who has fewer foxes?**  \n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/711bf1286483ad18ac252f6f4501defd.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 40}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/a3c2999e829ab52344fb8ad921ec04bb.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 40}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{7}$ chicks.\n\nThere are $\\pink{5}$ turtles.\n\n$\\purple{7}$ is more than $\\pink{5}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{\\text{more}}$ chicks.\n\n![](/00c7cb3a0fe494d2140e8df004aea907/images/7cde6ba7f8251748d86f997ee7d596d1.png)&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/7cde6ba7f8251748d86f997ee7d596d1.png&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 40}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/7cde6ba7f8251748d86f997ee7d596d1.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/fb9ac9e61af90d5883e6924b309e641f.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;There are the same number of each.&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Are there more chicks or turtles?**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/5d42cbf97ebfcea74a67d76ed9693866.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 116}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{9}$ flowers.\n\nThere are $\\pink{6}$ ladybugs.\n\n$\\purple{9}$ is more than $\\pink{6}$.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{\\text{more}}$ flowers.\n\n![](/00c7cb3a0fe494d2140e8df004aea907/images/91492e2047cece6e5ade7dcfbcd3890b.png)&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/91492e2047cece6e5ade7dcfbcd3890b.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 46}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/91492e2047cece6e5ade7dcfbcd3890b.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/ad928e7967af6f40acaf327c97fc073c7128a671)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;There are the same number of each.&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Are there more flowers or ladybugs?**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/583b83c35421dc41db07313eabb99aea.png&#34;: {&#34;width&#34;: 375, &#34;height&#34;: 92}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{10}$ whales.\n\nThere are $\\pink{9}$ sharks.\n\n$\\purple{10}$ is more than $\\pink{9}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{\\text{more}}$ whales.\n\n![](/00c7cb3a0fe494d2140e8df004aea907/images/0495d3b93ce4ef40bf4dbeb51699e01e.png)&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/0495d3b93ce4ef40bf4dbeb51699e01e.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 35}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/0495d3b93ce4ef40bf4dbeb51699e01e.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/9d994fba98a0b06a4041bee1d8604d2d.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;There are the same number of each.&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Are there more whales or sharks?**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/f10d6cf04fb2c5945140e728118d9301.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 98}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{5}$ apples.\n\nThere are $\\pink{5}$ bananas.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are the same number of apples and bananas. &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/4ecadb32a3311673a6dd8f95f9d4a0f9.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/be1139c95fcf2c3e3d6b51313e23d6ce01c0fb2a)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;There are the same number of each.&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Are there fewer apples or bananas?**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/901087fbf112b4becb03f51692c6c4e6.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 140}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{5}$ acorns.\n\nThere are $\\pink{6}$ squirrels.\n\n$\\purple{5}$ is less than $\\pink{6}$.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/eb0a6586c1ac83b5d62f861502ada64c.png&#34;: {&#34;width&#34;: 175, &#34;height&#34;: 38}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/adcd4cbfd68e738ff2f61c578ab075dd.png&#34;: {&#34;width&#34;: 125, &#34;height&#34;: 68}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/c1d3292f3195194cf1bc7c9a05b390f4.png&#34;: {&#34;width&#34;: 125, &#34;height&#34;: 48}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/862e98491a8c89c2cf54cc730d60911a.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 43}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/e8bf91690d36b3bfdfde29de559453b6.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 37}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\pink{\\text{fewer}}$ acorns.\n\n![](/00c7cb3a0fe494d2140e8df004aea907/images/b7d4c10a616e95ffffcf92bb065e3b65.png)&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/b7d4c10a616e95ffffcf92bb065e3b65.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 42}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/b7d4c10a616e95ffffcf92bb065e3b65.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/141d52b551c496a68f19f29654831527.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;There are the same number of each.&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Are there fewer acorns or squirrels?**  \n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/3a80f9d748072f294f70991ff5c69725.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 116}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{8}$ pigs.\n\nThere are $\\pink{6}$ horses.\n\n$\\pink{6}$ is less than $\\purple{8}$.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/d8a50f6f710e7dcd2c3a3d322deaf349.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 38}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/13269bbc32dcbc08b6ece87a7ed78f7b.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 78}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/384478c856739495685d6ef5fee995ed.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 45}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/1779006be0da46f4c6de05cbe7c606ec.png&#34;: {&#34;width&#34;: 115, &#34;height&#34;: 79}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/67d8b1b6adbec39986c7b1a901d076c8.png&#34;: {&#34;width&#34;: 175, &#34;height&#34;: 77}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\pink{\\text{fewer}}$ horses.\n\n![](/00c7cb3a0fe494d2140e8df004aea907/images/ae0253604216f0239594ca427fac0e06.png)&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/ae0253604216f0239594ca427fac0e06.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 38}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/957c4bac8404532d58b943202d8eedc1.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/ae0253604216f0239594ca427fac0e06.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;There are the same number of each.&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Are there fewer pigs or horses?**  \n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/a7b26710cd31f742eb882c0b418d4556.png&#34;: {&#34;width&#34;: 450, &#34;height&#34;: 126}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{6}$ ice cream cones.\n\nThere are $\\pink{6}$ cookies.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/87907aa67427c58fbd6fb9ed9db63945.png&#34;: {&#34;width&#34;: 140, &#34;height&#34;: 37}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/2418483bad1dfc8a7c994307ef19d14d.png&#34;: {&#34;width&#34;: 110, &#34;height&#34;: 42}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/e80052c3f852d763460602ae0493448b.png&#34;: {&#34;width&#34;: 100, &#34;height&#34;: 58}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/7fda937065bb4a37c4a81abe6415c2c7.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 33}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/c891cde8a15a7463038a06750e5e8fae.png&#34;: {&#34;width&#34;: 130, &#34;height&#34;: 41}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are the $\\purple{\\text{same}}$ number of ice cream cones and cookies.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/6a63d24234f3e9f7c5faa6f346b41f9f.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/ee1280446878565f2663a093f2cc029d.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;There are the same number of each.&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Are there fewer ice cream cones or cookies?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/735e937a711bf1c711811ebe24af9cf0.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 116}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](/00c7cb3a0fe494d2140e8df004aea907/images/f3eaf21d14f1baaf02310368ee625a79.png)\n\n\n![](/00c7cb3a0fe494d2140e8df004aea907/images/8458e6dff2e2553a2fcdf91ecc7f85bd.png)&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/8458e6dff2e2553a2fcdf91ecc7f85bd.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/f3eaf21d14f1baaf02310368ee625a79.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{10}$ is more than $\\green{7}$.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/88527ccfcb30d0f813fbb2a1afda3bb2.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This cage has more.  \n\n![](/00c7cb3a0fe494d2140e8df004aea907/images/88527ccfcb30d0f813fbb2a1afda3bb2.png)&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/88527ccfcb30d0f813fbb2a1afda3bb2.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/2d4d7a163355ec6d8191f5ad1b93ce09.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/00c7cb3a0fe494d2140e8df004aea907/images/88527ccfcb30d0f813fbb2a1afda3bb2.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;There are the same number of mice in each cage.&#34;, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which cage has more mice?**\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/55dec14a598dd14ad9fa9fbb0a86047b.png&#34;: {&#34;width&#34;: 140, &#34;height&#34;: 64}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/1cbc23907031f1cdea28802a630a870e.png&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 65}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\redC{\\huge{7 \\text{ fish}}}$   \n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/058aee517de4483a1c8f480e9122d7c72e6ed150)\n\n$\\purpleC{\\huge{10 \\text{ fish}}}$   \n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/3004f8e44db2f23486894916dffcee5a38fd9ed1)&#34;, &#34;images&#34;: {&#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/058aee517de4483a1c8f480e9122d7c72e6ed150&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 200}, &#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/3004f8e44db2f23486894916dffcee5a38fd9ed1&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 200}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\redC7$ is less than $\\purpleC{10}$.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/88527ccfcb30d0f813fbb2a1afda3bb2.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This fish tank has fewer fish.\n\n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/058aee517de4483a1c8f480e9122d7c72e6ed150)&#34;, &#34;images&#34;: {&#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/058aee517de4483a1c8f480e9122d7c72e6ed150&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 200}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/058aee517de4483a1c8f480e9122d7c72e6ed150)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/3004f8e44db2f23486894916dffcee5a38fd9ed1)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;There are the same number of fish in each fish tank.&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which fish tank has fewer fish?**\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/55dec14a598dd14ad9fa9fbb0a86047b.png&#34;: {&#34;width&#34;: 140, &#34;height&#34;: 64}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/1cbc23907031f1cdea28802a630a870e.png&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 65}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/4070a31ab849811b085cc6d72a7034adb63a11c5)\n\n\n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/21219c0fab23fd745586d2f55fc124a9c8f25b27)&#34;, &#34;images&#34;: {&#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/21219c0fab23fd745586d2f55fc124a9c8f25b27&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 213}, &#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/4070a31ab849811b085cc6d72a7034adb63a11c5&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 213}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$8$ is equal to $8$.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/88527ccfcb30d0f813fbb2a1afda3bb2.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are the same amount of ponies in each field.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/88527ccfcb30d0f813fbb2a1afda3bb2.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/cd7b86152d1ff093ac300a13e207d33ff159ef9e)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/f3c708615247f5c319eccdb862892e36594264d1)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;There are the same number of ponies in each field.&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which field has more ponies?**\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/55dec14a598dd14ad9fa9fbb0a86047b.png&#34;: {&#34;width&#34;: 140, &#34;height&#34;: 64}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/1cbc23907031f1cdea28802a630a870e.png&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 65}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/508adee697f517108e1248da3410597ffa66fa3d)\n\n\n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/37018aacc6487dccc9c89688404a16e31ed3b974)&#34;, &#34;images&#34;: {&#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/508adee697f517108e1248da3410597ffa66fa3d&#34;: {&#34;width&#34;: 325, &#34;height&#34;: 237}, &#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/37018aacc6487dccc9c89688404a16e31ed3b974&#34;: {&#34;width&#34;: 325, &#34;height&#34;: 237}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$8$ is more than $6$.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/88527ccfcb30d0f813fbb2a1afda3bb2.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This tree has more apples.\n\n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/c76b4a344be15eee0811938c9fa7e442de609b4e)&#34;, &#34;images&#34;: {&#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/c76b4a344be15eee0811938c9fa7e442de609b4e&#34;: {&#34;width&#34;: 127, &#34;height&#34;: 225}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/c76b4a344be15eee0811938c9fa7e442de609b4e)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/d9ff7137a8c7ff2336d81ac7cddf8e22a280f9fd)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;There are the same number of apples in each tree.&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which tree has more apples?**\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/55dec14a598dd14ad9fa9fbb0a86047b.png&#34;: {&#34;width&#34;: 140, &#34;height&#34;: 64}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/1cbc23907031f1cdea28802a630a870e.png&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 65}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\greenD{\\huge{9 \\text{ bugs}}}$   \n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/39894263eed5f691f035c576d1756ef913b88c02)\n\n$\\blueD{\\huge{6 \\text{ bugs}}}$   \n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/2e4894a55f33f0649a151ad42a19a8244a872e37)&#34;, &#34;images&#34;: {&#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/2e4894a55f33f0649a151ad42a19a8244a872e37&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 216}, &#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/39894263eed5f691f035c576d1756ef913b88c02&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 216}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blueD6$ is less than $\\greenD{9}$.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/88527ccfcb30d0f813fbb2a1afda3bb2.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This cage has fewer bugs.\n\n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/2e4894a55f33f0649a151ad42a19a8244a872e37)&#34;, &#34;images&#34;: {&#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/2e4894a55f33f0649a151ad42a19a8244a872e37&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 216}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/39894263eed5f691f035c576d1756ef913b88c02)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/2e4894a55f33f0649a151ad42a19a8244a872e37)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;There are the same number of bugs in each cage.&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which cage tank has fewer bugs?**\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/55dec14a598dd14ad9fa9fbb0a86047b.png&#34;: {&#34;width&#34;: 140, &#34;height&#34;: 64}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/1cbc23907031f1cdea28802a630a870e.png&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 65}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\greenD{\\huge{6\\text{ bubbles}}}$   \n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/b771bfe0e8915279d68e39d8174228f68e80a5cc)\n\n$\\blueD{\\huge{5 \\text{ bubbles}}}$   \n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/f3c03f967d47567c284b7f2a6e41911827ab74e7)&#34;, &#34;images&#34;: {&#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/f3c03f967d47567c284b7f2a6e41911827ab74e7&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 152}, &#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/b771bfe0e8915279d68e39d8174228f68e80a5cc&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 133}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\greenD6$ is more than $\\blueD{5}$.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/88527ccfcb30d0f813fbb2a1afda3bb2.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The chick blew more bubbles:\n\n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/b771bfe0e8915279d68e39d8174228f68e80a5cc)&#34;, &#34;images&#34;: {&#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/b771bfe0e8915279d68e39d8174228f68e80a5cc&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 133}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/b771bfe0e8915279d68e39d8174228f68e80a5cc)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/f3c03f967d47567c284b7f2a6e41911827ab74e7)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;They blew the same amount of bubbles.&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which animal blew more bubbles?**\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/55dec14a598dd14ad9fa9fbb0a86047b.png&#34;: {&#34;width&#34;: 140, &#34;height&#34;: 64}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/1cbc23907031f1cdea28802a630a870e.png&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 65}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purpleC{\\huge{7 \\text{ eggs}}}$   \n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/f42cda07124fcde80ffcd297093cf207f4edafdd)\n\n$\\greenD{\\huge{6 \\text{ eggs}}}$   \n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/39067bffde014b2bf2a2a5b32ea244e3042b7463)&#34;, &#34;images&#34;: {&#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/f42cda07124fcde80ffcd297093cf207f4edafdd&#34;: {&#34;width&#34;: 209, &#34;height&#34;: 250}, &#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/39067bffde014b2bf2a2a5b32ea244e3042b7463&#34;: {&#34;width&#34;: 209, &#34;height&#34;: 250}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\greenD6$ is less than $\\purpleC{7}$.&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/88527ccfcb30d0f813fbb2a1afda3bb2.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 228}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This basket has fewer eggs.\n\n![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/39067bffde014b2bf2a2a5b32ea244e3042b7463)&#34;, &#34;images&#34;: {&#34;web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/39067bffde014b2bf2a2a5b32ea244e3042b7463&#34;: {&#34;width&#34;: 209, &#34;height&#34;: 250}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/f42cda07124fcde80ffcd297093cf207f4edafdd)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:00c7cb3a0fe494d2140e8df004aea907/images/39067bffde014b2bf2a2a5b32ea244e3042b7463)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;There are the same number of eggs in each basket.&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which basket has fewer eggs?**\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;/00c7cb3a0fe494d2140e8df004aea907/images/55dec14a598dd14ad9fa9fbb0a86047b.png&#34;: {&#34;width&#34;: 140, &#34;height&#34;: 64}, &#34;/00c7cb3a0fe494d2140e8df004aea907/images/1cbc23907031f1cdea28802a630a870e.png&#34;: {&#34;width&#34;: 120, &#34;height&#34;: 65}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

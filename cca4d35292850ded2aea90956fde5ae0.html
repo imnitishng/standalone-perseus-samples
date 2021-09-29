@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="26" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;To find how long $\\goldE{\\text{Tyler&#39;s}}$ snake is, we start with the length of $\\blueE{\\text{Liv&#39;s}}$ snake, and add $\\maroonD{3\\text{ meters}}$.\n\n![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/fab34bc162ac80e846664d33fba4b2880a95b265)\n\n$\\blueE{2} + \\maroonD{3} = \\goldE{\\Box}$\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/fab34bc162ac80e846664d33fba4b2880a95b265&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 176}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Let&#39;s add to find the length of $\\goldE{\\text{Tyler&#39;s}}$ snake.\n\n![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/bf605125c81d217e0c86b8c009395367ac54a4f1)\n\n$\\blueE{2} + \\maroonD{3} = \\goldE{5}$&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/bf605125c81d217e0c86b8c009395367ac54a4f1&#34;: {&#34;width&#34;: 124, &#34;height&#34;: 130}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Tyler&#39;s snake is $\\goldE5$ meters long.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Liv&#39;s pet snake is $2$ meters long.\n\nTyler&#39;s pet snake is $3$ meters longer than Liv&#39;s.\n\n**How long is Tyler&#39;s pet snake?**\n\n[[☃ input-number 1]] meters&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Katy}}+\\red{5}=\\blue{\\text{Matt}}$\n\n$\\green{6} + \\red{5} =\\blue{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{\\text{Matt}}$ has $\\blue{11}$ cards.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 11, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;Katy and Matt are playing a card game. \n\nKaty has $6$ cards.  Matt has $5$ more cards than Katy.  \n\n**How many cards does Matt have?**\n\n[[☃ input-number 1]] cards&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/cca4d35292850ded2aea90956fde5ae0/images/a1de081957505cffa49bb7b93b52ac09.png)&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/a1de081957505cffa49bb7b93b52ac09.png&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 280}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\red{\\text{Fox}}+\\blue{7}=\\purple{\\text{Squirrel}}$\n\n$\\red{5} + \\blue{7} =\\purple\\Box$\n\n![](/cca4d35292850ded2aea90956fde5ae0/images/b83151ffb6788a246808d4a9d6ccd1ca.png)&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/b83151ffb6788a246808d4a9d6ccd1ca.png&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 280}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The $\\purple{\\text{squirrel}}$ ran $\\purple{12}$ meters.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 12, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;A fox ran $5$ meters. \n\nA squirrel ran $7$ meters farther than the fox. \n\n**How far did the squirrel run?**\n\n[[☃ input-number 1]] meters&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/a1de081957505cffa49bb7b93b52ac09.png&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 280}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Abby}}+\\red{4}=\\blue{\\text{Ben}}$\n\n$\\green{3} + \\red{4} =\\blue{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{\\text{Ben}}$ is $\\blue{7}$ years old.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Abby is $3$ years old.\n\nHer brother Ben is $4$ years older than she is.\n\n**How old is Ben?**\n\n[[☃ input-number 1]] years old&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Fox}}+\\red5=\\blue{\\text{Monkey}}$\n\n$\\green4 + \\red5 =\\blue\\Box$\n\n![](/cca4d35292850ded2aea90956fde5ae0/images/011dd6753e38cabd0ae67cc53ae2ed7f.png)&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/011dd6753e38cabd0ae67cc53ae2ed7f.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 280}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The $\\blue{\\text{monkey}}$ weighs $\\blue9$ kilograms.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 9, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;A fox weighs $4$ kilograms.\n\nA monkey weighs $5$ kilograms more than the fox.\n\n**How much does the monkey weigh?**\n  \n[[☃ input-number 1]] kilograms&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/db14640508d2a9550d80901c502c1a7b.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 280}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/cca4d35292850ded2aea90956fde5ae0/images/2bd5e35af5e34bd5c5736b955be9fcc0.png)&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/2bd5e35af5e34bd5c5736b955be9fcc0.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 358}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\green{\\text{Horses}}+\\pink{8}=\\purple{\\text{Elephants}}$\n\n$\\green{7} + \\pink{8} =\\purple\\Box$\n\n![](/cca4d35292850ded2aea90956fde5ae0/images/416c69fee3099c33ff305ae2f5d19f08.png)&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/416c69fee3099c33ff305ae2f5d19f08.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 317}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\purple{15}$ elephants.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 15, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;There are $7$ horses in the circus.\n\nThere are $8$ more elephants than horses in the circus.\n\n**How many elephants are in the circus?**\n\n[[☃ input-number 1]] elephants&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/2bd5e35af5e34bd5c5736b955be9fcc0.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 358}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{\\text{First dragon&#39;s heads}} - \\green{2} = \\red{\\text{Second dragon&#39;s heads}}$\n\n$\\blue{9} - \\green{2} = \\red{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The second dragon had $\\red{7}$ heads.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;Erin fought a dragon with $9$ heads.\n\nThen she fought another dragon with $2$ fewer heads than the first dragon.\n\n**How many heads did the second dragon have?**\n\n  [[☃ input-number 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{\\text{Dan&#39;s laps}} - \\green{2} = \\red{\\text{Lucia&#39;s laps}}$\n\n$\\blue{7} - \\green{2} = \\red{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Lucia swam $\\red5$ laps.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Dan swam $7$ laps.\n\nLucia swam $2$ fewer laps than Dan.\n\n**How many laps did Lucia swim?**\n\n  [[☃ input-number 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can start with the number of $\\blue{\\text{Ron&#39;s coins}}$ and take away $\\green{3}$ to find the number of $\\red{\\text{Polly&#39;s coins}}$.\n\n$\\blue{6} - \\green{3} = \\red{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We could also think about starting with $\\red{\\text{Polly&#39;s coins}}$ and adding $\\green{3}$ extra coins to make $\\blue{6}$. What would our starting number have to be?\n\n$\\red{\\Box} + \\green{3} = \\blue{6}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Polly received $\\red3$ coins.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: &#34;3&#34;, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;The king gave Ron $6$ gold coins. \n\nHe gave Polly $3$ fewer coins than he gave Ron.\n\n**How many coins did Polly get?**\n\n  [[☃ input-number 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purple{\\text{First snake}} - \\pink{5} = \\green{\\text{Second snake}}$\n\n$\\purple{12} - \\pink{5} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The second snake caught $\\green{7}$ mice.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;One snake caught $12$ mice. \n\nAnother snake caught $5$ fewer mice than the first.\n\n**How many mice did the second snake catch?**\n\n[[☃ input-number 1]] mice&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/f8db5567cba81161ffa1d9525e3fc61c.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 325}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purple{\\text{Deb&#39;s strawberries}} - \\pink{5} = \\green{\\text{Amir&#39;s strawberries}}$\n\n$\\purple{15} - \\pink{5} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Amir ate $\\green{10}$ strawberries.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 10, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Deb and Amir shared a bowl of strawberries.\n\nDeb ate $15$ strawberries.\n\nAmir ate $5$ fewer strawberries than Deb.\n\n**How many strawberries did Amir eat?**\n\n[[☃ input-number 1]] strawberries&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/6ab27efba36b466dff5d707b61d8ed8f.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 314}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purple{\\text{Sam&#39;s time}} - \\pink{2} = \\green{\\text{Maddie&#39;s time}}$\n\n$\\purple{8} - \\pink{2} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Maddie rode her bull for $\\green{6}$ seconds.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Sam rode a bull for $8$ seconds.\n\nMaddie rode a bull for $2$ fewer seconds than Sam did.\n\n**How long did Maddie ride her bull?**\n\n[[☃ input-number 1]] seconds&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/37365559b0963520bf6f5e835af78533.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 325}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;One way to find how many fewer $\\red{\\text{red fish}}$ than $\\blue{\\text{blue fish}}$ there are is to find the difference, so we subtract.\n\n$\\blue{9} - \\red{7} =  \\green{\\Box}$ &#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Or we can find how many more $\\red{\\text{red fish}}$ we need to equal the number of $\\blue{\\text{blue fish}}$.\n\n$\\red{7} + \\green{\\Box} = \\blue{9}$ &#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\green{2}$ fewer red fish than blue fish.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;In a fish tank, there are $9$ blue fish and $7$ red fish.\n\n**How many fewer red fish than blue fish are there?**\n\n[[☃ input-number 1]] fewer red fish&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;One way to find how many fewer pencils $\\red{\\text{Suri}}$ has than $\\blue{\\text{Kiran}}$ is to find the difference, so we subtract.\n\n$\\blue{9} - \\red{1} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Or we can find how many more pencils $\\red{\\text{Suri}}$ needs to equal $\\blue{\\text{Kiran&#39;s}}$ pencils.\n\n$\\red{1} + \\green{\\Box} = \\blue{9}$ &#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Suri has $\\green{8}$ fewer pencils than Kiran.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Suri has $1$ pencil.\n\nKiran has $9$ pencils.\n\n**How many fewer pencils does Suri have than Kiran?**\n\n[[☃ input-number 1]] fewer pencils&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;One way to find how many fewer arms the $\\red{\\text{starfish}}$ has than the $\\blue{\\text{octopus}}$ is to find the difference, so we subtract.\n\n$\\blue{8} - \\red{5} =  \\green{\\Box}$ &#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Or we can find how many more arms the $\\red{\\text{starfish}}$ needs to equal the arms on the $\\blue{\\text{octopus}}$.\n\n$\\red{5} + \\green{\\Box} = \\blue{8}$ &#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The starfish has $\\green{3}$ fewer arms than the octopus.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;An octopus has $8$ arms.\n\nA starfish has $5$ arms.\n \n**How many fewer arms does the starfish have than the octopus?**\n\n[[☃ input-number 1]] arms&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/7a9cedfb4a6d4964d1f83a8c7582156cbed17b21)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/7a9cedfb4a6d4964d1f83a8c7582156cbed17b21&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Ali caught $\\red{\\text{5}}$ more bugs today than yesterday.\n\n![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/da20758f8233ed4b433bbbc2c1c393baad056970)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/da20758f8233ed4b433bbbc2c1c393baad056970&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Ali caught $\\red{5}$ fewer bugs yesterday.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Yesterday Ali caught $2$ bugs.\n\nToday he caught $7$ bugs.\n\n**How many fewer bugs did Ali catch yesterday than today?**\n\n[[☃ input-number 1]] fewer bugs&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/030b477aeb5e5f53ca0830d5f378aa8f.png&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;One way to find how many fewer flavors $\\red{\\text{Caleb}}$ ordered than $\\blue{\\text{Riley}}$ is to find the difference, so we subtract.\n\n$\\blue{4} - \\red{2} =  \\green{\\Box}$ &#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Or we can find how many more flavors $\\red{\\text{Caleb}}$ would need to equal the number of flavors $\\blue{\\text{Riley}}$ ordered.\n\n$\\red{2} + \\green{\\Box} = \\blue{4}$ &#34;}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Caleb ordered $\\green{2}$ fewer flavors than Riley.&#34;}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true}}, &#34;content&#34;: &#34;Riley ordered a snow cone with $4$ flavors.\n\n Caleb ordered his with $2$ flavors.\n\n**How many fewer flavors did Caleb order?**  \n\n[[☃ input-number 1]] fewer flavors&#34;, &#34;images&#34;: {}}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/44a8d529dcb0a5d7284f401e7f824a247ae95868)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/44a8d529dcb0a5d7284f401e7f824a247ae95868&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The blackberry weighs $\\red{\\text{2}}$ grams more than the cherry.\n\n![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/19a6c5de5afcc4295561f2157767787760479c6d)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/19a6c5de5afcc4295561f2157767787760479c6d&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The cherry weighs $\\red{2}$ grams less than the blackberry.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;A blackberry weighs $8$ grams.\n\nA cherry weighs $6$ grams.\n\n**How much less does the cherry weigh than the blackberry?**\n\n[[☃ input-number 1]] grams&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/4fd05e54d64992830827406bddb9fae5.png&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{\\text{Madi&#39;s butterflies}} - \\green{6} = \\red{\\text{Mickey&#39;s butterflies}}$\n\n$\\blue{14} - \\green{6} = \\red{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Mickey caught $\\red{8}$ butterflies.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Madi caught $14$ butterflies. \n\nMickey caught $6$ fewer butterflies.  \n\n**How many butterflies did Mickey catch?**\n\n  [[☃ input-number 1]] butterflies&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We need the difference between the distances jumped by $\\red{\\text{Wilma}}$ and $\\blue{\\text{Ari}}$, so we will subtract.\n\n$\\red{7} - \\blue{5} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Or we can see how much farther $\\blue{\\text{Ari}}$ would have to jump to equal $\\red{\\text{Wilma&#39;s}}$ distance.\n\n$\\blue{5} + \\green{\\Box} = \\red{7}$ &#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Wilma jumped $\\green{2}$ meters farther than Ari.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Wilma jumped $7$ meters.\n\nAri jumped $5$ meters.\n\n**How much farther did Wilma jump than Ari?**\n\n[[☃ input-number 1]] meters&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/4c3f5e688f9c0571f75f039f223e4e011ece7ab9)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/4c3f5e688f9c0571f75f039f223e4e011ece7ab9&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;If you lined up $\\green{\\text{Hannah&#39;s}}$ and $\\blue{\\text{Lara&#39;s}}$ dogs, $3$ would match up, and then $\\green{\\text{Hannah}}$ would have $\\green{2}$ extra dogs.\n\n![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/eaaceeee4337a47c744d1b96b6cbc288a1e8e253)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/eaaceeee4337a47c744d1b96b6cbc288a1e8e253&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Hannah has $\\red{2}$ more dogs than Lara.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Hannah has $5$ dogs.\n\nLara has $3$ dogs.\n\n**How many more dogs does Hannah have than Lara?**\n\n[[☃ input-number 1]] dogs&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/048b145f1327fca84a3381d992b8c92a.png&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/d41e2ca1b2e6bec12ff3a573dd2b4cd193e57038)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/d41e2ca1b2e6bec12ff3a573dd2b4cd193e57038&#34;: {&#34;width&#34;: 488, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;If you lined up $\\green{\\text{Sun Li&#39;s age}}$ and $\\blue{\\text{Zeb&#39;s age}}$, $3$ years  would match up, and then $\\green{\\text{Sun Li}}$ would have $\\green{5}$ extra years.\n\n![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/3ec8fbb1d39ed7667abe1ae98ade752c4cafb718)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/3ec8fbb1d39ed7667abe1ae98ade752c4cafb718&#34;: {&#34;width&#34;: 488, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Sun Li is $\\red{5}$ years older than Zeb.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Sun Li is $8$ years old.\n\nHer brother Zeb is $3$ years old.  \n\n**How many years older is Sun Li than Zeb?**\n\n[[☃ input-number 1]] years&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/6648e7ca461360e9999b2b3de30a9f9c.png&#34;: {&#34;width&#34;: 427, &#34;height&#34;: 175}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/e45e832ec4419184ed73ee387be5e56783f3846f)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/e45e832ec4419184ed73ee387be5e56783f3846f&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;If you lined up $\\green{\\text{Yuki&#39;s books}}$ and $\\blue{\\text{Hiro&#39;s books}}$, $5$ would match up, and then $\\green{\\text{Yuki}}$ would have $\\green{2}$ extra books.\n\n![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/40c37a6fe4fb267bb3081d30aa4c09d9e5b594ac)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/40c37a6fe4fb267bb3081d30aa4c09d9e5b594ac&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Yuki has read $\\red{2}$ more books than Hiro.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Yuki read $7$ books.\n\nHiro read $5$ books.\n\n**How many more books did Yuki read than Hiro?**\n\n[[☃ input-number 1]] books&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/16136429ff382d5436f251a3d4084760.png&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/df58140cc739b76839c2d645acdc2e70da8b0b03)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/df58140cc739b76839c2d645acdc2e70da8b0b03&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;If you lined up $\\green{\\text{Alex&#39;s marbles}}$ and $\\blue{\\text{Emily&#39;s marbles}}$, $5$ would match up, and then $\\green{\\text{Alex}}$ would have $\\green{4}$ extra marbles.\n\n![](web+graphie:cca4d35292850ded2aea90956fde5ae0/images/6662d420e91f3ebc9e0a89c6b77ec91875587208)&#34;, &#34;images&#34;: {&#34;web+graphie:cca4d35292850ded2aea90956fde5ae0/images/6662d420e91f3ebc9e0a89c6b77ec91875587208&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Alex has $\\red{4}$ more marbles than Emily.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Alex has $9$ marbles.\n\nEmily has $5$ marbles.\n\n**How many more marbles does Alex have than Emily?**\n\n[[☃ input-number 1]] marbles&#34;, &#34;images&#34;: {&#34;/cca4d35292850ded2aea90956fde5ae0/images/70abdf6ab2fe094c4f22520767e9f82e.png&#34;: {&#34;width&#34;: 408, &#34;height&#34;: 200}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We need the difference between $\\red{\\text{Edith&#39;s}}$ cookies and $\\blue{\\text{Drew&#39;s}}$ cookies, so we will subtract.\n\n$\\red{8} - \\blue{6} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Or we can see how many more cookies $\\blue{\\text{Drew}}$ needs to equal $\\red{\\text{Edith&#39;s}}$ cookies.\n\n$\\blue{6} + \\green{\\Box} = \\red{8}$ &#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Edith ate $\\green{2}$ more cookies than Drew.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Drew ate $6$ cookies.\n\nEdith ate $8$ cookies.\n\n**Edith ate [[☃ input-number 1]] more cookies than Drew.**&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We need the difference between the baby teeth that $\\red{\\text{Will}}$ and $\\blue{\\text{Brynn}}$ have lost, so we will subtract.\n\n$\\red{4} - \\blue{3} = \\green{\\Box}$&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Or we can see how many more baby teeth $\\blue{\\text{Brynn}}$ needs to lose to equal the number of teeth $\\red{\\text{Will}}$ has lost.\n\n$\\blue{3} + \\green{\\Box} = \\red{4}$ &#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Will has lost $\\green{1}$ more baby tooth than Brynn.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Will has lost $4$ of his baby teeth.  Brynn has lost $3$ of her baby teeth.\n\n**How many more baby teeth has Will lost than Brynn?**  \n\n[[☃ input-number 1]] baby teeth&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

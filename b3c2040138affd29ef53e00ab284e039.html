@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="19" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can use Steve to compare the heights of Jen and Beth.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Jen is taller than Steve.\n\nBeth is shorter than Steve.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, Jen must be taller than Beth.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Jen is taller.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;Jen&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;Beth&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Jen is taller than Steve.  \nSteve is taller than Beth.\n\n**Who is taller?**\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can use Wes&#39;s hair to compare the lengths of Leo and Ella&#39;s hair.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Leo&#39;s hair is longer than Wes&#39;s hair.  \n\nElla&#39;s hair is shorter than Wes&#39;s hair.  \n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, Leo&#39;s hair must be longer than Ella&#39;s hair.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Leo&#39;s hair is longer.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;Leo&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;Ella&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Leo&#39;s hair is longer than Wes&#39;s hair.  \nWes&#39;s hair is longer than Ella&#39;s hair.\n\n**Whose hair is longer?**\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can use my pen to compare the lengths of my pencil and my marker.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;My pencil is longer than my pen.  \n\nMy marker is shorter than my pen.  \n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, my marker must be shorter than my pencil.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;My marker is shorter.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;My pencil&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;My marker&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;My pencil is longer than my pen.  \nMy pen is longer than my marker.\n\n**Which is shorter?**\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can use Ben to compare the heights of Amy and Jeff.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Amy is shorter than Ben.\n\nJeff is taller than Ben.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, Amy must be shorter than Jeff.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Amy is shorter.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;Amy&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;Jeff&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Amy is shorter than Ben.  \nBen is shorter than Jeff.\n\n**Who is shorter?**\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can use the blue string to compare the lengths of the red and green string.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The red string is longer than the blue string.  \n\nThe green string is shorter than the blue string.  \n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, the red string must be longer than the green string.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The red string is longer.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;Red string&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;Green string&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;The red string is longer than the blue string.  \nThe blue string is longer than the green string.\n\n**Which is longer?**\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can use the cat to compare the heights of the dog and rabbit.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;My dog is taller than my cat.  \n\nMy rabbit is shorter than my cat.  \n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, the dog must be taller than my rabbit.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The animals below are in order from shortest to tallest:\n\n\n\n![](/b3c2040138affd29ef53e00ab284e039/images/51453f454f23e371d5a59c9bd5280ce4.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/51453f454f23e371d5a59c9bd5280ce4.png&#34;: {&#34;width&#34;: 195, &#34;height&#34;: 78}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;Rabbit&#34;, &#34;Cat&#34;, &#34;Dog&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;My dog is taller than my cat.  \nMy cat is taller than my rabbit.\n\n**Order the animals from shortest to tallest.**  \n*Put the shortest animal on the left.*\n\n[[☃ sorter 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can use the yellow crayon to compare the lengths of the pink and blue crayons.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The pink crayon is shorter than the yellow crayon.  \n\nThe blue crayon is longer than the yellow crayon.  \n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, the pink crayon must be shorter than the blue crayon.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The crayons below are in order from shortest to longest:\n\n\n\n![](/b3c2040138affd29ef53e00ab284e039/images/cda34bc1f111533e06f4d3f9d2e7fbb8.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/cda34bc1f111533e06f4d3f9d2e7fbb8.png&#34;: {&#34;width&#34;: 207, &#34;height&#34;: 72}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;Pink&#34;, &#34;Yellow&#34;, &#34;Blue&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;The pink crayon is shorter than the yellow crayon.  \nThe yellow crayon is shorter than the blue crayon.\n\n**Order the crayons from shortest to tallest.**  \n*Put the shortest crayon on the left.*\n\n[[☃ sorter 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can use the science book to compare the heights of the math and grammar books.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;My math book is taller than my science book.  \n\nMy grammar book is shorter than my science book.  \n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, my math book must be taller than my grammar book.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The books below are in order from tallest to shortest:\n\n\n\n![](/b3c2040138affd29ef53e00ab284e039/images/469d0f83d7bb351c43cb8d9018e7f36f.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/469d0f83d7bb351c43cb8d9018e7f36f.png&#34;: {&#34;width&#34;: 245, &#34;height&#34;: 70}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;Math&#34;, &#34;Science&#34;, &#34;Grammar&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;My math book is taller than my science book.  \nMy science book is taller than my grammar book.\n\n**Order the books from tallest to shortest.**  \n*Put the tallest book on the left.*\n\n[[☃ sorter 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can use the table to compare the heights of the desk and bookshelf.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The desk is shorter than the table.  \n\nThe bookshelf is taller than the table.  \n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, the desk must be shorter than the bookshelf.  &#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The furniture below are in order from tallest to shortest:\n\n\n\n![](/b3c2040138affd29ef53e00ab284e039/images/1b0502e121bffc361445e9a69bfa81d6.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/1b0502e121bffc361445e9a69bfa81d6.png&#34;: {&#34;width&#34;: 243, &#34;height&#34;: 86}, &#34;/b3c2040138affd29ef53e00ab284e039/images/469d0f83d7bb351c43cb8d9018e7f36f.png&#34;: {&#34;width&#34;: 245, &#34;height&#34;: 70}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;sorter 1&#34;: {&#34;options&#34;: {&#34;layout&#34;: &#34;horizontal&#34;, &#34;correct&#34;: [&#34;Bookshelf&#34;, &#34;Table&#34;, &#34;Desk&#34;], &#34;padding&#34;: true}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;sorter&#34;}}, &#34;content&#34;: &#34;The desk is shorter than the table.  \nThe table is shorter than the bookshelf.\n\n**Order the furniture from tallest to shortest.**  \n*Put the tallest furniture on the left.*\n\n[[☃ sorter 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/c9bf6c1cbe6bf0a61eea094b9c13c398.png) **is taller than** ![](/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/c9bf6c1cbe6bf0a61eea094b9c13c398.png&#34;: {&#34;width&#34;: 131, &#34;height&#34;: 150}, &#34;/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/448dcb930a4d2c0709156ca6dcff1ada.png) $\\qquad\\:$ **is shorter than** ![](/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/448dcb930a4d2c0709156ca6dcff1ada.png&#34;: {&#34;width&#34;: 35, &#34;height&#34;: 40}, &#34;/b3c2040138affd29ef53e00ab284e039/images/5f00f8b9093c2776f6d6588abaec0b0d.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/c9bf6c1cbe6bf0a61eea094b9c13c398.png&#34;: {&#34;width&#34;: 131, &#34;height&#34;: 150}, &#34;/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/c9bf6c1cbe6bf0a61eea094b9c13c398.png) is taller than $\\quad$![](/b3c2040138affd29ef53e00ab284e039/images/448dcb930a4d2c0709156ca6dcff1ada.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/448dcb930a4d2c0709156ca6dcff1ada.png&#34;: {&#34;width&#34;: 35, &#34;height&#34;: 40}, &#34;/b3c2040138affd29ef53e00ab284e039/images/c9bf6c1cbe6bf0a61eea094b9c13c398.png&#34;: {&#34;width&#34;: 131, &#34;height&#34;: 150}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;dropdown 2&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 3&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 1&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Is it taller or shorter?**  \n![](/b3c2040138affd29ef53e00ab284e039/images/c9bf6c1cbe6bf0a61eea094b9c13c398.png) ![](/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png)\n\nThe whale is [[☃ dropdown 1]] $3$ blocks.\n\n$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/448dcb930a4d2c0709156ca6dcff1ada.png) $\\qquad\\:\\:\\:\\:\\:\\:\\:$ ![](/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png)\n\nThe squirrel is  [[☃ dropdown 2]] $3$ blocks.\n\nSo, the whale is [[☃ dropdown 3]] the squirrel.&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/448dcb930a4d2c0709156ca6dcff1ada.png&#34;: {&#34;width&#34;: 35, &#34;height&#34;: 40}, &#34;/b3c2040138affd29ef53e00ab284e039/images/5f00f8b9093c2776f6d6588abaec0b0d.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/c9bf6c1cbe6bf0a61eea094b9c13c398.png&#34;: {&#34;width&#34;: 131, &#34;height&#34;: 150}, &#34;/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/76d0996dbf6104a08dda4329cc8fbacc.png) $\\quad $ **is shorter than** ![](/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/76d0996dbf6104a08dda4329cc8fbacc.png&#34;: {&#34;width&#34;: 35, &#34;height&#34;: 40}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/3f1e20a02e66b42f77c2e8a979e8d008.png) **is taller than** $\\,\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/5f00f8b9093c2776f6d6588abaec0b0d.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/76d0996dbf6104a08dda4329cc8fbacc.png&#34;: {&#34;width&#34;: 35, &#34;height&#34;: 40}, &#34;/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/3f1e20a02e66b42f77c2e8a979e8d008.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/76d0996dbf6104a08dda4329cc8fbacc.png) $\\quad $ is shorter than ![](/b3c2040138affd29ef53e00ab284e039/images/3f1e20a02e66b42f77c2e8a979e8d008.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/76d0996dbf6104a08dda4329cc8fbacc.png&#34;: {&#34;width&#34;: 35, &#34;height&#34;: 40}, &#34;/b3c2040138affd29ef53e00ab284e039/images/3f1e20a02e66b42f77c2e8a979e8d008.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;dropdown 2&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 3&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 1&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Is it taller or shorter?**  \n$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/76d0996dbf6104a08dda4329cc8fbacc.png) $\\quad$ ![](/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png)\n\nThe fox is [[☃ dropdown 1]] $3$ blocks.\n\n![](/b3c2040138affd29ef53e00ab284e039/images/3f1e20a02e66b42f77c2e8a979e8d008.png) ![](/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png)\n\nThe pony is  [[☃ dropdown 2]] $3$ blocks.\n\nSo, the fox is [[☃ dropdown 3]] the pony.&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/5f00f8b9093c2776f6d6588abaec0b0d.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/76d0996dbf6104a08dda4329cc8fbacc.png&#34;: {&#34;width&#34;: 35, &#34;height&#34;: 40}, &#34;/b3c2040138affd29ef53e00ab284e039/images/e7286f9943af820b80f424a212aa0d79.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/3f1e20a02e66b42f77c2e8a979e8d008.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/9fac2796726799dac9a1279c2da14518.png) $\\quad $ **is shorter than** ![](/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/9fac2796726799dac9a1279c2da14518.png&#34;: {&#34;width&#34;: 52, &#34;height&#34;: 60}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/6c4e17436e1e1ebb854835f6e0192255.png) $\\,\\ $ **is taller than** $\\,\\ $  ![](/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/6c4e17436e1e1ebb854835f6e0192255.png&#34;: {&#34;width&#34;: 114, &#34;height&#34;: 130}, &#34;/b3c2040138affd29ef53e00ab284e039/images/9fac2796726799dac9a1279c2da14518.png&#34;: {&#34;width&#34;: 52, &#34;height&#34;: 60}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/9fac2796726799dac9a1279c2da14518.png) $\\quad $ is shorter than ![](/b3c2040138affd29ef53e00ab284e039/images/6c4e17436e1e1ebb854835f6e0192255.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/6c4e17436e1e1ebb854835f6e0192255.png&#34;: {&#34;width&#34;: 114, &#34;height&#34;: 130}, &#34;/b3c2040138affd29ef53e00ab284e039/images/9fac2796726799dac9a1279c2da14518.png&#34;: {&#34;width&#34;: 52, &#34;height&#34;: 60}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;dropdown 2&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 3&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 1&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Is it taller or shorter?**  \n$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/9fac2796726799dac9a1279c2da14518.png) $\\qquad$ ![](/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png)\n\nThe egg is [[☃ dropdown 1]] $4$ blocks.\n\n![](/b3c2040138affd29ef53e00ab284e039/images/6c4e17436e1e1ebb854835f6e0192255.png) $\\,\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png)\n\nThe hen is  [[☃ dropdown 2]] $4$ blocks.\n\nSo, the egg is [[☃ dropdown 3]] the hen.&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/6c4e17436e1e1ebb854835f6e0192255.png&#34;: {&#34;width&#34;: 114, &#34;height&#34;: 130}, &#34;/b3c2040138affd29ef53e00ab284e039/images/9fac2796726799dac9a1279c2da14518.png&#34;: {&#34;width&#34;: 52, &#34;height&#34;: 60}, &#34;/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/697390c1654e521f5d623e5b64b39420.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/1cbca24c651c26ea8b48818af7c50cdf.png) $\\quad $ **is taller than** $\\,\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/1cbca24c651c26ea8b48818af7c50cdf.png&#34;: {&#34;width&#34;: 105, &#34;height&#34;: 120}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/11318eed54040f227a1d9f825121f471.png) $\\,\\,\\:\\:\\:\\,\\ $ **is shorter than** ![](/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/1cbca24c651c26ea8b48818af7c50cdf.png&#34;: {&#34;width&#34;: 105, &#34;height&#34;: 120}, &#34;/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/11318eed54040f227a1d9f825121f471.png&#34;: {&#34;width&#34;: 62, &#34;height&#34;: 70}, &#34;/b3c2040138affd29ef53e00ab284e039/images/697390c1654e521f5d623e5b64b39420.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/1cbca24c651c26ea8b48818af7c50cdf.png) $\\quad $ is taller than $\\quad$![](/b3c2040138affd29ef53e00ab284e039/images/11318eed54040f227a1d9f825121f471.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/1cbca24c651c26ea8b48818af7c50cdf.png&#34;: {&#34;width&#34;: 105, &#34;height&#34;: 120}, &#34;/b3c2040138affd29ef53e00ab284e039/images/11318eed54040f227a1d9f825121f471.png&#34;: {&#34;width&#34;: 62, &#34;height&#34;: 70}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;dropdown 2&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 3&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 1&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Is it taller or shorter?**  \n![](/b3c2040138affd29ef53e00ab284e039/images/1cbca24c651c26ea8b48818af7c50cdf.png) $\\quad$ ![](/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png)\n\nThe penguin is [[☃ dropdown 1]] $4$ blocks.\n\n$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/11318eed54040f227a1d9f825121f471.png) $\\,\\,\\:\\:\\:\\,\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png)\n\nThe turtle is [[☃ dropdown 2]] $4$ blocks.\n\nSo, the penguin is [[☃ dropdown 3]] the turtle.&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/1cbca24c651c26ea8b48818af7c50cdf.png&#34;: {&#34;width&#34;: 105, &#34;height&#34;: 120}, &#34;/b3c2040138affd29ef53e00ab284e039/images/0ae75f44c26e8efaf183e284dd325f35.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/11318eed54040f227a1d9f825121f471.png&#34;: {&#34;width&#34;: 62, &#34;height&#34;: 70}, &#34;/b3c2040138affd29ef53e00ab284e039/images/697390c1654e521f5d623e5b64b39420.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/0bcb38c2b86df502014621c933c3f145.png) $\\quad $ **is taller than** $\\,\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/0bcb38c2b86df502014621c933c3f145.png&#34;: {&#34;width&#34;: 115, &#34;height&#34;: 130}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/8eb4e47b3b8ca1f20b9a24912db7e249.png) $\\qquad\\,\\:\\:\\:\\, $ **is shorter than** ![](/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/8eb4e47b3b8ca1f20b9a24912db7e249.png&#34;: {&#34;width&#34;: 44, &#34;height&#34;: 50}, &#34;/b3c2040138affd29ef53e00ab284e039/images/6b5cac40cb53c8a6c5d767663ae91ca3.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/0bcb38c2b86df502014621c933c3f145.png&#34;: {&#34;width&#34;: 115, &#34;height&#34;: 130}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/0bcb38c2b86df502014621c933c3f145.png) $\\quad $ is taller than $\\quad$![](/b3c2040138affd29ef53e00ab284e039/images/8eb4e47b3b8ca1f20b9a24912db7e249.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/0bcb38c2b86df502014621c933c3f145.png&#34;: {&#34;width&#34;: 115, &#34;height&#34;: 130}, &#34;/b3c2040138affd29ef53e00ab284e039/images/8eb4e47b3b8ca1f20b9a24912db7e249.png&#34;: {&#34;width&#34;: 44, &#34;height&#34;: 50}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;dropdown 2&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 3&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 1&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Is it taller or shorter?**  \n![](/b3c2040138affd29ef53e00ab284e039/images/0bcb38c2b86df502014621c933c3f145.png) $\\quad$ ![](/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png)\n\nThe bunny is [[☃ dropdown 1]] $5$ blocks.\n\n$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/8eb4e47b3b8ca1f20b9a24912db7e249.png) $\\qquad\\,\\:\\:\\:\\, $ ![](/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png)\n\nThe carrot is  [[☃ dropdown 2]] $5$ blocks.\n\nSo, the bunny is [[☃ dropdown 3]] the carrot.&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/8eb4e47b3b8ca1f20b9a24912db7e249.png&#34;: {&#34;width&#34;: 44, &#34;height&#34;: 50}, &#34;/b3c2040138affd29ef53e00ab284e039/images/efb0e5268c00afdeae8a949222c5a655.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/0bcb38c2b86df502014621c933c3f145.png&#34;: {&#34;width&#34;: 115, &#34;height&#34;: 130}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/ddfaa75ad888a2ed272879b96ee32016.png) $\\quad $ **is shorter than** ![](/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/ddfaa75ad888a2ed272879b96ee32016.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 50}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/a391ad8334a9b033c12a3a1d23cd02a3.png) $\\ $ **is taller than** $\\,\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/a391ad8334a9b033c12a3a1d23cd02a3.png&#34;: {&#34;width&#34;: 87, &#34;height&#34;: 100}, &#34;/b3c2040138affd29ef53e00ab284e039/images/6b5cac40cb53c8a6c5d767663ae91ca3.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/ddfaa75ad888a2ed272879b96ee32016.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 50}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/ddfaa75ad888a2ed272879b96ee32016.png) $\\quad $ is shorter than ![](/b3c2040138affd29ef53e00ab284e039/images/a391ad8334a9b033c12a3a1d23cd02a3.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/a391ad8334a9b033c12a3a1d23cd02a3.png&#34;: {&#34;width&#34;: 87, &#34;height&#34;: 100}, &#34;/b3c2040138affd29ef53e00ab284e039/images/ddfaa75ad888a2ed272879b96ee32016.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 50}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;dropdown 2&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;dropdown&#34;}, &#34;dropdown 3&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;dropdown&#34;}, &#34;dropdown 1&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;dropdown&#34;}}, &#34;content&#34;: &#34;**Is it taller or shorter?**  \n\n$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/ddfaa75ad888a2ed272879b96ee32016.png) $\\quad$ ![](/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png)\n\nThe cookie is [[☃ dropdown 1]] $5$ blocks.\n\n![](/b3c2040138affd29ef53e00ab284e039/images/a391ad8334a9b033c12a3a1d23cd02a3.png) $\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png)\n\nThe ice cream cone (including the ice cream) is  [[☃ dropdown 2]] $5$ blocks.\n\nSo, the cookie is [[☃ dropdown 3]] the ice cream cone.&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/d58bcccca0623573b8ae2a84f7a44304.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/a391ad8334a9b033c12a3a1d23cd02a3.png&#34;: {&#34;width&#34;: 87, &#34;height&#34;: 100}, &#34;/b3c2040138affd29ef53e00ab284e039/images/6b5cac40cb53c8a6c5d767663ae91ca3.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/ddfaa75ad888a2ed272879b96ee32016.png&#34;: {&#34;width&#34;: 43, &#34;height&#34;: 50}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\quad$![](/b3c2040138affd29ef53e00ab284e039/images/7e4d58ad7b6116d743a7c8f8f3a2d74d.png) $\\quad $ **is shorter than** ![](/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/7e4d58ad7b6116d743a7c8f8f3a2d74d.png&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 30}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/b371e786354f80dce77dd838096e08f1.png)  $\\,\\ $ **is taller than** $\\,\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/b371e786354f80dce77dd838096e08f1.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}, &#34;/b3c2040138affd29ef53e00ab284e039/images/7e4d58ad7b6116d743a7c8f8f3a2d74d.png&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 30}, &#34;/b3c2040138affd29ef53e00ab284e039/images/34df1329001be63765fccae3ee8b4cff.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\quad$![](/b3c2040138affd29ef53e00ab284e039/images/7e4d58ad7b6116d743a7c8f8f3a2d74d.png) $\\quad $ is shorter than ![](/b3c2040138affd29ef53e00ab284e039/images/b371e786354f80dce77dd838096e08f1.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/7e4d58ad7b6116d743a7c8f8f3a2d74d.png&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 30}, &#34;/b3c2040138affd29ef53e00ab284e039/images/b371e786354f80dce77dd838096e08f1.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;dropdown 2&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 3&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 1&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Is it taller or shorter?**  \n$\\quad$![](/b3c2040138affd29ef53e00ab284e039/images/7e4d58ad7b6116d743a7c8f8f3a2d74d.png) $\\quad$ ![](/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png)\n\nThe bone is [[☃ dropdown 1]] $2$ blocks.\n\n![](/b3c2040138affd29ef53e00ab284e039/images/b371e786354f80dce77dd838096e08f1.png)  ![](/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png)\n\nThe dog is  [[☃ dropdown 2]] $2$ blocks.\n\nSo, the bone is [[☃ dropdown 3]] the dog.&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/b371e786354f80dce77dd838096e08f1.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}, &#34;/b3c2040138affd29ef53e00ab284e039/images/7e4d58ad7b6116d743a7c8f8f3a2d74d.png&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 30}, &#34;/b3c2040138affd29ef53e00ab284e039/images/34df1329001be63765fccae3ee8b4cff.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/978298ef5f9962c94c3802e88d01ff60.png) **is taller than** $\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/978298ef5f9962c94c3802e88d01ff60.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/27e625e3d23052e05de81a6116662154.png) $\\quad\\ $ **is  shorter than** ![](/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/978298ef5f9962c94c3802e88d01ff60.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}, &#34;/b3c2040138affd29ef53e00ab284e039/images/27e625e3d23052e05de81a6116662154.png&#34;: {&#34;width&#34;: 26, &#34;height&#34;: 30}, &#34;/b3c2040138affd29ef53e00ab284e039/images/34df1329001be63765fccae3ee8b4cff.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/978298ef5f9962c94c3802e88d01ff60.png) is taller than $\\quad$![](/b3c2040138affd29ef53e00ab284e039/images/27e625e3d23052e05de81a6116662154.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/27e625e3d23052e05de81a6116662154.png&#34;: {&#34;width&#34;: 26, &#34;height&#34;: 30}, &#34;/b3c2040138affd29ef53e00ab284e039/images/978298ef5f9962c94c3802e88d01ff60.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;dropdown 2&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 3&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 1&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Is it taller or shorter?**  \n![](/b3c2040138affd29ef53e00ab284e039/images/978298ef5f9962c94c3802e88d01ff60.png) ![](/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png)\n\nThe caterpillar is [[☃ dropdown 1]] $2$ blocks.\n\n$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/27e625e3d23052e05de81a6116662154.png) $\\quad\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png)\n\nThe ladybug is  [[☃ dropdown 2]] $2$ blocks.\n\nSo, the caterpillar is [[☃ dropdown 3]] the ladybug.&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/31f358954ccb4f92538276cc0a747da3.png&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/978298ef5f9962c94c3802e88d01ff60.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}, &#34;/b3c2040138affd29ef53e00ab284e039/images/27e625e3d23052e05de81a6116662154.png&#34;: {&#34;width&#34;: 26, &#34;height&#34;: 30}, &#34;/b3c2040138affd29ef53e00ab284e039/images/34df1329001be63765fccae3ee8b4cff.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/6d1d7763d8ea3a0d3a3cb2a2818026f2.png) $\\,\\ $ **is taller than** $ \\,\\ $![](/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/6d1d7763d8ea3a0d3a3cb2a2818026f2.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}, &#34;/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/5c420f0e0aaa19c5e9ce8446f1a5a89e.png) $\\quad $ **is  shorter than** ![](/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/6d1d7763d8ea3a0d3a3cb2a2818026f2.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}, &#34;/b3c2040138affd29ef53e00ab284e039/images/5c420f0e0aaa19c5e9ce8446f1a5a89e.png&#34;: {&#34;width&#34;: 44, &#34;height&#34;: 50}, &#34;/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/e16bec784f3ec54ecd9980b6c26943a7.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/6d1d7763d8ea3a0d3a3cb2a2818026f2.png) $\\,\\ $ is taller than $\\quad$![](/b3c2040138affd29ef53e00ab284e039/images/5c420f0e0aaa19c5e9ce8446f1a5a89e.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/6d1d7763d8ea3a0d3a3cb2a2818026f2.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}, &#34;/b3c2040138affd29ef53e00ab284e039/images/5c420f0e0aaa19c5e9ce8446f1a5a89e.png&#34;: {&#34;width&#34;: 44, &#34;height&#34;: 50}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;dropdown 2&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 3&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 1&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Is it taller or shorter?**  \n![](/b3c2040138affd29ef53e00ab284e039/images/6d1d7763d8ea3a0d3a3cb2a2818026f2.png) $\\,\\,\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png)\n\nThe cow is [[☃ dropdown 1]] $3$ blocks.\n\n$\\qquad$![](/b3c2040138affd29ef53e00ab284e039/images/5c420f0e0aaa19c5e9ce8446f1a5a89e.png) $\\quad\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png)\n\nThe pig is  [[☃ dropdown 2]] $3$ blocks.\n\nSo, the cow is [[☃ dropdown 3]] the pig.&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/6d1d7763d8ea3a0d3a3cb2a2818026f2.png&#34;: {&#34;width&#34;: 88, &#34;height&#34;: 100}, &#34;/b3c2040138affd29ef53e00ab284e039/images/5c420f0e0aaa19c5e9ce8446f1a5a89e.png&#34;: {&#34;width&#34;: 44, &#34;height&#34;: 50}, &#34;/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/e16bec784f3ec54ecd9980b6c26943a7.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/b674f3c9b61a92c31a64beba993b666e.png) $\\,\\,\\ $ **is taller than** $\\,\\ $ ![](/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/b674f3c9b61a92c31a64beba993b666e.png&#34;: {&#34;width&#34;: 97, &#34;height&#34;: 110}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\quad$![](/b3c2040138affd29ef53e00ab284e039/images/81d9d54311f4cfa4e48ecf66cc079cde.png) $\\,\\,\\,\\,\\,\\ $ **is shorter than** ![](/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/e16bec784f3ec54ecd9980b6c26943a7.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/b674f3c9b61a92c31a64beba993b666e.png&#34;: {&#34;width&#34;: 97, &#34;height&#34;: 110}, &#34;/b3c2040138affd29ef53e00ab284e039/images/81d9d54311f4cfa4e48ecf66cc079cde.png&#34;: {&#34;width&#34;: 71, &#34;height&#34;: 76}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/b3c2040138affd29ef53e00ab284e039/images/b674f3c9b61a92c31a64beba993b666e.png) $\\,\\,\\ $ is taller than $\\quad$![](/b3c2040138affd29ef53e00ab284e039/images/81d9d54311f4cfa4e48ecf66cc079cde.png)&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/81d9d54311f4cfa4e48ecf66cc079cde.png&#34;: {&#34;width&#34;: 71, &#34;height&#34;: 76}, &#34;/b3c2040138affd29ef53e00ab284e039/images/b674f3c9b61a92c31a64beba993b666e.png&#34;: {&#34;width&#34;: 97, &#34;height&#34;: 110}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;dropdown 2&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: true}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 3&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;dropdown 1&#34;: {&#34;options&#34;: {&#34;choices&#34;: [{&#34;content&#34;: &#34;taller than&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;shorter than&#34;, &#34;correct&#34;: false}], &#34;placeholder&#34;: &#34;&#34;}, &#34;type&#34;: &#34;dropdown&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Is it taller or shorter?**  \n![](/b3c2040138affd29ef53e00ab284e039/images/b674f3c9b61a92c31a64beba993b666e.png) $\\,\\, $ ![](/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png)\n\nThe sheep is [[☃ dropdown 1]] $3$ blocks.\n\n$\\quad$![](/b3c2040138affd29ef53e00ab284e039/images/29758cce433b0031da347e67f64e149b.png) $\\,\\,\\,\\,\\,\\,\\,\\,\\,$ ![](/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png)\n\nThe beaver is  [[☃ dropdown 2]] $3$ blocks.\n\nSo, the sheep is [[☃ dropdown 3]] the beaver.&#34;, &#34;images&#34;: {&#34;/b3c2040138affd29ef53e00ab284e039/images/29758cce433b0031da347e67f64e149b.png&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 60}, &#34;/b3c2040138affd29ef53e00ab284e039/images/bc6a15d3b4efedfc2e217c63ee84a1aa.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/e16bec784f3ec54ecd9980b6c26943a7.png&#34;: {&#34;width&#34;: 49, &#34;height&#34;: 75}, &#34;/b3c2040138affd29ef53e00ab284e039/images/b674f3c9b61a92c31a64beba993b666e.png&#34;: {&#34;width&#34;: 97, &#34;height&#34;: 110}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

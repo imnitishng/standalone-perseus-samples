@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="20" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4$.  \nDrag a fox into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/2af2eb4df41d6011c4b84e7297e9bc36.jpg)  \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\:\\: 2 \\qquad\\quad\\:\\: 3 \\qquad\\quad\\:\\: 4$\n\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/2af2eb4df41d6011c4b84e7297e9bc36.jpg&#34;: {&#34;width&#34;: 312, &#34;height&#34;: 110}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/5215f28ed641e8658caad9a61bbf3619.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/5215f28ed641e8658caad9a61bbf3619.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/5215f28ed641e8658caad9a61bbf3619.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/5215f28ed641e8658caad9a61bbf3619.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/5215f28ed641e8658caad9a61bbf3619.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;orderer&#34;}}, &#34;content&#34;: &#34;**Put $4$ foxes in the box.**\n\n\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5, 6$.  \nDrag a mouse into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/4048870346f91d915e8063717be062cb.jpg)  \n$\\qquad\\:\\:\\:\\: 1 \\qquad\\quad\\:\\: 2 \\qquad\\quad\\:\\:\\: 3 \\qquad\\quad\\:\\:\\: 4 \\qquad\\quad\\:\\:\\: 5 \\qquad\\quad\\:\\:\\: 6$&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/4048870346f91d915e8063717be062cb.jpg&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 102}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/83ea3e10ad06dc0f5dc94964b6a001b6.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/83ea3e10ad06dc0f5dc94964b6a001b6.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/83ea3e10ad06dc0f5dc94964b6a001b6.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/83ea3e10ad06dc0f5dc94964b6a001b6.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/83ea3e10ad06dc0f5dc94964b6a001b6.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/83ea3e10ad06dc0f5dc94964b6a001b6.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/83ea3e10ad06dc0f5dc94964b6a001b6.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $6$ mice in the box.**\n\n[[☃ orderer 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2$.  \nDrag a flower into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/e3a013a47324a3b9f3ce86275dccfe16.jpg)  \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\: 2$\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/e3a013a47324a3b9f3ce86275dccfe16.jpg&#34;: {&#34;width&#34;: 268, &#34;height&#34;: 109}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/609791cafff9dec63c3758d70dd15438.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/609791cafff9dec63c3758d70dd15438.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/609791cafff9dec63c3758d70dd15438.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $2$ flowers in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5, 6, 7, 8$.  \nDrag a ladybug into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/d45dcd6e5ab32cc9db59f3771c4f8d03.jpg)  \n$\\quad\\quad\\:\\: 1 \\quad\\quad\\:\\:\\: 2 \\quad\\quad\\:\\:\\: 3 \\quad\\quad\\:\\:\\: 4 \\quad\\quad\\:\\:\\: 5 \\quad\\quad\\:\\:\\: 6 \\quad\\quad\\:\\:\\: 7 \\quad\\quad\\:\\:\\: 8$&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/d45dcd6e5ab32cc9db59f3771c4f8d03.jpg&#34;: {&#34;width&#34;: 470, &#34;height&#34;: 107}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/79dee166ff511a66859ea6b7bb6dcdc0.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/79dee166ff511a66859ea6b7bb6dcdc0.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/79dee166ff511a66859ea6b7bb6dcdc0.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/79dee166ff511a66859ea6b7bb6dcdc0.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/79dee166ff511a66859ea6b7bb6dcdc0.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/79dee166ff511a66859ea6b7bb6dcdc0.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/79dee166ff511a66859ea6b7bb6dcdc0.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/79dee166ff511a66859ea6b7bb6dcdc0.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/79dee166ff511a66859ea6b7bb6dcdc0.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $8$ ladybugs in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5, 6, 7, 8, 9, 10$.  \nDrag an apple into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/035a34329ed4a94874ce4dde0bcd60c9.jpg)  \n$\\quad\\quad 1 \\quad\\quad\\: 2 \\quad\\quad\\: 3  \\quad\\quad\\: 4  \\quad\\quad\\: 5  \\quad\\quad\\: 6\\quad\\quad\\: 7  \\quad\\quad\\: 8\\quad\\quad\\: 9  \\quad\\quad 10$\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/035a34329ed4a94874ce4dde0bcd60c9.jpg&#34;: {&#34;width&#34;: 484, &#34;height&#34;: 105}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/a69ad902f1bb015c15fbf47471e33d1e.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/a69ad902f1bb015c15fbf47471e33d1e.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/a69ad902f1bb015c15fbf47471e33d1e.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/a69ad902f1bb015c15fbf47471e33d1e.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/a69ad902f1bb015c15fbf47471e33d1e.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/a69ad902f1bb015c15fbf47471e33d1e.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/a69ad902f1bb015c15fbf47471e33d1e.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/a69ad902f1bb015c15fbf47471e33d1e.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/a69ad902f1bb015c15fbf47471e33d1e.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/a69ad902f1bb015c15fbf47471e33d1e.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/a69ad902f1bb015c15fbf47471e33d1e.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $10$ apples in the box.**\n \n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3$.  \nDrag a shark into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/17d2c23fc1510b052c7de7582dfad1d8.jpg)  \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\:\\: 2 \\qquad\\quad\\:\\: 3$\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/17d2c23fc1510b052c7de7582dfad1d8.jpg&#34;: {&#34;width&#34;: 246, &#34;height&#34;: 105}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/cdf252f65a971d990d13216ec226d181.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/cdf252f65a971d990d13216ec226d181.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/cdf252f65a971d990d13216ec226d181.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/cdf252f65a971d990d13216ec226d181.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $3$ sharks in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5, 6, 7$.  \nDrag an acorn into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/7ef1ba34b08cb1a257f6fda75c8ceddc.jpg)  \n$\\qquad\\:\\: 1 \\qquad\\:\\:\\: 2 \\qquad\\:\\:\\: 3 \\qquad\\:\\:\\: 4 \\qquad\\:\\:\\: 5 \\qquad\\:\\:\\: 6 \\qquad\\:\\:\\: 7$\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/7ef1ba34b08cb1a257f6fda75c8ceddc.jpg&#34;: {&#34;width&#34;: 423, &#34;height&#34;: 108}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/ff7c7089bf4ddac8911834be5a43d8a6.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/ff7c7089bf4ddac8911834be5a43d8a6.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/ff7c7089bf4ddac8911834be5a43d8a6.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/ff7c7089bf4ddac8911834be5a43d8a6.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/ff7c7089bf4ddac8911834be5a43d8a6.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/ff7c7089bf4ddac8911834be5a43d8a6.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/ff7c7089bf4ddac8911834be5a43d8a6.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/ff7c7089bf4ddac8911834be5a43d8a6.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $7$ acorns in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5$.  \nDrag an apple into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/39011d06986aaba250d37360114cdaa5.jpg)  \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\:\\: 2 \\qquad\\quad\\:\\: 3 \\qquad\\quad\\:\\: 4 \\qquad\\quad\\:\\: 5$\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/39011d06986aaba250d37360114cdaa5.jpg&#34;: {&#34;width&#34;: 385, &#34;height&#34;: 108}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/16ceb49b35424a7f015e770bbf7d1e1f.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/16ceb49b35424a7f015e770bbf7d1e1f.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/16ceb49b35424a7f015e770bbf7d1e1f.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/16ceb49b35424a7f015e770bbf7d1e1f.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/16ceb49b35424a7f015e770bbf7d1e1f.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/16ceb49b35424a7f015e770bbf7d1e1f.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $5$ apples in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5$.  \nDrag a piece of cheese into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/2c304149be81530878b58137b70f44a0.jpg)  \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\:\\: 2 \\qquad\\quad\\:\\: 3 \\qquad\\quad\\:\\: 4 \\qquad\\quad\\:\\: 5$&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/2c304149be81530878b58137b70f44a0.jpg&#34;: {&#34;width&#34;: 386, &#34;height&#34;: 113}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3c24410be1350d01149021359270f477.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3c24410be1350d01149021359270f477.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3c24410be1350d01149021359270f477.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3c24410be1350d01149021359270f477.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3c24410be1350d01149021359270f477.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3c24410be1350d01149021359270f477.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $5$ pieces of cheese in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5, 6, 7, 8, 9, 10$.  \nDrag a banana into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/7c3b5e897e2c80a663b3608f26393620.jpg)  \n$\\quad\\quad 1 \\quad\\quad\\: 2 \\quad\\quad\\: 3  \\quad\\quad\\: 4  \\quad\\quad\\: 5  \\quad\\quad\\: 6\\quad\\quad\\: 7  \\quad\\quad\\: 8\\quad\\quad\\: 9  \\quad\\quad 10$\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/7c3b5e897e2c80a663b3608f26393620.jpg&#34;: {&#34;width&#34;: 493, &#34;height&#34;: 107}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e3c7f991a3a2022e08fc5774bcfe8ff.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e3c7f991a3a2022e08fc5774bcfe8ff.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e3c7f991a3a2022e08fc5774bcfe8ff.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e3c7f991a3a2022e08fc5774bcfe8ff.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e3c7f991a3a2022e08fc5774bcfe8ff.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e3c7f991a3a2022e08fc5774bcfe8ff.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e3c7f991a3a2022e08fc5774bcfe8ff.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e3c7f991a3a2022e08fc5774bcfe8ff.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e3c7f991a3a2022e08fc5774bcfe8ff.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e3c7f991a3a2022e08fc5774bcfe8ff.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e3c7f991a3a2022e08fc5774bcfe8ff.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $10$ bananas in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2$.  \nDrag an acorn into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/b7e718833ba7f24f45afa97016540ab8.jpg)   \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\: 2$\n\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/b7e718833ba7f24f45afa97016540ab8.jpg&#34;: {&#34;width&#34;: 282, &#34;height&#34;: 108}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/d02a7b602ff7f40a0ba790a40d41513c.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/d02a7b602ff7f40a0ba790a40d41513c.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/d02a7b602ff7f40a0ba790a40d41513c.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $2$ acorns in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3$.  \nDrag a whale into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/d04fd94a9fc7d6747f47daac268715b5.jpg)  \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\:\\: 2 \\qquad\\quad\\:\\: 3$\n\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/d04fd94a9fc7d6747f47daac268715b5.jpg&#34;: {&#34;width&#34;: 271, &#34;height&#34;: 105}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/c357ec7d8e4dd6fa6a51ba7091fc37af.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/c357ec7d8e4dd6fa6a51ba7091fc37af.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/c357ec7d8e4dd6fa6a51ba7091fc37af.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/c357ec7d8e4dd6fa6a51ba7091fc37af.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $3$ whales in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5, 6, 7, 8, 9$.  \nDrag a horse into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/ff9e580a28202bae295aab076b842a6a.jpg)  \n$\\quad\\quad 1 \\quad\\quad\\: 2 \\quad\\quad\\:\\:3  \\quad\\quad\\: 4  \\quad\\quad\\: 5  \\quad\\quad\\: 6\\quad\\quad\\:\\: 7  \\quad\\quad\\: 8\\quad\\quad\\: 9$\n\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/ff9e580a28202bae295aab076b842a6a.jpg&#34;: {&#34;width&#34;: 458, &#34;height&#34;: 108}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/fdcb66ab874f3e85ff3014ba924ed98a.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/fdcb66ab874f3e85ff3014ba924ed98a.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/fdcb66ab874f3e85ff3014ba924ed98a.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/fdcb66ab874f3e85ff3014ba924ed98a.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/fdcb66ab874f3e85ff3014ba924ed98a.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/fdcb66ab874f3e85ff3014ba924ed98a.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/fdcb66ab874f3e85ff3014ba924ed98a.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/fdcb66ab874f3e85ff3014ba924ed98a.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/fdcb66ab874f3e85ff3014ba924ed98a.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/fdcb66ab874f3e85ff3014ba924ed98a.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $9$ horses in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4$.  \nDrag a squirrel into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/ade9c1d95d46e351398aad19962bc235.jpg)  \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\:\\: 2 \\qquad\\quad\\:\\: 3 \\qquad\\quad\\:\\: 4$\n\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/ade9c1d95d46e351398aad19962bc235.jpg&#34;: {&#34;width&#34;: 306, &#34;height&#34;: 106}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/f50e15aa9af3df9ac38d00981899b817.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/f50e15aa9af3df9ac38d00981899b817.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/f50e15aa9af3df9ac38d00981899b817.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/f50e15aa9af3df9ac38d00981899b817.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/f50e15aa9af3df9ac38d00981899b817.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $4$ squirrels in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5, 6, 7, 8$.  \nDrag a monkey into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/196407aeaab88f7edfce20c80522f1a0.jpg)  \n$\\quad\\quad\\: 1 \\quad\\quad\\:\\:\\: 2 \\quad\\quad\\:\\:\\:\\: 3 \\quad\\quad\\:\\:\\: 4 \\quad\\quad\\:\\:\\: 5 \\quad\\quad\\:\\:\\:\\: 6 \\quad\\quad\\:\\:\\: 7 \\quad\\quad\\:\\:\\: 8$\n\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/196407aeaab88f7edfce20c80522f1a0.jpg&#34;: {&#34;width&#34;: 479, &#34;height&#34;: 108}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3d8e87a2a34491b4652a1d740c307c63.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3d8e87a2a34491b4652a1d740c307c63.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3d8e87a2a34491b4652a1d740c307c63.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3d8e87a2a34491b4652a1d740c307c63.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3d8e87a2a34491b4652a1d740c307c63.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3d8e87a2a34491b4652a1d740c307c63.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3d8e87a2a34491b4652a1d740c307c63.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3d8e87a2a34491b4652a1d740c307c63.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3d8e87a2a34491b4652a1d740c307c63.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $8$ monkeys in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5, 6, 7$.  \nDrag a squirrel into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/edd98c655f441eccc0a1ebfe8e886914.jpg)  \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\: 2 \\qquad\\quad 3 \\qquad\\quad\\: 4 \\qquad\\quad 5 \\qquad\\quad\\: 6 \\qquad\\quad\\: 7$\n\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/edd98c655f441eccc0a1ebfe8e886914.jpg&#34;: {&#34;width&#34;: 479, &#34;height&#34;: 108}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e636e90dae76a564b5cb25a6faa28cb.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e636e90dae76a564b5cb25a6faa28cb.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e636e90dae76a564b5cb25a6faa28cb.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e636e90dae76a564b5cb25a6faa28cb.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e636e90dae76a564b5cb25a6faa28cb.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e636e90dae76a564b5cb25a6faa28cb.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e636e90dae76a564b5cb25a6faa28cb.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/1e636e90dae76a564b5cb25a6faa28cb.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $7$ squirrels in the box.**\n\n\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5, 6, 7, 8, 9$.  \nDrag a piece of cheese into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/73499d9d3518437c88dc31ef42e42e05.jpg)  \n$\\quad\\quad 1 \\quad\\quad\\:\\: 2 \\quad\\quad\\:\\:3  \\quad\\quad\\:\\: 4  \\quad\\quad\\:\\: 5  \\quad\\quad\\:\\: 6\\quad\\quad\\:\\: 7  \\quad\\quad\\:\\: 8\\quad\\quad\\:\\: 9$&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/73499d9d3518437c88dc31ef42e42e05.jpg&#34;: {&#34;width&#34;: 479, &#34;height&#34;: 104}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/e758a03897b9947ace9d4ce8b75f2e2d.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/e758a03897b9947ace9d4ce8b75f2e2d.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/e758a03897b9947ace9d4ce8b75f2e2d.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/e758a03897b9947ace9d4ce8b75f2e2d.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/e758a03897b9947ace9d4ce8b75f2e2d.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/e758a03897b9947ace9d4ce8b75f2e2d.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/e758a03897b9947ace9d4ce8b75f2e2d.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/e758a03897b9947ace9d4ce8b75f2e2d.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/e758a03897b9947ace9d4ce8b75f2e2d.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/e758a03897b9947ace9d4ce8b75f2e2d.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $9$ pieces of cheese in the box.**\n\n\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5$.  \nDrag an elephant into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/d735758e1523a04f4ea22444a08b252e.jpg)  \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\:\\: 2 \\qquad\\quad\\:\\: 3 \\qquad\\quad\\:\\: 4 \\qquad\\quad\\:\\: 5$\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/d735758e1523a04f4ea22444a08b252e.jpg&#34;: {&#34;width&#34;: 360, &#34;height&#34;: 107}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3413367dc19ceb0f2c1ce62b49fa3e86.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3413367dc19ceb0f2c1ce62b49fa3e86.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3413367dc19ceb0f2c1ce62b49fa3e86.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3413367dc19ceb0f2c1ce62b49fa3e86.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3413367dc19ceb0f2c1ce62b49fa3e86.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/3413367dc19ceb0f2c1ce62b49fa3e86.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $5$ elephants in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4$.  \nDrag a banana into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/4544620b2e5657a040eca55a386f2387.jpg)  \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\:\\: 2 \\qquad\\quad\\:\\: 3 \\qquad\\quad\\:\\: 4$&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/4544620b2e5657a040eca55a386f2387.jpg&#34;: {&#34;width&#34;: 310, &#34;height&#34;: 108}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/6595ec3558f7f4dde334e7d17d1381da.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/6595ec3558f7f4dde334e7d17d1381da.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/6595ec3558f7f4dde334e7d17d1381da.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/6595ec3558f7f4dde334e7d17d1381da.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/6595ec3558f7f4dde334e7d17d1381da.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $4$ bananas in the box.**\n\n\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count $1, 2, 3, 4, 5, 6$.  \nDrag a flower into the box for each number. \n\n![](/7b3c7fb9cff0be4a17f20542e543a455/images/cfb0e13b6e92240681e299a9255a5a87.jpg)  \n$\\qquad\\:\\:\\: 1 \\qquad\\quad\\:\\: 2 \\qquad\\quad\\:\\: 3 \\qquad\\quad\\:\\: 4 \\qquad\\quad\\:\\: 5 \\qquad\\quad\\:\\: 6$\n&#34;, &#34;images&#34;: {&#34;/7b3c7fb9cff0be4a17f20542e543a455/images/cfb0e13b6e92240681e299a9255a5a87.jpg&#34;: {&#34;width&#34;: 440, &#34;height&#34;: 107}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;orderer 1&#34;: {&#34;options&#34;: {&#34;options&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/609791cafff9dec63c3758d70dd15438.png)&#34;}], &#34;correctOptions&#34;: [{&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/609791cafff9dec63c3758d70dd15438.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/609791cafff9dec63c3758d70dd15438.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/609791cafff9dec63c3758d70dd15438.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/609791cafff9dec63c3758d70dd15438.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/609791cafff9dec63c3758d70dd15438.png)&#34;}, {&#34;content&#34;: &#34;![](/7b3c7fb9cff0be4a17f20542e543a455/images/609791cafff9dec63c3758d70dd15438.png)&#34;}], &#34;height&#34;: &#34;auto&#34;, &#34;otherOptions&#34;: [], &#34;layout&#34;: &#34;horizontal&#34;}, &#34;type&#34;: &#34;orderer&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Put $6$ flowers in the box.**\n\n[[☃ orderer 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

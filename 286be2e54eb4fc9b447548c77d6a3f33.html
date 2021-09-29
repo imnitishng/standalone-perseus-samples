@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="28" data-dump="[{&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/286be2e54eb4fc9b447548c77d6a3f33/images/544075b729fdcbe2259f5990450a3284.png)  \n$\\qquad\\qquad\\qquad\\qquad\\:\\:\\:\\green{8} \\qquad\\:\\qquad\\qquad\\qquad+ \\:\\:\\:\\:\\:\\:\\:\\:\\:\\:\\blue2 \\:\\:\\:\\:\\:\\:\\:\\:\\: = 10$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/65697f7670efd5d57abf55c1829e7a5b.png)  \n$\\qquad\\qquad\\:\\ \\green4\\qquad\\qquad +\\:\\:\\:\\:\\:\\:\\:\\ \\qquad\\qquad\\quad\\blue6\\:\\:\\:\\:\\:\\:\\:\\:\\:\\:\\:\\:\\:\\:\\:\\ \\:\\:\\:\\:\\:\\:\\:\\ \\:\\:\\:= 10$&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/65697f7670efd5d57abf55c1829e7a5b.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 70}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/544075b729fdcbe2259f5990450a3284.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 70}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;**How can we make $10$ mice?**  \n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/544075b729fdcbe2259f5990450a3284.png)  \n$\\green{8} + $ [[☃ input-number 1]] $= 10$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/65697f7670efd5d57abf55c1829e7a5b.png)  \n[[☃ input-number 2]] $ + $ $\\blue6= 10$&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/65697f7670efd5d57abf55c1829e7a5b.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 70}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/b34177caf4b7b79477e9825ef2242cfa.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 46}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/544075b729fdcbe2259f5990450a3284.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 70}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/286be2e54eb4fc9b447548c77d6a3f33/images/fa3cbd19f27050c0241afc71c6792673.png)  \n$\\qquad\\qquad\\quad\\:\\green{4} \\qquad\\qquad\\:\\:\\:+\\:\\qquad\\qquad\\quad\\:\\ \\blue5\\qquad\\qquad\\quad\\:\\ = 9$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/d01149fe45565e56997ab7f110b508cc.png)  \n$\\quad\\:\\:\\:\\qquad\\:\\ \\green3\\qquad\\quad\\:\\:\\ +$ $\\qquad\\qquad\\qquad\\:\\:\\ \\blue{6}\\qquad\\qquad\\qquad\\:\\:\\:\\:= 9$&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/fa3cbd19f27050c0241afc71c6792673.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/d01149fe45565e56997ab7f110b508cc.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;**How can we make $9$ whales?**  \n\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/fa3cbd19f27050c0241afc71c6792673.png)  \n$\\green{4}+$ [[☃ input-number 1]] $= 9$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/d01149fe45565e56997ab7f110b508cc.png)  \n[[☃ input-number 2]] $+$ $\\blue{6}= 9$\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/d01149fe45565e56997ab7f110b508cc.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/1542c4d024f34d34cba034715ecde544.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 52}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/fa3cbd19f27050c0241afc71c6792673.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/286be2e54eb4fc9b447548c77d6a3f33/images/81db420f753c81e23f0ac22f0a510dbe.png)  \n$\\qquad\\qquad\\qquad\\qquad\\:\\:\\green{7} \\qquad\\qquad\\qquad\\qquad+ \\quad\\:\\:\\:\\:\\:\\blue{2} \\qquad\\quad= 9$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/3f515f7c9cbad173059b359030c9ced6.png)  \n$\\qquad\\qquad\\qquad\\:\\green{5}\\qquad\\qquad\\:\\:\\:\\:\\:\\:\\:\\:+$ $\\qquad\\qquad\\:\\:\\blue{4}\\qquad\\qquad\\:\\:\\:\\:= 9$&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/81db420f753c81e23f0ac22f0a510dbe.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/3f515f7c9cbad173059b359030c9ced6.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;**How can we make $9$ ladybugs?**  \n\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/81db420f753c81e23f0ac22f0a510dbe.png)  \n$\\green{7}+$ [[☃ input-number 1]] $= 9$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/3f515f7c9cbad173059b359030c9ced6.png)  \n[[☃ input-number 2]] $+$ $\\blue{4}= 9$&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/81db420f753c81e23f0ac22f0a510dbe.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/3f515f7c9cbad173059b359030c9ced6.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/d75f5f0315c3c17d9afeedbd081130b8.png&#34;: {&#34;width&#34;: 375, &#34;height&#34;: 48}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/286be2e54eb4fc9b447548c77d6a3f33/images/669a430105bcd78b5ab32a71ca3ea37a.png)  \n$\\qquad\\qquad\\:\\:\\:\\:\\:\\:\\: \\green{4} \\qquad\\qquad\\:\\:+\\:\\:\\:\\:\\:\\:\\:\\:\\:\\qquad\\:\\:\\ \\blue4 \\qquad\\:\\:\\:\\:\\:\\:\\:\\:\\:\\:= 8$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/6d82ed5d3fea0fd75463a3016c72a474.png)  \n$\\qquad\\qquad\\qquad\\:\\:\\:\\:\\:\\:\\: \\green6 \\qquad\\quad\\qquad\\:\\:\\: \\:\\:\\:\\:+$ $\\qquad\\:\\:\\blue{2}\\qquad\\: = 8$&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/6d82ed5d3fea0fd75463a3016c72a474.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/669a430105bcd78b5ab32a71ca3ea37a.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;**How can we make $8$ elephants?**  \n  \n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/669a430105bcd78b5ab32a71ca3ea37a.png)  \n$\\green{4}+$ [[☃ input-number 1]] $= 8$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/6d82ed5d3fea0fd75463a3016c72a474.png)  \n[[☃ input-number 2]] $+$ $\\blue{2}= 8$\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/6d82ed5d3fea0fd75463a3016c72a474.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/669a430105bcd78b5ab32a71ca3ea37a.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/b9dcb197a456b40af8ed13d95f311e3a.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 56}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/286be2e54eb4fc9b447548c77d6a3f33/images/e288d0094b25fc00209277a643c0091b.png)  \n$\\qquad\\quad\\green{2} \\qquad\\:\\:+\\:\\qquad\\qquad\\quad\\:\\ \\blue5\\qquad\\qquad\\qquad= 7$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/b7a2192ce4af7bac43f959f8a1d64706.png)  \n$\\qquad \\green1 \\quad\\:+$ $\\qquad\\qquad\\qquad\\:\\:\\ \\blue{6}\\qquad\\qquad\\qquad\\:\\:\\:\\:\\:\\:= 7$&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/b7a2192ce4af7bac43f959f8a1d64706.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/e288d0094b25fc00209277a643c0091b.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;**How can we make $7$ sharks?**  \n\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/e288d0094b25fc00209277a643c0091b.png)  \n$\\green{2}+$ [[☃ input-number 1]] $= 7$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/b7a2192ce4af7bac43f959f8a1d64706.png)  \n[[☃ input-number 2]] $+$ $\\blue{6}= 7$&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/b7a2192ce4af7bac43f959f8a1d64706.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/e288d0094b25fc00209277a643c0091b.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/03f15ee15a87660e82739c6ec1ff7006.png&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 58}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/86ecf29b18bb8222a13e5ea533059e60.png)  \n$\\qquad \\green{1} \\:\\:\\:\\:\\:\\:+\\: \\qquad\\qquad\\:\\:\\:\\:\\:\\: \\blue5$ $\\qquad\\qquad\\:\\:\\:\\:\\:\\;\\:= 6$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/3cf167c1ac03706726a52288f57b9eef.png)  \n$\\qquad\\qquad\\green3$$\\qquad\\:\\:\\:\\:\\:\\:\\: +$ $\\qquad\\:\\:\\:\\:\\:\\ \\blue{3}\\qquad\\qquad= 6$\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/3cf167c1ac03706726a52288f57b9eef.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/86ecf29b18bb8222a13e5ea533059e60.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;**How can we make $6$ flowers?**  \n\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/86ecf29b18bb8222a13e5ea533059e60.png)  \n$\\green{1}+$ [[☃ input-number 1]] $= 6$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/3cf167c1ac03706726a52288f57b9eef.png)  \n[[☃ input-number 2]] $+$ $\\blue{3}= 6$\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/3cda2ba7557d75cbbe268fd22efdc5e9.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 56}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/86ecf29b18bb8222a13e5ea533059e60.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/3cf167c1ac03706726a52288f57b9eef.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](/286be2e54eb4fc9b447548c77d6a3f33/images/d9fdb1cc7a57b600ef3ed5bff6b7ff24.png)  \n$\\qquad\\green{1} \\:\\:\\:\\:\\:\\ + \\qquad \\:\\:\\:\\:\\:\\:\\:\\:\\:\\:\\: \\blue4 \\qquad\\qquad\\:\\:\\:\\ = 5$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/a51d905b52209f9ea12144431027ab4b.png)  \n$\\qquad\\:\\:\\:\\: \\green2 \\,\\:\\:\\:\\:\\:\\:\\:\\:\\:\\:\\ + $ $\\qquad\\:\\:\\:\\:\\:\\:\\blue{3}\\qquad\\:\\:\\:\\:\\:\\:\\:\\:= 5$   &#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/d9fdb1cc7a57b600ef3ed5bff6b7ff24.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/a51d905b52209f9ea12144431027ab4b.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;**How can we make $5$ caterpillars?**  \n\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/d9fdb1cc7a57b600ef3ed5bff6b7ff24.png)  \n$\\green{1}+$ [[☃ input-number 1]] $= 5$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/a51d905b52209f9ea12144431027ab4b.png)  \n[[☃ input-number 2]] $+ $ $\\blue{3}= 5$&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/a51d905b52209f9ea12144431027ab4b.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/ba104284104f1e079e0aa8859f9c3031.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 56}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/d9fdb1cc7a57b600ef3ed5bff6b7ff24.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 74}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$10=5+\\red5$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/1ba42f07f47294ec6383fd23e73fc251.png)\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/1ba42f07f47294ec6383fd23e73fc251.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$10=\\red7+3$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/e059adff7e8436274002a0bc3d66fa4a.png)\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/e059adff7e8436274002a0bc3d66fa4a.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$10 = 5 + \\red5$\n\n\n$10 = \\red7 +3$    \n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How can we make $10$ monkeys?**\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/2eaf5f59deba310bc702005dfed8f3d3.png)\n\n$10 = 5 + $  [[☃ input-number 1]] \n\n\n $10 = $  [[☃ input-number 2]] $+$ $3$    \n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/2eaf5f59deba310bc702005dfed8f3d3.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 48}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/cec0a7e401893e8064cf88126e7cf4ca.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 150}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/40b8e4d81535ac300d811cca63e6b4b7.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 150}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$9=8+\\red1$  \n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/ecf8e68af820aa57c456521a202a2767.png)&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/ecf8e68af820aa57c456521a202a2767.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$9=\\red6+3$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/ca5b97473d1f60dd0428775a4514fdf5.png)&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/ca5b97473d1f60dd0428775a4514fdf5.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$9 = 8 + \\red1$\n\n $9 = \\red6 +3$    \n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How can we make $9$ foxes?**  \n![](/286be2e54eb4fc9b447548c77d6a3f33/images/1fd79e2acf5e03c1d2a63746debc1f71.png)\n\n\n$9 = 8 + $  [[☃ input-number 1]] \n\n $9 = $  [[☃ input-number 2]] $+$ $3$    \n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/1fd79e2acf5e03c1d2a63746debc1f71.png&#34;: {&#34;width&#34;: 375, &#34;height&#34;: 48}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/5a8d94304e86ba2dbd3b51d9aa5b906b.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/75143328553e1acaa2f117de606126ee.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$8 = 1 + \\red7$ \n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/efb42b68707ecc2e1a5cd4dff3a2bc46.png)&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/efb42b68707ecc2e1a5cd4dff3a2bc46.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$8 = \\red4+$ $4$  \n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/cd089cf017d3f4df1e524f2dbb0374fc.png)&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/cd089cf017d3f4df1e524f2dbb0374fc.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$8 = 1 + \\red7$ \n\n$8 = \\red4+$ $4$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How can we make $8$ ladybugs?**  \n![](/286be2e54eb4fc9b447548c77d6a3f33/images/57d2042e69cfbb05e69a4f0eb6af2d08.png)\n\n$8 = 1 + $  [[☃ input-number 1]]\n\n$8 = $  [[☃ input-number 2]] $+$ $4$\n\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/efb42b68707ecc2e1a5cd4dff3a2bc46.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/57d2042e69cfbb05e69a4f0eb6af2d08.png&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 50}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/cd089cf017d3f4df1e524f2dbb0374fc.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$7=5+\\red2$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/14c83efa65eedd49a75b528534a5d442.png)\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/14c83efa65eedd49a75b528534a5d442.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$7=\\red3+4$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/f6840324d368bbc50fd979ebf1d92571.png)\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/f6840324d368bbc50fd979ebf1d92571.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$7 = 5 + \\red2$\n\n\n $7 = \\red3 +4$    \n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How can we make $7$ sharks?**  \n![](/286be2e54eb4fc9b447548c77d6a3f33/images/7ecd0ee95c1957ada57b0c2496f59141.png)\n\n\n$7 = 5 + $  [[☃ input-number 1]] \n\n $7 = $  [[☃ input-number 2]] $+$ $4$    \n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/df9dba2dc634ff54ca3bcd68ae0b848e.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/7ecd0ee95c1957ada57b0c2496f59141.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 50}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/1715a48c03cbaaac98dfbd4fb7d52be9.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$6=3+\\red3$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/b1e75f5b941ea05255caaad298f858ae.png)\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/b1e75f5b941ea05255caaad298f858ae.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$6=\\red4+2$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/499ec03a4203eac33e89a098abd8d9db.png)\n\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/499ec03a4203eac33e89a098abd8d9db.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$6 = 3 + \\red3$\n\n $6 = \\red4 +2$    \n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How can we make $6$ apples?**  \n![](/286be2e54eb4fc9b447548c77d6a3f33/images/8153efe3055ac95f248fee998a4a9ba4.png)\n\n\n$6 = 3 + $  [[☃ input-number 1]] \n\n $6 = $  [[☃ input-number 2]] $+$ $2$    \n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/31228bdab7d86dd71302fced7c7f451d.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/8153efe3055ac95f248fee998a4a9ba4.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 58}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/a0709d9544cf3454873e6a8e2c441a2e.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$5=3+\\red2$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/eafc8a960f8140a53b83369bdb1d7cbe.png)\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/eafc8a960f8140a53b83369bdb1d7cbe.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$5=\\red1+4$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/6b1e16546b7dfb6e8b6856729902014c.png)\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/6b1e16546b7dfb6e8b6856729902014c.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$5 = 3 + \\red2$\n\n $5 = \\red1 +4$    \n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How can we make $5$ elephants?**  \n![](/286be2e54eb4fc9b447548c77d6a3f33/images/f3192133fca2bf9348dd4242a6474c0c.png)\n\n\n$5 = 3 + $  [[☃ input-number 1]]  \n\n$5 = $  [[☃ input-number 2]] $+$ $4$    \n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/982627e4f357e11778a41242467d1308.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/7d98e1d1be324f6f56e3acc16fd153bb.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/f3192133fca2bf9348dd4242a6474c0c.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 50}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$4=3+\\red1$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/eaa78c4762fc2ef8e62ffabdaf062a68.png)\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/eaa78c4762fc2ef8e62ffabdaf062a68.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$4=\\red2+2$\n\n![](/286be2e54eb4fc9b447548c77d6a3f33/images/fea260bf9fea3292fe3382f3707b6128.png)\n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/fea260bf9fea3292fe3382f3707b6128.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 93}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$4 = 3 + \\red1$\n\n$4 = \\red2 +2$    \n&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How can we make $4$ acorns?**  \n![](/286be2e54eb4fc9b447548c77d6a3f33/images/61ecdcabae1f651683336e1f5d9f0d09.png)\n\n$4 = 3 + $  [[☃ input-number 1]] \n\n $4 = $  [[☃ input-number 2]] $+$ $2$    \n&#34;, &#34;images&#34;: {&#34;/286be2e54eb4fc9b447548c77d6a3f33/images/0e869497e7110e4c5f4f505531ab401f.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/61ecdcabae1f651683336e1f5d9f0d09.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 47}, &#34;/286be2e54eb4fc9b447548c77d6a3f33/images/9667342686d0664618872fccc643083d.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 133}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/f92eef304237421beac5a153483fe58c53d5e974)\n\n$5+5=10$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/f92eef304237421beac5a153483fe58c53d5e974&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/a37a7ed735be14f34a28fe0cfd05b1c53ef1cd25)\n\n$6+4=10$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/a37a7ed735be14f34a28fe0cfd05b1c53ef1cd25&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/7d072cbda5691fcb22ca089b2a3163099b59b75f)\n\n$2+8=10$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/7d072cbda5691fcb22ca089b2a3163099b59b75f&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer\n\n$5+5$\n\n$6+4$\n\n$2+8$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$5+5$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$6+4$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$2+8$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: true, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How can we make $10$?**  \n\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/728b5ac8f000a5670da40e5eceb3f38bd94968c6)\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/728b5ac8f000a5670da40e5eceb3f38bd94968c6&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/633f355a568202dbd36aa1752c1d08e3ba223f69)\n\n$1+7$ does not equal $9$.&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/633f355a568202dbd36aa1752c1d08e3ba223f69&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/f82d0df673390e36bb5d45949cff37e58aba1017)\n\n$5+4=9$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/f82d0df673390e36bb5d45949cff37e58aba1017&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/edf72476c0d8117578b9313197d51cbecbe52b24)\n\n$8+2$ does not equal $9$.&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/edf72476c0d8117578b9313197d51cbecbe52b24&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer\n\n$5+4$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$1+7$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5+4$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$8+2$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: true, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How can we make $9$?**  \n\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/71c75a37b7f314f96cfd978d1530a115e9c95c22)\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/71c75a37b7f314f96cfd978d1530a115e9c95c22&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/a7151eed59a50c57e6908633bbb6eb46acf32802)\n\n$1+7=8$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/a7151eed59a50c57e6908633bbb6eb46acf32802&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/6abc4a58e5850fe17319120f5d76701e7a668d57)\n\n$5+4$ does not equal $8$.&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/6abc4a58e5850fe17319120f5d76701e7a668d57&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/83b852dbe1f21a9af9fd97736423671978d3cad3)\n\n$6+2=8$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/83b852dbe1f21a9af9fd97736423671978d3cad3&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer\n\n$1+7$\n\n$6+2$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$1+7$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$5+4$&#34;}, {&#34;content&#34;: &#34;$6+2$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: true, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How can we make $8$?**  \n\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/0f1b556091618558a3dd3795bd5d4cdb2d722947)\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/0f1b556091618558a3dd3795bd5d4cdb2d722947&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/696dfe6076ff1c82d1d46c03171efefd78935288)\n\n$2+5=7$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/696dfe6076ff1c82d1d46c03171efefd78935288&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/bed85f5bb7cce3fc958e061a7b09e4a90595d649)\n\n$3+4=7$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/bed85f5bb7cce3fc958e061a7b09e4a90595d649&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/9afba3e6267412c43b79d0163dde47de9593dbb6)\n\n$6+2$ does not equal $7$.&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/9afba3e6267412c43b79d0163dde47de9593dbb6&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer\n\n$2+5$\n\n$3+4$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$2+5$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$3+4$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$6+2$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: true, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How can we make $7$?**  \n\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/95ba106601f77e77337888eefed355cac3ee88d0)\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/95ba106601f77e77337888eefed355cac3ee88d0&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/0e42eea6ceeee0c46e5b215f3cf25293c73aa9e7)\n\n$3+3=6$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/0e42eea6ceeee0c46e5b215f3cf25293c73aa9e7&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/fc545e045dadf18f66234c10469dd241f6e3d2e7)\n\n$5+1=6$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/fc545e045dadf18f66234c10469dd241f6e3d2e7&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/cff98561eb2aa02e38ac9d552810f7608a276b1c)\n\n$2+4=6$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/cff98561eb2aa02e38ac9d552810f7608a276b1c&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer\n\n$3+3$\n\n$5+1$\n\n$2+4$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$3+3$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$5+1$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$2+4$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: true, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How can we make $6$?**  \n\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/f88326e36d3fb81b3205c9707f61bf28960b8d40)\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/f88326e36d3fb81b3205c9707f61bf28960b8d40&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/1212a5ee13a5de384ddd390873c2427c64967e1e)\n\n$2+4$ does not equal $5$.&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/1212a5ee13a5de384ddd390873c2427c64967e1e&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/c6ec38ea5ee1bf784c442967bbe4aafffd7f1feb)\n\n$3+2=5$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/c6ec38ea5ee1bf784c442967bbe4aafffd7f1feb&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/1e0f4ea0b655a250a0e27741dd51a6f564eaf91e)\n\n$1+6$ does not equal $5$.&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/1e0f4ea0b655a250a0e27741dd51a6f564eaf91e&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer\n\n$3+2$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$2+4$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$3+2$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$1+6$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: true, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How can we make $5$?**  \n\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/5b71e57a60e405484a6ce0c81891b29849881798)\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/5b71e57a60e405484a6ce0c81891b29849881798&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/936f7842ca3856e2e072cd1fc169eecba3d838f6)\n\n$1+5$ does not equal $4$.&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/936f7842ca3856e2e072cd1fc169eecba3d838f6&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/1feaa3e147e3a973af77e950abc4223fa1236c52)\n\n$2+2=4$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/1feaa3e147e3a973af77e950abc4223fa1236c52&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/1da7f71f8001751702304621f15639efa6670df9)\n\n$3+1=4$&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/1da7f71f8001751702304621f15639efa6670df9&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer\n\n$2+2$\n\n$3+1$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$1+5$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$2+2$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$3+1$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: true, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How can we make $4$?**  \n\n![](web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/9e880a967a14048b200eb0e0faf2153b42f4b09c)\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;web+graphie:286be2e54eb4fc9b447548c77d6a3f33/images/9e880a967a14048b200eb0e0faf2153b42f4b09c&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 175}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$3 + 1 = \\blue{4}$  \n$2+ \\blue{2} = 4$  \n$\\blue{1} +3 = 4$  \n$3 + \\blue{1} = 4$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 3&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$3+1 =$ [[☃ input-number 1]]  \n\n$2 +$ [[☃ input-number 2]] $ = 4$  \n\n[[☃ input-number 3]] $+ \\,3 = 4$  \n\n$3 + $ [[☃ input-number 4]] $ =4$&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$1 + 4 = \\blue{5}$  \n$4+ \\blue{1} = 5$  \n$\\blue{3} + 2 = 5$  \n$3 + \\blue{2} = 5$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 3&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$1+4 =$ [[☃ input-number 1]]  \n\n$4 +$ [[☃ input-number 2]] $ = 5$  \n\n[[☃ input-number 3]] $+ \\,2 = 5$  \n\n$3 + $ [[☃ input-number 4]] $ =5$&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$4 + 2 = \\blue{6}$  \n$5+ \\blue{1} =6$  \n$\\blue{2} +4 = 6$  \n$3 + \\blue{3} = 6$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 3&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$4+2 =$ [[☃ input-number 1]]  \n\n$5 +$ [[☃ input-number 2]] $ = 6$  \n\n[[☃ input-number 3]] $+ \\,4 = 6$  \n\n$3+ $ [[☃ input-number 4]] $ =6$&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$3 + 4 = \\blue{7}$  \n$4+ \\blue{3} = 7$  \n$\\blue{1} + 6 = 7$  \n$5 + \\blue{2} = 7$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 3&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 7, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$3+4 =$ [[☃ input-number 1]]  \n\n$4 +$ [[☃ input-number 2]] $ = 7$  \n\n[[☃ input-number 3]] $+ \\,6 = 7$  \n\n$5 + $ [[☃ input-number 4]] $ =7$&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$6 + 2 = \\blue{8}$  \n$5+ \\blue{3} =8$  \n$\\blue{4} +4 = 8$  \n$7 + \\blue{1} = 8$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 3&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$6+2 =$ [[☃ input-number 1]]  \n\n$5 +$ [[☃ input-number 2]] $ = 8$  \n\n[[☃ input-number 3]] $+ \\,4 = 8$  \n\n$7+ $ [[☃ input-number 4]] $ =8$&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$4 +5 = \\blue{9}$  \n$8+ \\blue{1} = 9$  \n$\\blue{6} + 3 = 9$  \n$7 + \\blue{2} = 9$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 3&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 9, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$4 + 5 =$ [[☃ input-number 1]]  \n\n$8 +$ [[☃ input-number 2]] $ = 9$  \n\n[[☃ input-number 3]] $+ \\,3 = 9$  \n\n$7 + $ [[☃ input-number 4]] $ =9$&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$5 + 5 = \\blue{10}$  \n$8+ \\blue{2} = 10$  \n$\\blue{6} + 4 = 10$  \n$9 + \\blue{1} = 10$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 3&#34;: {&#34;options&#34;: {&#34;value&#34;: 6, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 2&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 10, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}, &#34;input-number 4&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;small&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$5 + 5 =$ [[☃ input-number 1]]  \n\n$8 +$ [[☃ input-number 2]] $ = 10$  \n\n[[☃ input-number 3]] $+ \\,4 = 10$  \n\n$9 + $ [[☃ input-number 4]] $ = 10$&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

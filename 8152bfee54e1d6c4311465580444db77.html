@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="12" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $72 + \\purpleD1\\maroonD6$ as $72 +\\purpleD{10}+\\maroonD6$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e2293d922ea9ca7839e4756121fc1f5f5397d19c&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, on the number line, we start at $72$ and move **right** $\\purpleD{10}$.\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/4f5dbeb11f0d64fff215cf09adca151df3ccc909)\n\n$72 + \\purpleD{10} = 82$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/4f5dbeb11f0d64fff215cf09adca151df3ccc909&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Next, we can move **right** $\\maroonD6$ more.\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/d50d0fe13e522952833ed225873cb1474fac98d1)\n\n$82 + \\maroonD6 = 88$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/d50d0fe13e522952833ed225873cb1474fac98d1&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\Large{{72} + \\purpleD1\\maroonD6 = 88}$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/661f9aca3109c9341f722ea140dd025cb86e007a&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 88, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Add.**  \n*Use the number line to help you add $72 + 16$.*\n\n$\\Large{72 + 16 ={}}$ [[☃ numeric-input 1]]\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/ba0587bdb88e2307c54ed658367f2e8eeefac92b)\n&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/ba0587bdb88e2307c54ed658367f2e8eeefac92b&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $47 + \\purpleD2\\maroonD2$ as $47 +\\purpleD{20}+\\maroonD2$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, on the number line, we start at $47$ and move **right** $\\purpleD{20}$.\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/084333cf932a09a0a0cd985947a8dd3110639afd)\n\n$47 + \\purpleD{20} = 67$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/084333cf932a09a0a0cd985947a8dd3110639afd&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Next, we can move **right** $\\maroonD2$ more.\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/2925dddfb78f4ba96e8588edfd769331628c044e)\n\n$47 + \\maroonD2 = 49$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/2925dddfb78f4ba96e8588edfd769331628c044e&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\Large{{47} + \\purpleD2\\maroonD2 = 69}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 69, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Add.**  \n*Use the number line to help you add $47 + 22$.*\n\n$\\Large{47 + 22 ={}}$ [[☃ numeric-input 1]]\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/f584e260427118b26ad3f39a679cebf897498204)&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/f584e260427118b26ad3f39a679cebf897498204&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $33 + \\purpleD4\\maroonD8$ as $33 +\\purpleD{40}+\\maroonD8$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, on the number line, we start at $33$ and move **right** $\\purpleD{40}$.\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/bf49838dd9b1b5b66f2cf122cd15ffc104a1507f)\n\n$33 + \\purpleD{40} = 73$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/bf49838dd9b1b5b66f2cf122cd15ffc104a1507f&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Next, we can move **right** $\\maroonD8$ more.\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/0607d673ff4342b890e8433603f468875e198dd0)\n\n$73+ \\maroonD8 = 81$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/0607d673ff4342b890e8433603f468875e198dd0&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\Large{{33} + \\purpleD4\\maroonD8 = 81}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 81, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Add.**  \n*Use the number line to help you add $33 + 48$.*\n\n$\\Large{33 + 48 ={}}$ [[☃ numeric-input 1]]\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/c6e6fc0a79d6fafe0d65758182e7a1d884c50816)&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/c6e6fc0a79d6fafe0d65758182e7a1d884c50816&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $45 + \\purpleD3\\maroonD9$ as $45 +\\purpleD{30}+\\maroonD9$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So, on the number line, we start at $45$ and move **right** $\\purpleD{30}$.\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/487e800d693fb742196f046744daa60221db2972)\n\n$45 + \\purpleD{30} =75$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/487e800d693fb742196f046744daa60221db2972&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Next, we can move **right** $\\maroonD9$ more.\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/5a3601bb2bd801160de05049b8dfe25aa7e243b5)\n\n$75+ \\maroonD9 = 84$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/5a3601bb2bd801160de05049b8dfe25aa7e243b5&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\Large{{75} + \\purpleD3\\maroonD9 = 84}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 84, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;**Add.**  \n*Use the number line to help you add $45 + 39$.*\n\n$\\Large{45 + 39 ={}}$ [[☃ numeric-input 1]]\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/927b132937de9fc30884f6795654ace062ce66ed)\n&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/927b132937de9fc30884f6795654ace062ce66ed&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $56$ and move **right** $\\purpleD{20}$, then $\\maroonD8$ more.\n\nWe can represent this as  $56 +\\purpleD{20}+\\maroonD8$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/96881f32d470e0bde87f117ba7fd54a2230be048&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$56 + \\purpleD{20} + \\maroonD8 = 56 + \\purpleD2\\maroonD8$\n\n&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This equation represents the number line:\n\n$56 + 28 = 84$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/f353e6dcc9b31a46672d608319a92266e6517812&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;$56 + 82 = 84$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$56 + 28 =100$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$56 + 28 = 84$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which equation can be solved with the following number line?**\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/c52b52bc2666bc6d9635d509ccfbead1d30636dd)\n\n[[☃ radio 2]]\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/c52b52bc2666bc6d9635d509ccfbead1d30636dd&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $63$ and move **right** $\\purpleD{10}$, then $\\maroonD8$ more.\n\nWe can represent this as  $63 +\\purpleD{10}+\\maroonD8$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$63 + \\purpleD{10} + \\maroonD8 = 63 + \\purpleD1\\maroonD8$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This equation represents the number line:\n\n$63 +18 = 81$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/645f86e19d9f64d261fa1be2d9513946a300e1a8&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;$63 + 18 = 73$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$63 + 81 =18$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$63 + 18 = 81$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which equation can be solved with the following number line?**\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/87447a3f2ef2d4a7c60fc7a11b82199ff4c14605)\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/87447a3f2ef2d4a7c60fc7a11b82199ff4c14605&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $21$ and move **right** $\\purpleD{70}$, then $\\maroonD5$ more.\n\nWe can represent this as  $21 +\\purpleD{70}+\\maroonD5$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$21 + \\purpleD{70} + \\maroonD5 =21 + \\purpleD7\\maroonD5$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This equation represents the number line:\n\n$21 +75 = 96$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e88a78c0b53508466898ba2bbf50686302607957&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;$21 + 75 = 91$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$21 + 91 =75$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$21 + 75 = 96$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which equation can be solved with the following number line?**\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/4669aab0198b0c7e63729e87d12d345fd411c430)\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/4669aab0198b0c7e63729e87d12d345fd411c430&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $39$ and move **right** $\\purpleD{30}$, then $\\maroonD9$ more.\n\nWe can represent this as  $44 +\\purpleD{30}+\\maroonD9$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$44 + \\purpleD{30} + \\maroonD9 =44 + \\purpleD3\\maroonD9$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This equation represents the number line:\n\n$44 +39 = 83$&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e88a78c0b53508466898ba2bbf50686302607957&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;$44 + 39 = 84$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$44 + 39 =74$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$44 + 39 = 83$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which equation can be solved with the following number line?**\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/1c0fc149f4331bb7196b2bc15db1f9036a5468bb)\n\n[[☃ radio 2]]&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/1c0fc149f4331bb7196b2bc15db1f9036a5468bb&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $61 +\\purpleD2\\maroonD7$ as $61 +\\purpleD{20}+\\maroonD7$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/ce126d1f1c41e440a335cc8a436b33fd8a2ae8d6&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So on the number line, we start at $61$ and move **right** $\\purpleD{20}$ and then $\\maroonD7$ more.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This number line shows $61 + 27$:\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/5528a543e572114c006ce2284b799b44365271d6)&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/5528a543e572114c006ce2284b799b44365271d6&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/5528a543e572114c006ce2284b799b44365271d6)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/f0548657f795cfdc58d742e815506aba5a42ce2a)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/8dc582c6588ec5f28e80ad7889c9bf4fe7f16e5c)&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which number line shows $61+27$?**\n\n[[☃ radio 1]]\n&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/2fef15e5244f8b8437952aac0e1953747d4fd953&#34;: {&#34;width&#34;: 320, &#34;height&#34;: 165}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $64 +\\purpleD1\\maroonD9$ as $64 +\\purpleD{10}+\\maroonD9$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So on the number line, we start at $64$ and move **right** $\\purpleD{10}$ and then $\\maroonD9$ more.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This number line shows $64 + 19$:\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/c5c5738faefd8a0a1616c1bf4d99de68e964729c)&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/c5c5738faefd8a0a1616c1bf4d99de68e964729c&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/c5c5738faefd8a0a1616c1bf4d99de68e964729c)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/cb169bd456d103ed819f339df5375c2d78aa26e6)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/88860967eb85ef6a080c9db74ead4fcc7b220981)&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which number line shows $64+19$?**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $46 +\\purpleD5\\maroonD2$ as $46 +\\purpleD{50}+\\maroonD2$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So on the number line, we start at $46$ and move **right** $\\purpleD{50}$ and then $\\maroonD2$ more.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This number line shows $46 + 52$:\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/9be1d60ee0a678dfb9f7694194b7dc7a150bf07d)&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/9be1d60ee0a678dfb9f7694194b7dc7a150bf07d&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/d6a8340946aeda9b589dc6e51d907ba9e90e3e28)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/c8b60c1befea06966e2a879c6f3b87031c4f5133)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/9be1d60ee0a678dfb9f7694194b7dc7a150bf07d)&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which number line shows $46+52$?**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $13 +\\purpleD8\\maroonD7$ as $13 +\\purpleD{80}+\\maroonD7$.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;So on the number line, we start at $13$ and move **right** $\\purpleD{80}$ and then $\\maroonD7$ more.&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This number line shows $13 + 87$:\n\n![](web+graphie:8152bfee54e1d6c4311465580444db77/images/2a91795cf68e6ca289d4595c53edc09c125558ab)&#34;, &#34;images&#34;: {&#34;web+graphie:8152bfee54e1d6c4311465580444db77/images/2a91795cf68e6ca289d4595c53edc09c125558ab&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/2a91795cf68e6ca289d4595c53edc09c125558ab)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/6e173ed7fb5f41ccf9f007ea77684b4d5710c56a)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:8152bfee54e1d6c4311465580444db77/images/1c16cc0892393eb7e19005223295dc196047af51)&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which number line shows $13+87$?**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

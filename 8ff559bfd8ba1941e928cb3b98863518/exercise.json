@@ -1,0 +1,39 @@
+{
+    "all_assessment_items": [
+        "df86ae1c45215f51be761bf932a7f6be", 
+        "64c836d4016b518cb458e3439dafbe76", 
+        "ed5c5af0e2d4529a96ead28c876245e9", 
+        "a9d0ee676f91557381c8545898688bce", 
+        "e5704bef23855b75b9a9e18381875929", 
+        "c15362a2288d5eca94684e3117ca1a65", 
+        "7f179c962d505efa90ef4ee878bb3f8d", 
+        "a5d9896828245b84899d0e24d9522424", 
+        "f37bea1668875212930918619d764e38", 
+        "e291e9e1511a5aba920f153ea470532e", 
+        "a435e83ff2565f0187701dd3bf9d34c4", 
+        "bd0c8473dbbc5cacb9c226bc32b64887", 
+        "25e7bcb86b8c5620b5bf9f7854fce0c7", 
+        "28da7e6f2b805959a7e6aa2cf7e2220b"
+    ], 
+    "assessment_mapping": {
+        "25e7bcb86b8c5620b5bf9f7854fce0c7": "perseus_question", 
+        "28da7e6f2b805959a7e6aa2cf7e2220b": "perseus_question", 
+        "64c836d4016b518cb458e3439dafbe76": "perseus_question", 
+        "7f179c962d505efa90ef4ee878bb3f8d": "perseus_question", 
+        "a435e83ff2565f0187701dd3bf9d34c4": "perseus_question", 
+        "a5d9896828245b84899d0e24d9522424": "perseus_question", 
+        "a9d0ee676f91557381c8545898688bce": "perseus_question", 
+        "bd0c8473dbbc5cacb9c226bc32b64887": "perseus_question", 
+        "c15362a2288d5eca94684e3117ca1a65": "perseus_question", 
+        "df86ae1c45215f51be761bf932a7f6be": "perseus_question", 
+        "e291e9e1511a5aba920f153ea470532e": "perseus_question", 
+        "e5704bef23855b75b9a9e18381875929": "perseus_question", 
+        "ed5c5af0e2d4529a96ead28c876245e9": "perseus_question", 
+        "f37bea1668875212930918619d764e38": "perseus_question"
+    }, 
+    "legacy_mastery_model": "m_of_n", 
+    "m": 3, 
+    "mastery_model": "m_of_n", 
+    "n": 4, 
+    "randomize": true
+}

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="19" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/3a635e3b348ab8755f9a7285d78ea9baabc6d7aa)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/3a635e3b348ab8755f9a7285d78ea9baabc6d7aa&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/3a635e3b348ab8755f9a7285d78ea9baabc6d7aa)![](web+graphie:47a62808e5924be020720b48a361d64d/images/99c19fa9cb48f88770023532e3890645662f3aa8)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/3a635e3b348ab8755f9a7285d78ea9baabc6d7aa&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/99c19fa9cb48f88770023532e3890645662f3aa8&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There is $\\blue{1}$ blue dot.  There is $\\green{1}$ green dot.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $2$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 2, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/bc014d8dc26d781dee175be6967b9e6c44e9798e)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/bc014d8dc26d781dee175be6967b9e6c44e9798e&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13)![](web+graphie:47a62808e5924be020720b48a361d64d/images/24140c3d75374314a0543976b6605a549f726843)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/24140c3d75374314a0543976b6605a549f726843&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There is $\\blue{1}$ blue dot.   There are $\\green{2}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $3$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 3, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/a3ed3b727a111592e85e4c9e39786558e32d6f61)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/a3ed3b727a111592e85e4c9e39786558e32d6f61&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13)![](web+graphie:47a62808e5924be020720b48a361d64d/images/c660991f62388e29d62d22085b52ea0e70995da8)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/c660991f62388e29d62d22085b52ea0e70995da8&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There is $\\blue{1}$ blue dot.   There are $\\green{3}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $4$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 4, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;id&#34;: &#34;numeric-input 1&#34;, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/7c8994cca1bd103a290626adf64fec8afe174878)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/7c8994cca1bd103a290626adf64fec8afe174878&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/0ef6f82ab7862927e618be447050015586b22f71)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0ef6f82ab7862927e618be447050015586b22f71&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/0ef6f82ab7862927e618be447050015586b22f71)![](web+graphie:47a62808e5924be020720b48a361d64d/images/ac8fada192d595d304a56b4167e5442dd8fdd273)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/ac8fada192d595d304a56b4167e5442dd8fdd273&#34;: {&#34;width&#34;: 90, &#34;height&#34;: 150}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0ef6f82ab7862927e618be447050015586b22f71&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There is $\\blue{1}$ blue dot.   There are $\\green{4}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $5$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 5, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/0a607b227f17c87c483f4573df09cbf32c32e038)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0a607b227f17c87c483f4573df09cbf32c32e038&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2)![](web+graphie:47a62808e5924be020720b48a361d64d/images/99c19fa9cb48f88770023532e3890645662f3aa8)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/99c19fa9cb48f88770023532e3890645662f3aa8&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{2}$ blue dots.  There is $\\green{1}$ green dot.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $3$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 3, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/5fd0f045ef238bf2f72bb914726342fda2586c87)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/5fd0f045ef238bf2f72bb914726342fda2586c87&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2)![](web+graphie:47a62808e5924be020720b48a361d64d/images/0cbdb6630c9c10d70c463acc811eb748bc2cd0ca)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0cbdb6630c9c10d70c463acc811eb748bc2cd0ca&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{2}$ blue dots.  There are $\\green{2}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $4$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 4, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/520d422ccf9e6b303af44ac512f0f58c712feda4)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/520d422ccf9e6b303af44ac512f0f58c712feda4&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2)![](web+graphie:47a62808e5924be020720b48a361d64d/images/c660991f62388e29d62d22085b52ea0e70995da8)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/c660991f62388e29d62d22085b52ea0e70995da8&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{2}$ blue dots.  There are $\\green{3}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $5$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 5, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/3ea344df1b11462b67f568ae8683a22d765109b3)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/3ea344df1b11462b67f568ae8683a22d765109b3&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/0041a87d6104cbbdb130f3b63baf4b57523e5acd)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0041a87d6104cbbdb130f3b63baf4b57523e5acd&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/0041a87d6104cbbdb130f3b63baf4b57523e5acd)![](web+graphie:47a62808e5924be020720b48a361d64d/images/18a7c422b1bf34c5c2829af7d269b9e0442ceb15)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/18a7c422b1bf34c5c2829af7d269b9e0442ceb15&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0041a87d6104cbbdb130f3b63baf4b57523e5acd&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{3}$ blue dots. There is $\\green{1}$ green dot.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $4$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 4, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/c2bde6599950c3aefc0d4793533bed3f21c4d6e8)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/c2bde6599950c3aefc0d4793533bed3f21c4d6e8&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/0041a87d6104cbbdb130f3b63baf4b57523e5acd)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0041a87d6104cbbdb130f3b63baf4b57523e5acd&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/0041a87d6104cbbdb130f3b63baf4b57523e5acd)![](web+graphie:47a62808e5924be020720b48a361d64d/images/0cbdb6630c9c10d70c463acc811eb748bc2cd0ca)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0cbdb6630c9c10d70c463acc811eb748bc2cd0ca&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0041a87d6104cbbdb130f3b63baf4b57523e5acd&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{3}$ blue dots. There are $\\green{2}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $5$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 5, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/d5916b4b435a03824b1677236bf2a9e0798696ca)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/d5916b4b435a03824b1677236bf2a9e0798696ca&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/3a635e3b348ab8755f9a7285d78ea9baabc6d7aa)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/3a635e3b348ab8755f9a7285d78ea9baabc6d7aa&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/3a635e3b348ab8755f9a7285d78ea9baabc6d7aa)![](web+graphie:47a62808e5924be020720b48a361d64d/images/99c19fa9cb48f88770023532e3890645662f3aa8)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/3a635e3b348ab8755f9a7285d78ea9baabc6d7aa&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/99c19fa9cb48f88770023532e3890645662f3aa8&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There is $\\blue{1}$ blue dot.  There is $\\green{1}$ green dot.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $2$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 2, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/ee4f8e4beb1b21bf37a099847ba3fce7824d2e96)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/ee4f8e4beb1b21bf37a099847ba3fce7824d2e96&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13)![](web+graphie:47a62808e5924be020720b48a361d64d/images/24140c3d75374314a0543976b6605a549f726843)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/24140c3d75374314a0543976b6605a549f726843&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/916a19e43111963778bcf2f532ef627276ab9c13&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There is $\\blue{1}$ blue dot.   There are $\\green{2}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $3$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 3, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/44b4017198fcbbcddeca4edda0a52a5a172e8801)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/44b4017198fcbbcddeca4edda0a52a5a172e8801&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/0a6c81b0e7e0df2e161feef9f2d8fea851f1fe89)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0a6c81b0e7e0df2e161feef9f2d8fea851f1fe89&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/0a6c81b0e7e0df2e161feef9f2d8fea851f1fe89)![](web+graphie:47a62808e5924be020720b48a361d64d/images/b5570e35c43fd09d16d0a778c32b3adf074a7f1c)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/b5570e35c43fd09d16d0a778c32b3adf074a7f1c&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0a6c81b0e7e0df2e161feef9f2d8fea851f1fe89&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There is $\\blue{1}$ blue dot.   There are $\\green{3}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $4$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 4, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/11702b86784ba8a7ddff17f4dbf773c1f4d77f26)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/11702b86784ba8a7ddff17f4dbf773c1f4d77f26&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/0ef6f82ab7862927e618be447050015586b22f71)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0ef6f82ab7862927e618be447050015586b22f71&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/0ef6f82ab7862927e618be447050015586b22f71)![](web+graphie:47a62808e5924be020720b48a361d64d/images/ac8fada192d595d304a56b4167e5442dd8fdd273)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/ac8fada192d595d304a56b4167e5442dd8fdd273&#34;: {&#34;width&#34;: 90, &#34;height&#34;: 150}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0ef6f82ab7862927e618be447050015586b22f71&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There is $\\blue{1}$ blue dot.   There are $\\green{4}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $5$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 5, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/c930448fdab08f4531a80d0293df20bb1f8cecb0)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/c930448fdab08f4531a80d0293df20bb1f8cecb0&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/b2ce408c72e50e7709ff90b7be4551dfc64106ea)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/b2ce408c72e50e7709ff90b7be4551dfc64106ea&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/b2ce408c72e50e7709ff90b7be4551dfc64106ea)![](web+graphie:47a62808e5924be020720b48a361d64d/images/cf9d8282aaedab86b57820282724ea7141e17cbe)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/cf9d8282aaedab86b57820282724ea7141e17cbe&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/b2ce408c72e50e7709ff90b7be4551dfc64106ea&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{2}$ blue dots. There is $\\green{1}$ green dot.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $3$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 3, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/88729612a9451664aef3f6fff03674e58eead365)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/88729612a9451664aef3f6fff03674e58eead365&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/d607a209625d8e468f0465e60dc483f5f15df30e)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/d607a209625d8e468f0465e60dc483f5f15df30e&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/d607a209625d8e468f0465e60dc483f5f15df30e)![](web+graphie:47a62808e5924be020720b48a361d64d/images/0cbdb6630c9c10d70c463acc811eb748bc2cd0ca)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/d607a209625d8e468f0465e60dc483f5f15df30e&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/0cbdb6630c9c10d70c463acc811eb748bc2cd0ca&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{2}$ blue dots.  There are $\\green{2}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $4$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 4, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/c0ee5a10f08afcb85c19d04b5c2267fdaa92833b)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/c0ee5a10f08afcb85c19d04b5c2267fdaa92833b&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2)![](web+graphie:47a62808e5924be020720b48a361d64d/images/c660991f62388e29d62d22085b52ea0e70995da8)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/c660991f62388e29d62d22085b52ea0e70995da8&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/acd16a133ff361fffc3ff106cbb322714f73c8f2&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{2}$ blue dots.  There are $\\green{3}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $5$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 5, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/389ba4bbc5cd5bef6dbad1b6ef764df67a1ac904)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/389ba4bbc5cd5bef6dbad1b6ef764df67a1ac904&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/bf6dd7ffbaa8d7e615ffe9f819e518565f3fd479)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/bf6dd7ffbaa8d7e615ffe9f819e518565f3fd479&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/bf6dd7ffbaa8d7e615ffe9f819e518565f3fd479)![](web+graphie:47a62808e5924be020720b48a361d64d/images/cf9d8282aaedab86b57820282724ea7141e17cbe)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/cf9d8282aaedab86b57820282724ea7141e17cbe&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/bf6dd7ffbaa8d7e615ffe9f819e518565f3fd479&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{3}$ blue dots.  There is $\\green{1}$ green dot.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $4$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 4, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/c7879d8cdec70e0e6061058d06dd1c9b82e09fc6)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/c7879d8cdec70e0e6061058d06dd1c9b82e09fc6&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/bf6dd7ffbaa8d7e615ffe9f819e518565f3fd479)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/bf6dd7ffbaa8d7e615ffe9f819e518565f3fd479&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/bf6dd7ffbaa8d7e615ffe9f819e518565f3fd479)![](web+graphie:47a62808e5924be020720b48a361d64d/images/c91f5972d003d656417affcfa7a936b04b444c80)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/c91f5972d003d656417affcfa7a936b04b444c80&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 150}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/bf6dd7ffbaa8d7e615ffe9f819e518565f3fd479&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 180}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{3}$ blue dots.  There are $\\green{2}$ green dots.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $5$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 5, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/75042d73f4fbc44951c6e3cbcfb02fc5751d6281)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/75042d73f4fbc44951c6e3cbcfb02fc5751d6281&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/5f8eb1c041addf531b0792994b8d2f2686bfb2a0)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/5f8eb1c041addf531b0792994b8d2f2686bfb2a0&#34;: {&#34;width&#34;: 90, &#34;height&#34;: 150}}}, {&#34;replace&#34;: true, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/5f8eb1c041addf531b0792994b8d2f2686bfb2a0)![](web+graphie:47a62808e5924be020720b48a361d64d/images/b0fc5111f031f01acd9d090bcf653b43bc6bd552)&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/5f8eb1c041addf531b0792994b8d2f2686bfb2a0&#34;: {&#34;width&#34;: 90, &#34;height&#34;: 150}, &#34;web+graphie:47a62808e5924be020720b48a361d64d/images/b0fc5111f031f01acd9d090bcf653b43bc6bd552&#34;: {&#34;width&#34;: 60, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $\\blue{4}$ blue dots. There is $\\green{1}$ green dot.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are a total of $5$ dots.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 5, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: 0, &#34;simplify&#34;: true, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;coefficient&#34;: false, &#34;labelText&#34;: &#34;&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;![](web+graphie:47a62808e5924be020720b48a361d64d/images/57458ab1c7211984dc23f6ffa087695baebb4a8b)\n\n[[☃ numeric-input 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:47a62808e5924be020720b48a361d64d/images/57458ab1c7211984dc23f6ffa087695baebb4a8b&#34;: {&#34;width&#34;: 480, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

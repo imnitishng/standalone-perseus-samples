@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="20" data-dump="[{&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\blue{8=5-4}\\\\\n&amp;\\blue{8=1}\\\\\n\\end{align}$  \nThis is not true because $8$ is not the same as $1$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\purple{9=4+4}\\\\\n&amp;\\purple{9=8}\\\\\n\\end{align}$  \nThis is not true because $9$ is not the same as $8$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\pink{8=6+2}\\\\\n&amp;\\pink{8=8}\\\\\n\\end{align}$  \nThis is true because $8$ is the same as $8$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{8=5-4}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{9=4+4}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{8=6+2}$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\purple{18=81}\\\\\n\\end{align}$  \nThis is not true because $18$ is not the same as $81$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\pink{10=1+0}\\\\\n&amp;\\pink{10=1}\\\\\n\\end{align}$  \nThis is not true because $10$ is not the same as $1$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\blue{7=8-1}\\\\\n&amp;\\blue{7=7}\\\\\n\\end{align}$  \nThis is true because $7$ is the same as $7$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{7=8-1}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\purple{18=81}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{10=1+0}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\blue{3=6-2}\\\\\n&amp;\\blue{3=4}\\\\\n\\end{align}$  \nThis is not true because $3$ is not the same as $4$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\pink{4=2+3}\\\\\n&amp;\\pink{4=5}\\\\\n\\end{align}$  \nThis is not true because $4$ is not the same as $5$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\purple{11=10+1}\\\\\n&amp;\\purple{11=11}\\\\\n\\end{align}$  \nThis is true because $11$ is the same as $11$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{3=6-2}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{11=10+1}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\pink{4=2+3}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\purple{13=31}\\\\\n\\end{align}$  \nThis is not true because $13$ is not the same as $31$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\pink{13=10-3}\\\\\n&amp;\\pink{13=7}\\\\\n\\end{align}$  \nThis is not true because $13$ is not the same as $7$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\blue{13=10+3}\\\\\n&amp;\\blue{13=13}\\\\\n\\end{align}$  \nThis is true because $13$ is the same as $13$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{13=10+3}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\purple{13=31}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{13=10-3}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\blue{5=3+1}\\\\\n&amp;\\blue{5=4}\\\\\n\\end{align}$  \nThis is not true because $5$ is not the same as $4$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\pink{11=10+2}\\\\\n&amp;\\pink{11=12}\\\\\n\\end{align}$  \nThis is not true because $11$ is not the same as $12$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\purple{3=2+1}\\\\\n&amp;\\purple{3=3}\\\\\n\\end{align}$  \nThis is true because $3$ is the same as $3$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{5=3+1}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{3=2+1}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\pink{11=10+2}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\blue{20=10+2}\\\\\n&amp;\\blue{20=12}\\\\\n\\end{align}$  \nThis is not true because $20$ is not the same as $12$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\pink{4=3-1}\\\\\n&amp;\\pink{4=2}\\\\\n\\end{align}$  \nThis is not true because $4$ is not the same as $2$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\purple{6=5+1}\\\\\n\\end{align}$  \nThis is true because $6$ is the same as $6$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{20=10+2}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{6=5+1}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\pink{4=3-1}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\blue{2=3-2}\\\\\n&amp;\\blue{2=1}\\\\\n\\end{align}$  \nThis is not true because $2$ is not the same as $1$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\purple{8=3+3}\\\\\n&amp;\\purple{8=6}\\\\\n\\end{align}$  \nThis is not true because $8$ is not the same as $6$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n&amp;\\pink{0=3-3}\\\\\n&amp;\\pink{0=0}\\\\\n\\end{align}$  \nThis is true because $0$ is the same as $0$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{2=3-2}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{8=3+3}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{0=3-3}$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{7-6}&amp;\\purple{=2}\\\\\n\\purple{1}&amp;\\purple{=2}\\\\\n\\end{align}$  \nThis is not true because $1$ is not the same as $2$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{2+3}&amp;\\pink{=6}\\\\\n\\pink{5}&amp;\\pink{=6}\\\\\n\\end{align}$  \nThis is not true because $5$ is not the same as $6$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{10+3}&amp;\\blue{=13}\\\\\n\\blue{13}&amp;\\blue{=13}\\\\\n\\end{align}$  \nThis is true because $13$ is the same as $13$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{10+3=13}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\purple{7-6=2}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{2+3=6}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{1+3}&amp;\\blue{=13}\\\\\n\\blue{4}&amp;\\blue{=13}\\\\\n\\end{align}$  \nThis is not true because $4$ is not the same as $13$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{10-4}&amp;\\pink{=5}\\\\\n\\pink{6}&amp;\\pink{=5}\\\\\n\\end{align}$  \nThis is not true because $6$ is not the same as $5$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{1+2}&amp;\\purple{=3}\\\\\n\\purple{3}&amp;\\purple{=3}\\\\\n\\end{align}$  \nThis is true because $3$ is the same as $3$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{1+3=13}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{1+2=3}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\pink{10-4=5}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{4-4}&amp;\\blue{=1}\\\\\n\\blue{0}&amp;\\blue{=1}\\\\\n\\end{align}$  \nThis is not true because $0$ is not the same as $1$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{1+2}&amp;\\purple{=12}\\\\\n\\purple{3}&amp;\\purple{=12}\\\\\n\\end{align}$  \nThis is not true because $3$ is not the same as $12$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{10+2}&amp;\\pink{=12}\\\\\n\\pink{12}&amp;\\pink{=12}\\\\\n\\end{align}$  \nThis is true because $12$ is the same as $12$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{4-4=1}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{1+2=12}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{10+2=12}$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{4+1}&amp;\\blue{=6}\\\\\n\\blue{5}&amp;\\blue{=6}\\\\\n\\end{align}$  \nThis is not true because $5$ is not the same as $6$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{2+4}&amp;\\pink{=5}\\\\\n\\pink{6}&amp;\\pink{=5}\\\\\n\\end{align}$  \nThis is not true because $6$ is not the same as $5$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{5+0}&amp;\\purple{=5}\\\\\n\\purple{5}&amp;\\purple{=5}\\\\\n\\end{align}$  \nThis is true because $5$ is the same as $5$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{4+1=6}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{5+0=5}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\pink{2+4=5}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{5+5}&amp;\\purple{=15}\\\\\n\\purple{10}&amp;\\purple{=15}\\\\\n\\end{align}$  \nThis is not true because $10$ is not the same as $15$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{7-3}&amp;\\pink{=10}\\\\\n\\pink{4}&amp;\\pink{=10}\\\\\n\\end{align}$  \nThis is not true because $4$ is not the same as $10$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{2+4}&amp;\\blue{=6}\\\\\n\\blue{6}&amp;\\blue{=6}\\\\\n\\end{align}$  \nThis is true because $6$ is the same as $6$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{2+4=6}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\purple{5+5=15}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{7-3=10}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{1+5}&amp;\\blue{=15}\\\\\n\\blue{6}&amp;\\blue{=15}\\\\\n\\end{align}$  \nThis is not true because $6$ is not the same as $15$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{3+2}&amp;\\purple{=6}\\\\\n\\purple{5}&amp;\\purple{=6}\\\\\n\\end{align}$  \nThis is not true because $5$ is not the same as $6$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{10+5}&amp;\\pink{=15}\\\\\n\\pink{15}&amp;\\pink{=15}\\\\\n\\end{align}$  \nThis is true because $15$ is the same as $15$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{1+5=15}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{3+2=6}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{10+5=15}$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{3+2}&amp;\\purple{=5+1}\\\\\n\\purple{5}&amp;\\purple{=6}\\\\\n\\end{align}$  \nThis is not true because $5$ is not the same as $6$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{4+4}&amp;\\pink{=2+5}\\\\\n\\pink{8}&amp;\\pink{=7}\\\\\n\\end{align}$  \nThis is not true because $8$ is not the same as $7$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{3+3}&amp;\\blue{=2+4}\\\\\n\\blue{6}&amp;\\blue{=6}\\\\\n\\end{align}$  \nThis is true because $6$ is the same as $6$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{3+3=2+4}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\purple{3+2=5+1}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{4+4=2+5}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{2+2}&amp;\\purple{=1+4}\\\\\n\\purple{4}&amp;\\purple{=5}\\\\\n\\end{align}$  \nThis is not true because $4$ is not the same as $5$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{4+5}&amp;\\pink{=3+7}\\\\\n\\pink{9}&amp;\\pink{=10}\\\\\n\\end{align}$  \nThis is not true because $9$ is not the same as $10$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{3+2}&amp;\\blue{=1+4}\\\\\n\\blue{5}&amp;\\blue{=5}\\\\\n\\end{align}$  \nThis is true because $5$ is the same as $5$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{3+2=1+4}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\purple{2+2=1+4}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{4+5=3+7}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{2+3}&amp;\\blue{=1+5}\\\\\n\\blue{5}&amp;\\blue{=6}\\\\\n\\end{align}$  \nThis is not true because $5$ is not the same as $6$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{3+3}&amp;\\pink{= 3-3}\\\\\n\\pink{6}&amp;\\pink{= 0}\\\\\n\\end{align}$  \nThis is not true because $6$ is not the same as $0$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{10+1}&amp;\\purple{=1+10}\\\\\n\\purple{11}&amp;\\purple{=11}\\\\\n\\end{align}$  \nThis is true because $11$ is the same as $11$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{2+3=1+5}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{10+1=1+10}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\pink{3+3 = 3-3}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{1+4}&amp;\\blue{=2+2}\\\\\n\\blue{5}&amp;\\blue{=4}\\\\\n\\end{align}$  \nThis is not true because $5$ is not the same as $4$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{1+1}&amp;\\pink{=5-4}\\\\\n\\pink{2}&amp;\\pink{=1}\\\\\n\\end{align}$  \nThis is not true because $2$ is not the same as $1$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{3+3}&amp;\\purple{=7-1}\\\\\n\\purple{6}&amp;\\purple{=6}\\\\\n\\end{align}$  \nThis is true because $6$ is the same as $6$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{1+4=2+2}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{3+3=7-1}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\pink{1+1=5-4}$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{4+1}&amp;\\blue{=2+2}\\\\\n\\blue{5}&amp;\\blue{=4}\\\\\n\\end{align}$  \nThis is not true because $5$ is not the same as $4$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{4+2}&amp;\\purple{=7+1}\\\\\n\\purple{6}&amp;\\purple{=8}\\\\\n\\end{align}$  \nThis is not true because $6$ is not the same as $8$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{1+1}&amp;\\pink{=4-2}\\\\\n\\pink{2}&amp;\\pink{=2}\\\\\n\\end{align}$  \nThis is true because $2$ is the same as $2$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{4+1=2+2}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{4+2=7+1}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{1+1=4-2}$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{1+1}&amp;\\blue{=4-1}\\\\\n\\blue{2}&amp;\\blue{=3}\\\\\n\\end{align}$  \nThis is not true because $2$ is not the same as $3$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{2+2}&amp;\\purple{=3+0}\\\\\n\\purple{4}&amp;\\purple{=3}\\\\\n\\end{align}$  \nThis is not true because $4$ is not the same as $3$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{3+3}&amp;\\pink{=6+0}\\\\\n\\pink{6}&amp;\\pink{=6}\\\\\n\\end{align}$  \nThis is true because $6$ is the same as $6$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{1+1=4-1}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{2+2=3+0}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{3+3=6+0}$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\blue{10+4}&amp;\\blue{=4 + 1}\\\\\n\\blue{14}&amp;\\blue{=5}\\\\\n\\end{align}$  \nThis is not true because $14$ is not the same as $5$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\purple{2+3}&amp;\\purple{=4+0}\\\\\n\\purple{5}&amp;\\purple{=4}\\\\\n\\end{align}$  \nThis is not true because $5$ is not the same as $4$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\begin{align}\n\\pink{2+3}&amp;\\pink{=3+2}\\\\\n\\pink{5}&amp;\\pink{=5}\\\\\n\\end{align}$  \nThis is true because $5$ is the same as $5$.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\blue{10+4=4 + 1}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\purple{2+3=4+0}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\pink{2+3=3+2}$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: false, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**Find the true equation.**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

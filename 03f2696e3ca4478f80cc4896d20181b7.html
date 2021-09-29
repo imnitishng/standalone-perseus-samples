@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="21" data-dump="[{&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $4$ beavers.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$2$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$4$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$6$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many beavers do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/07f959c7afedaa481011135790a19111.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/07f959c7afedaa481011135790a19111.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $5$ chicks.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$3$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$7$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many chicks do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/0e771d35992ab5530bb2f4d211e13be2.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/0e771d35992ab5530bb2f4d211e13be2.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $6$ rabbits.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$6$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$8$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$9$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many rabbits do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/b58e5b33001821bf94a1e12c8a55680a.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/b58e5b33001821bf94a1e12c8a55680a.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $7$ pigs.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$7$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$8$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many pigs do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/a7083ef2935daa205725842a4f8da16e.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/a7083ef2935daa205725842a4f8da16e.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $8$ ladybugs.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$10$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$8$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many ladybugs do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/c21f6aea22775311c1e5b6afebf66617.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/c21f6aea22775311c1e5b6afebf66617.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $9$ cookies.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$7$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$9$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many cookies do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/3d1571632b4222f6f508360a043c0d22.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/3d1571632b4222f6f508360a043c0d22.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $10$ apples.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$13$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$8$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$10$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}}}, &#34;content&#34;: &#34;**How many apples do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/7a070031fa04365142066e72e2769e49.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/7a070031fa04365142066e72e2769e49.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $4$ acorns.\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/bff9d146dad12b10e22ede41a343f7a9.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/bff9d146dad12b10e22ede41a343f7a9.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$3$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$4$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many acorns do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/1dd4e9b7ac0ceb08c7764fdd1dd0f00b.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/1dd4e9b7ac0ceb08c7764fdd1dd0f00b.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $5$ penguins.\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/61e9c99bb58b312efab47a8300f43c3d.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/61e9c99bb58b312efab47a8300f43c3d.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$6$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$2$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many penguins do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/ecfe70ecdd8104ad0fd3f308b8dbd064.png)\n&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/ecfe70ecdd8104ad0fd3f308b8dbd064.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $6$ flowers.\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/b71e4d12c34f9fc4f57e4159e617fc86.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/b71e4d12c34f9fc4f57e4159e617fc86.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$6$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$2$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many flowers do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/bb31e5def692efb3bc94205fc1e0ebb0.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/bb31e5def692efb3bc94205fc1e0ebb0.png&#34;: {&#34;width&#34;: 250, &#34;height&#34;: 250}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $7$ mice.\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/ed82579a115c657b19c9ab45a2cd41b1.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/ed82579a115c657b19c9ab45a2cd41b1.png&#34;: {&#34;width&#34;: 238, &#34;height&#34;: 250}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$4$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$7$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$8$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many mice do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/199bae297761b89b6baab0ce61f8c3b3.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/199bae297761b89b6baab0ce61f8c3b3.png&#34;: {&#34;width&#34;: 238, &#34;height&#34;: 250}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are  $8$ dogs.\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/2bccf412cbe655a1bffa59d16cbf6ea5.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/2bccf412cbe655a1bffa59d16cbf6ea5.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 300}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$10$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$8$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many dogs do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/298f05c694a89175ffb4f788144065bb.png)\n&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/298f05c694a89175ffb4f788144065bb.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are  $9$ raccoons.\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/0bc43347f354c631c51e16a83e90d45b.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/0bc43347f354c631c51e16a83e90d45b.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 300}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$6$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$9$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$11$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many raccoons do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/b9a76e2bb636369a97f78a235531c528.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/b9a76e2bb636369a97f78a235531c528.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are  $10$ ice cream cones.\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/f161a0ec894b33d3186549fc6572b8e1.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/f161a0ec894b33d3186549fc6572b8e1.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 300}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;$8$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$6$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$10$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;**How many ice cream cones do you see?**\n\n[[☃ radio 1]]\n\n![](/03f2696e3ca4478f80cc4896d20181b7/images/d6ced29298d3cae44065fea3b8935556.png)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/d6ced29298d3cae44065fea3b8935556.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is an apple: ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/5e2aeff05c33c19e97a4feb07dc0c1ebaafc3029)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/5e2aeff05c33c19e97a4feb07dc0c1ebaafc3029&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $5$ apples.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$4$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$8$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How many apples do you see?**\n\n[[☃ radio 1]]\n\n![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/47646420f2ff8bc4d33c6162ba265cbf50c2c6ea)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/47646420f2ff8bc4d33c6162ba265cbf50c2c6ea&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is a rabbit: ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/23ae51e66d16c6b06aaae737ce23112be7beda38)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/23ae51e66d16c6b06aaae737ce23112be7beda38&#34;: {&#34;width&#34;: 64, &#34;height&#34;: 64}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $2$ rabbits.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$7$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$2$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$10$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How many rabbits do you see?**\n\n[[☃ radio 1]]\n\n![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/451ca7a838e620897e25789bb33cbf903bc1a49f)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/451ca7a838e620897e25789bb33cbf903bc1a49f&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is a shark: ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/d1b53a0bc6c516af0d40d3f84edc01f85733adb0)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/d1b53a0bc6c516af0d40d3f84edc01f85733adb0&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $6$ sharks.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$6$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$2$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$10$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How many sharks do you see?**\n\n[[☃ radio 1]]\n\n![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/86db0d14fd3a5c4fd22e7f6365bb1ad943fd9e78)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/86db0d14fd3a5c4fd22e7f6365bb1ad943fd9e78&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is a flower: ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/4f35f517564964be2aac3e7410b28973e84ae5a5)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/4f35f517564964be2aac3e7410b28973e84ae5a5&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $7$ flowers.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$4$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$7$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$10$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How many flowers do you see?**\n\n[[☃ radio 1]]\n\n![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/005e543f924ea6ca55b96f38a47511b40428827a)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/005e543f924ea6ca55b96f38a47511b40428827a&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 300}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is a monkey: ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1bbbfb88f7e7c2870e3268bdb2a6a0a78985d299)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1bbbfb88f7e7c2870e3268bdb2a6a0a78985d299&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $4$ monkeys.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$4$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$8$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How many monkeys do you see?**\n\n[[☃ radio 1]]\n\n![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1d068ccd861c9d24ee6fae7a92ed6358cac8ebe5) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1bbbfb88f7e7c2870e3268bdb2a6a0a78985d299) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/6b9b547509ac25efe6dfeec89dcd7f5f68f19f49) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/6b9b547509ac25efe6dfeec89dcd7f5f68f19f49) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/6b9b547509ac25efe6dfeec89dcd7f5f68f19f49) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1bbbfb88f7e7c2870e3268bdb2a6a0a78985d299)  \n![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1bbbfb88f7e7c2870e3268bdb2a6a0a78985d299) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1bbbfb88f7e7c2870e3268bdb2a6a0a78985d299) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/6b9b547509ac25efe6dfeec89dcd7f5f68f19f49) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1d068ccd861c9d24ee6fae7a92ed6358cac8ebe5) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1d068ccd861c9d24ee6fae7a92ed6358cac8ebe5) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/6b9b547509ac25efe6dfeec89dcd7f5f68f19f49)&#34;, &#34;images&#34;: {&#34;/03f2696e3ca4478f80cc4896d20181b7/images/c1e7305404286d01e0cfec57da17c381.png&#34;: {&#34;width&#34;: 68, &#34;height&#34;: 68}, &#34;/03f2696e3ca4478f80cc4896d20181b7/images/d889529c53732d9f07793ec2d4ec1e82.png&#34;: {&#34;width&#34;: 68, &#34;height&#34;: 68}, &#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1bbbfb88f7e7c2870e3268bdb2a6a0a78985d299&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}, &#34;/03f2696e3ca4478f80cc4896d20181b7/images/53c56f741cec3757ee281adda76f599b.png&#34;: {&#34;width&#34;: 68, &#34;height&#34;: 68}, &#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/6b9b547509ac25efe6dfeec89dcd7f5f68f19f49&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}, &#34;/03f2696e3ca4478f80cc4896d20181b7/images/e45efd02a906bec607322685665ace5d.png&#34;: {&#34;width&#34;: 68, &#34;height&#34;: 68}, &#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1d068ccd861c9d24ee6fae7a92ed6358cac8ebe5&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is a cookie: ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/30c1a36f08131edeab18225270be5c0c68fb588b)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/30c1a36f08131edeab18225270be5c0c68fb588b&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $5$ cookies.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$3$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$7$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How many cookies do you see?**\n\n[[☃ radio 1]]\n\n![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/30c1a36f08131edeab18225270be5c0c68fb588b) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/30c1a36f08131edeab18225270be5c0c68fb588b) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/30c1a36f08131edeab18225270be5c0c68fb588b) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/d4e80b07663a3c734da7f7046490e7fbf85b5488) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/30c1a36f08131edeab18225270be5c0c68fb588b) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/d4e80b07663a3c734da7f7046490e7fbf85b5488)  ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/d4e80b07663a3c734da7f7046490e7fbf85b5488) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/30c1a36f08131edeab18225270be5c0c68fb588b)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/30c1a36f08131edeab18225270be5c0c68fb588b&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}, &#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/d4e80b07663a3c734da7f7046490e7fbf85b5488&#34;: {&#34;width&#34;: 74, &#34;height&#34;: 74}, &#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/40e993cc5d749d6461f139dea287995c565a4b90&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is a pig: ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/8561e7144ceb8277a5fc25dbdef3f4fcd016a596)&#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/8561e7144ceb8277a5fc25dbdef3f4fcd016a596&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $3$ pigs.&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$3$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$7$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**How many pigs do you see?**\n\n[[☃ radio 1]]\n\n![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/8561e7144ceb8277a5fc25dbdef3f4fcd016a596) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/22d80eaabb82b367b6711d445ebcbc45336e77b8) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/22d80eaabb82b367b6711d445ebcbc45336e77b8) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/22d80eaabb82b367b6711d445ebcbc45336e77b8) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/8561e7144ceb8277a5fc25dbdef3f4fcd016a596) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/8561e7144ceb8277a5fc25dbdef3f4fcd016a596)  ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/f38cefe4364e9f37170b3df67c9118760f55d894) ![](web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/22d80eaabb82b367b6711d445ebcbc45336e77b8) &#34;, &#34;images&#34;: {&#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/22d80eaabb82b367b6711d445ebcbc45336e77b8&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}, &#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/6b9b547509ac25efe6dfeec89dcd7f5f68f19f49&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}, &#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/8561e7144ceb8277a5fc25dbdef3f4fcd016a596&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}, &#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/f38cefe4364e9f37170b3df67c9118760f55d894&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}, &#34;web+graphie:03f2696e3ca4478f80cc4896d20181b7/images/1bbbfb88f7e7c2870e3268bdb2a6a0a78985d299&#34;: {&#34;width&#34;: 54, &#34;height&#34;: 54}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

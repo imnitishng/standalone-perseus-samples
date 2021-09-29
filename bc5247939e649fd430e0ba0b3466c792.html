@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="20" data-dump="[{&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{374}$ as a $\\purpleC{300}$, a $\\purpleC{70}$, and a $\\purpleC{4}$.  \n\nWe can think of $\\blueD{152}$ as a $\\blueD{100}$, a $\\blueD{50}$, and a $\\blueD{2}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{374}+\\blueD{152}$\n\n$=\\purpleC{300}+\\purpleC{70}+\\purpleC{4}+\\blueD{100}+\\blueD{50}+\\blueD{2}$\n\n$= \\purpleC{300}+\\blueD{100}+\\purpleC{70}+\\blueD{50}+\\purpleC{4}+\\blueD{2}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $300+100+70+50+4+2$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$300+100+70+50+4+2$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$30+10+70+20+4+5$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$3+7+4+1+5+2$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;Pat isn&#39;t sure how to add $374+152$.\n\n**Help Pat by choosing an addition problem that is  the same as $374+152$.**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{57}$ as a $\\purpleC{50}$ and a $\\purpleC{7}$.  \n\nWe can think of $\\blueD{816}$ as an $\\blueD{800}$, a $\\blueD{10}$, and a $\\blueD{6}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{57}+\\blueD{816}$\n\n$=\\purpleC{50}+\\purpleC{7}+\\blueD{800}+\\blueD{10}+\\blueD{6}$\n\n$= \\blueD{800}+\\purpleC{50}+\\blueD{10}+\\purpleC{7}+\\blueD{6}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $800+50+10+7+6$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$8+1+6+5+7$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$800+50+10+7+6$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$800+70+10+5+6$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;Archie isn&#39;t sure how to add $57+816$.\n\n**Help Archie by choosing an addition problem that is  the same as $57+816$.**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{134}$ as a $\\purpleC{100}$, a $\\purpleC{30}$, and a $\\purpleC{4}$.  \n\nWe can think of $\\blueD{440}$ as a $\\blueD{400}$ and a $\\blueD{40}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{134}+\\blueD{440}$\n\n$=\\purpleC{100}+\\purpleC{30}+\\purpleC{4}+\\blueD{400}+\\blueD{40}$\n\n$= \\purpleC{100}+\\blueD{400}+\\purpleC{30}+\\blueD{40}+\\purpleC{4}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $100+400+30+40+4$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$100+400+30+40+4+3$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$10+40+30+40+40$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$100+400+30+40+4$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which addition problem is the same as $134+440$?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{525}$ as a $\\purpleC{500}$, a $\\purpleC{20}$, and a $\\purpleC{5}$.  \n\nWe can think of $\\blueD{379}$ as a $\\blueD{300}$, a $\\blueD{70}$, and a $\\blueD{9}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{525}+\\blueD{379}$\n\n$=\\purpleC{500}+\\purpleC{20}+\\purpleC{5}+\\blueD{300}+\\blueD{70}+\\blueD{9}$\n\n$= \\purpleC{500}+\\blueD{300}+\\purpleC{20}+\\blueD{70}+\\purpleC{5}+\\blueD{9}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $500+300+20+70+5+9$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$500+300+20+90+5+7$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$500+300+20+70+5+9$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$50+30+20+70+50+90$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which addition problem is the same as $525+379$?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{283}$ as a $\\purpleC{200}$, an $\\purpleC{80}$, and a $\\purpleC{3}$.  \n\nWe can think of $\\blueD{605}$ as a $\\blueD{600}$ and a $\\blueD{5}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{283}+\\blueD{605}$\n\n$=\\purpleC{200}+\\purpleC{80}+\\purpleC{3}+\\blueD{600}+\\blueD{5}$\n\n$= \\purpleC{200}+\\blueD{600}+\\purpleC{80}+\\purpleC{3}+\\blueD{5}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $200+600+80+3+5$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$200+600+80+3+5$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$200+600+80+30+5$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$200+80+3+60+5$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**What do we get when we break apart $283+605$ using place value?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{818}$ as an $\\purpleC{800}$, a $\\purpleC{10}$, and an $\\purpleC{8}$.  \n\nWe can think of $\\blueD{167}$ as a $\\blueD{100}$, a $\\blueD{60}$, and a $\\blueD{7}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{818}+\\blueD{167}$\n\n$=\\purpleC{800}+\\purpleC{10}+\\purpleC{8}+\\blueD{100}+\\blueD{60}+\\blueD{7}$\n\n$= \\purpleC{800}+\\blueD{100}+\\purpleC{10}+\\blueD{60}+\\purpleC{8}+\\blueD{7}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $800+100+10+60+8+7$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$800+100+10+70+8+6$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$800+100+10+60+8+7$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$81+8+16+7$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**What do we get when we break apart $818+167$ using place value?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{406}$ as a $\\purpleC{400}$ and a $\\purpleC{6}$.  \n\nWe can think of $\\blueD{558}$ as a $\\blueD{500}$, a $\\blueD{50}$, and an $\\blueD{8}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{406}+\\blueD{558}$\n\n$=\\purpleC{400}+\\purpleC{6}+\\blueD{500}+\\blueD{50}+\\blueD{8}$\n\n$= \\purpleC{400}+\\blueD{500}+\\blueD{50}+\\purpleC{6}+\\blueD{8}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $400+500+50+6+8$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$4+0+6+5+5+8$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$400+500+50+60+8$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$400+500+50+6+8$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which expression could be used to find the value of $406+558$?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{692}$ as a $\\purpleC{600}$, a $\\purpleC{90}$, and a $\\purpleC{2}$.  \n\nWe can think of $\\blueD{281}$ as a $\\blueD{200}$, an $\\blueD{80}$, and a $\\blueD{1}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{692}+\\blueD{281}$\n\n$=\\purpleC{600}+\\purpleC{90}+\\purpleC{2}+\\blueD{200}+\\blueD{80}+\\blueD{1}$\n\n$= \\purpleC{600}+\\blueD{200}+\\purpleC{90}+\\blueD{80}+\\purpleC{2}+\\blueD{1}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $600+200+90+80+2+1$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$600+200+90+80+2+1$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$6+2+9+8+2+1$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$600+90+2+28+1$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which expression could be used to find the value of $692+281$?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{740}$ as a $\\purpleC{700}$ and a $\\purpleC{40}$.  \n\nWe can think of $\\blueD{293}$ as a $\\blueD{200}$, a $\\blueD{90}$, and a $\\blueD{3}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{740}+\\blueD{293}$\n\n$=\\purpleC{700}+\\purpleC{40}+\\blueD{200}+\\blueD{90}+\\blueD{3}$\n\n$= \\purpleC{700}+\\blueD{200}+\\purpleC{40}+\\blueD{90}+\\blueD{3}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $700+200+40+90+3$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$700+200+40+90+30$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$700+200+40+90+3$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$700+200+90+4+3$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which of the following is equal to $740+293$?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{961}$ as a $\\purpleC{900}$, a $\\purpleC{60}$, and a $\\purpleC{1}$.  \n\nWe can think of $\\blueD{24}$ as a $\\blueD{20}$ and a $\\blueD{4}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{961}+\\blueD{24}$\n\n$=\\purpleC{900}+\\purpleC{60}+\\purpleC{1}+\\blueD{20}+\\blueD{4}$\n\n$= \\purpleC{900}+\\purpleC{60}+\\blueD{20}+\\purpleC{1}+\\blueD{4}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $900+60+20+1+4$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$900+60+20+1+4$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$900+600+20+1+4$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$90+60+20+1+4$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which of the following is equal to $961+24$?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{45}$ as $\\purpleC{4\\text{ tens}}$ and $\\purpleC{5 \\text{ ones}}$.  \n\nWe can think of $\\blueD{917}$ as $\\blueD{9\\text{ hundreds}}$, $\\blueD{1\\text{ ten}}$, and $\\blueD{7\\text{ ones}}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{45}+\\blueD{917}$\n\n$=\\purpleC{4\\text{ tens}}+\\purpleC{5\\text{ ones}}+\\blueD{9\\text{ hundreds}}+\\blueD{1\\text{ ten}}+\\blueD{7\\text{ ones}}$\n\n$= \\blueD{9\\text{ hundreds}}+\\purpleC{4\\text{ tens}}+\\blueD{1\\text{ ten}}+\\purpleC{5\\text{ ones}}+\\blueD{7\\text{ ones}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $9\\text{ hundreds} + 4 \\text{ tens}+1\\text{ ten} +5 \\text{ ones}+7 \\text{ ones}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$9\\text{ hundreds} + 4 \\text{ tens}+1\\text{ ten} +5 \\text{ ones}+7 \\text{ ones}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$9\\text{ hundreds} + 4 \\text{ hundreds}+1\\text{ ten} +5 \\text{ tens}+7 \\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$9\\text{ hundreds} + 5 \\text{ tens}+1\\text{ ten} +4 \\text{ ones}+7 \\text{ ones}$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;Marie isn&#39;t sure how to add $45+917$.\n\n**Help Marie by choosing an addition problem that is  the same as $45+917$.**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{189}$ as $\\purpleC{1\\text{ hundred}}$, $\\purpleC{8\\text{ tens}}$, and $\\purpleC{9 \\text{ ones}}$.  \n\nWe can think of $\\blueD{608}$ as $\\blueD{6\\text{ hundreds}}$  and $\\blueD{8\\text{ ones}}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{189}+\\blueD{608}$\n\n$=\\purpleC{1\\text{ hundred}}+\\purpleC{8\\text{ tens}}+\\purpleC{9\\text{ ones}}+\\blueD{6\\text{ hundreds}}+\\blueD{8\\text{ ones}}$\n\n$= \\purpleC{1\\text{ hundred}}+\\blueD{6\\text{ hundreds}}+\\purpleC{8\\text{ tens}}+\\purpleC{9\\text{ ones}}+\\blueD{8\\text{ ones}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $1\\text{ hundred} + 6\\text{ hundreds} + 8 \\text{ tens}+9 \\text{ ones}+8 \\text{ ones}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$1\\text{ hundred} + 6\\text{ hundreds} + 8 \\text{ tens}+9 \\text{ tens}+8 \\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$1\\text{ hundred} + 6\\text{ hundreds} + 8 \\text{ tens}+8 \\text{ tens}+9 \\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$1\\text{ hundred} + 6\\text{ hundreds} + 8 \\text{ tens}+9 \\text{ ones}+8 \\text{ ones}$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;Mike isn&#39;t sure how to add $189+608$.\n\n**Help Mike by choosing an addition problem that is  the same as $189+608$.**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{224}$ as $\\purpleC{2\\text{ hundreds}}$, $\\purpleC{2\\text{ tens}}$, and $\\purpleC{4 \\text{ ones}}$.  \n\nWe can think of $\\blueD{791}$ as $\\blueD{7\\text{ hundreds}}$, $\\blueD{9\\text{ tens}}$, and $\\blueD{1\\text{ one}}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{224}+\\blueD{791}$\n\n$=\\purpleC{2\\text{ hundreds}}+\\purpleC{2\\text{ tens}}+\\purpleC{4\\text{ ones}}+\\blueD{7\\text{ hundreds}}+\\blueD{9\\text{ tens}}+\\blueD{1\\text{ one}}$\n\n$= \\purpleC{2\\text{ hundreds}}+\\blueD{7\\text{ hundreds}}+\\purpleC{2\\text{ tens}}+\\blueD{9\\text{ tens}}+\\purpleC{4\\text{ ones}}+\\blueD{1\\text{ one}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $2\\text{ hundreds} + 7\\text{ hundreds} + 2 \\text{ tens}+9\\text{ tens} +4 \\text{ ones}+1 \\text{ one}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\small 2\\text{ ones} + 7\\text{ ones} + 2 \\text{ tens}+9\\text{ tens} +4 \\text{ hundreds}+1 \\text{ hundreds}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\small 2\\text{ hundreds} + 7\\text{ hundreds} + 2 \\text{ tens}+9\\text{ tens} +4 \\text{ ones}+1 \\text{ one}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\small 2\\text{ hundreds} + 2\\text{ hundreds} + 4 \\text{ tens}+7\\text{ tens} +9 \\text{ ones}+1 \\text{ one}$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which addition problem is the same as $224+791$?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{560}$ as $\\purpleC{5\\text{ hundreds}}$ and $\\purpleC{6 \\text{ tens}}$.  \n\nWe can think of $\\blueD{336}$ as $\\blueD{3\\text{ hundreds}}$, $\\blueD{3\\text{ tens}}$, and $\\blueD{6\\text{ ones}}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{560}+\\blueD{336}$\n\n$=\\purpleC{5\\text{ hundreds}}+\\purpleC{6\\text{ tens}}+\\blueD{3\\text{ hundreds}}+\\blueD{3\\text{ tens}}+\\blueD{6\\text{ ones}}$\n\n$= \\purpleC{5\\text{ hundreds}}+\\blueD{3\\text{ hundreds}}+\\purpleC{6\\text{ tens}}+\\blueD{3\\text{ tens}}+\\blueD{6\\text{ ones}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $5\\text{ hundreds} + 3\\text{ hundreds} +6 \\text{ tens}+3\\text{ tens} +6 \\text{ ones}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$5\\text{ hundreds} + 6\\text{ hundreds} +3 \\text{ tens}+3\\text{ tens} +6 \\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5\\text{ hundreds} + 3\\text{ hundreds} +6 \\text{ tens}+3\\text{ tens} +6 \\text{ ones}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$5\\text{ hundreds} + 3\\text{ hundreds} +6 \\text{ tens}+3\\text{ ones} +6 \\text{ ones}$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which addition problem is the same as $560+336$?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{632}$ as $\\purpleC{6\\text{ hundreds}}$, $\\purpleC{3\\text{ tens}}$, and $\\purpleC{2 \\text{ ones}}$.  \n\nWe can think of $\\blueD{75}$ as $\\blueD{7\\text{ tens}}$  and $\\blueD{5\\text{ ones}}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{632}+\\blueD{75}$\n\n$=\\purpleC{6\\text{ hundreds}}+\\purpleC{3\\text{ tens}}+\\purpleC{2\\text{ ones}}+\\blueD{7\\text{ tens}}+\\blueD{5\\text{ ones}}$\n\n$= \\purpleC{6\\text{ hundreds}}+\\purpleC{3\\text{ tens}}+\\blueD{7\\text{ tens}}+\\purpleC{2\\text{ ones}}+\\blueD{5\\text{ ones}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $ 6\\text{ hundreds} + 3 \\text{ tens}+7 \\text{ tens}+2 \\text{ ones}+5\\text{ ones}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$ 6\\text{ hundreds} + 3 \\text{ tens}+7 \\text{ tens}+2 \\text{ ones}+5\\text{ ones}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$ 6\\text{ hundreds} + 3 \\text{ hundreds}+7 \\text{ tens}+2 \\text{ ones}+5\\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$ 6\\text{ hundreds} + 3 \\text{ tens}+2 \\text{ tens}+7 \\text{ ones}+5\\text{ ones}$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**What do we get when we break apart $632+75$ using place value?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{413}$ as $\\purpleC{4\\text{ hundreds}}$, $\\purpleC{1\\text{ ten}}$, and $\\purpleC{3 \\text{ ones}}$.  \n\nWe can think of $\\blueD{482}$ as $\\blueD{4\\text{ hundreds}}$, $\\blueD{8\\text{ tens}}$, and $\\blueD{2\\text{ ones}}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{413}+\\blueD{482}$\n\n$=\\purpleC{4\\text{ hundreds}}+\\purpleC{1\\text{ ten}}+\\purpleC{3\\text{ ones}}+\\blueD{4\\text{ hundreds}}+\\blueD{8\\text{ tens}}+\\blueD{2\\text{ ones}}$\n\n$= \\purpleC{4\\text{ hundreds}}+\\blueD{4\\text{ hundreds}}+\\purpleC{1\\text{ ten}}+\\blueD{8\\text{ tens}}+\\purpleC{3\\text{ ones}}+\\blueD{2\\text{ ones}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $4\\text{ hundreds} + 4\\text{ hundreds} + 1 \\text{ ten}+8\\text{ tens} +3 \\text{ ones}+2 \\text{ ones}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\small 4\\text{ hundreds} + 4\\text{ hundreds} + 1 \\text{ ten}+2\\text{ tens} +8 \\text{ ones}+3 \\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\small 4\\text{ hundreds} + 4\\text{ tens} + 1 \\text{ ten}+8\\text{ tens} +3 \\text{ ones}+2 \\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\small 4\\text{ hundreds} + 4\\text{ hundreds} + 1 \\text{ ten}+8\\text{ tens} +3 \\text{ ones}+2 \\text{ ones}$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**What do we get when we break apart $413+482$ using place value?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{871}$ as $\\purpleC{8\\text{ hundreds}}$, $\\purpleC{7\\text{ tens}}$, and $\\purpleC{1 \\text{ one}}$.  \n\nWe can think of $\\blueD{140}$ as $\\blueD{1\\text{ hundred}}$  and $\\blueD{4\\text{ tens}}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{871}+\\blueD{140}$\n\n$=\\purpleC{8\\text{ hundreds}}+\\purpleC{7\\text{ tens}}+\\purpleC{1\\text{ one}}+\\blueD{1\\text{ hundred}}+\\blueD{4\\text{ tens}}$\n\n$= \\purpleC{8\\text{ hundreds}}+\\blueD{1\\text{ hundred}}+\\purpleC{7\\text{ tens}}+\\blueD{4\\text{ tens}}+\\purpleC{1\\text{ one}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $ 8\\text{ hundreds} + 1 \\text{ hundred}+7 \\text{ tens}+4 \\text{ tens}+1\\text{ one}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$ 8\\text{ hundreds} + 1 \\text{ hundred}+7 \\text{ tens}+4 \\text{ ones}+1\\text{ one}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$ 8\\text{ hundreds} + 1 \\text{ hundred}+7 \\text{ tens}+4 \\text{ tens}+1\\text{ one}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$ 8\\text{ ones} + 1 \\text{ one}+7 \\text{ ones}+4 \\text{ ones}+1\\text{ one}$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which expression could be used to find the value of $871+140$?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{707}$ as $\\purpleC{7\\text{ hundreds}}$ and $\\purpleC{7 \\text{ ones}}$.  \n\nWe can think of $\\blueD{253}$ as $\\blueD{2\\text{ hundreds}}$, $\\blueD{5\\text{ tens}}$, and $\\blueD{3\\text{ ones}}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{707}+\\blueD{253}$\n\n$=\\purpleC{7\\text{ hundreds}}+\\purpleC{7\\text{ ones}}+\\blueD{2\\text{ hundreds}}+\\blueD{5\\text{ tens}}+\\blueD{3\\text{ ones}}$\n\n$= \\purpleC{7\\text{ hundreds}}+\\blueD{2\\text{ hundreds}}+\\blueD{5\\text{ tens}}+\\purpleC{7\\text{ ones}}+\\blueD{3\\text{ ones}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $7\\text{ hundreds} + 2\\text{ hundreds} +5 \\text{ tens}+7\\text{ ones} +3 \\text{ ones}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$7\\text{ hundreds} + 0\\text{ hundreds} +7 \\text{ tens}+2\\text{ tens} +5 \\text{ ones}+3 \\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$7\\text{ hundreds} + 2\\text{ hundreds} +5 \\text{ tens}+7\\text{ tens} +3 \\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$7\\text{ hundreds} + 2\\text{ hundreds} +5 \\text{ tens}+7\\text{ ones} +3 \\text{ ones}$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which expression could be used to find the value of $707+253$?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{356}$ as $\\purpleC{3\\text{ hundreds}}$, $\\purpleC{5\\text{ tens}}$, and $\\purpleC{6 \\text{ ones}}$.  \n\nWe can think of $\\blueD{529}$ as $\\blueD{5\\text{ hundreds}}$, $\\blueD{2\\text{ tens}}$, and $\\blueD{9\\text{ ones}}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{356}+\\blueD{529}$\n\n$=\\purpleC{3\\text{ hundreds}}+\\purpleC{5\\text{ tens}}+\\purpleC{6\\text{ ones}}+\\blueD{5\\text{ hundreds}}+\\blueD{2\\text{ tens}}+\\blueD{9\\text{ ones}}$\n\n$= \\purpleC{3\\text{ hundreds}}+\\blueD{5\\text{ hundreds}}+\\purpleC{5\\text{ tens}}+\\blueD{2\\text{ tens}}+\\purpleC{6\\text{ ones}}+\\blueD{9\\text{ ones}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $3\\text{ hundreds} + 5\\text{ hundreds} + 5 \\text{ tens}+2\\text{ tens} +6 \\text{ ones}+9 \\text{ ones}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$\\small 3\\text{ hundreds} + 5\\text{ hundreds} + 5 \\text{ tens}+2\\text{ tens} +6 \\text{ ones}+9 \\text{ ones}$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$\\small 3\\text{ hundreds} + 5\\text{ hundreds} + 6 \\text{ tens}+5\\text{ tens} +2 \\text{ ones}+9 \\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$\\small 3\\text{ hundreds} + 5\\text{ hundreds} + 5 \\text{ ones}+2\\text{ ones} +6 \\text{ tens}+9 \\text{ tens}$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which of the following is equal to $356+529$?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We can think of $\\purpleC{908}$ as $\\purpleC{9\\text{ hundreds}}$ and $\\purpleC{8 \\text{ ones}}$.  \n\nWe can think of $\\blueD{24}$ as $\\blueD{2\\text{ tens}}$  and $\\blueD{4\\text{ ones}}$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\phantom{=}\\purpleC{908}+\\blueD{24}$\n\n$=\\purpleC{9\\text{ hundreds}}+\\purpleC{8\\text{ ones}}+\\blueD{2\\text{ tens}}+\\blueD{4\\text{ ones}}$\n\n$= \\purpleC{9\\text{ hundreds}}+\\blueD{2\\text{ tens}}+\\purpleC{8\\text{ ones}}+\\blueD{4\\text{ ones}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer: $ 9\\text{ hundreds} + 2 \\text{ tens}+8 \\text{ ones}+4 \\text{ ones}$&#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$ 9\\text{ hundreds} + 2 \\text{ hundreds}+8 \\text{ ones}+4 \\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$ 9\\text{ tens} + 2 \\text{ tens}+8 \\text{ ones}+4 \\text{ ones}$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$ 9\\text{ hundreds} + 2 \\text{ tens}+8 \\text{ ones}+4 \\text{ ones}$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which of the following is equal to $908+24$?**\n\n[[☃ radio 1]]\n\n\n\n\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

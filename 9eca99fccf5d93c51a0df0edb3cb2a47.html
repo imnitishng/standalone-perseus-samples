@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="12" data-dump="[{&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Cara started with $\\goldE{42}$ blocks.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/c9b85cdf6fc6ea7dec183e382b71fb56ec108384)\n\nTo add on the number line, we jump to the **right**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/c9b85cdf6fc6ea7dec183e382b71fb56ec108384&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;She added $\\maroonD{12}$ red blocks.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/f15dc51d49971122f27a0e43f4646f84501c0957)\n\n$\\goldE{42} + \\maroonD{12} = 54$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/f15dc51d49971122f27a0e43f4646f84501c0957&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then she added $\\blueE{14}$ blue blocks.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/c7a1d9da27f3dd9cef6bfc82e92a361e53a529e6)\n\n$54+  \\blueE{14} = 68$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/c7a1d9da27f3dd9cef6bfc82e92a361e53a529e6&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Last, she added $\\purpleD{16}$ purple blocks.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/d84081345b7a5dde58902b42bbcc24ec9be37384)\n\n$68+\\purpleD{16} = 84$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/d84081345b7a5dde58902b42bbcc24ec9be37384&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This number line represents how to find Cara&#39;s total number of blocks:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/c8eead4c70d641d91b2b486cbed861378ccb68bd)\n\nCara had $84$ total blocks.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/c8eead4c70d641d91b2b486cbed861378ccb68bd&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/a9fa104afc5c8c7ebe130b0cf5586fa0d910d6f2)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/bebe454853d8c8efecfcf7127c196857d6fa847f)&#34;, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}, &#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 84, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Cara had a tower with $42$ blocks.  \n\nShe added $12$ red blocks, $14$ more blue blocks, and $16$ purple blocks.    \n\n**Which number line shows how to find how many blocks Cara&#39;s tower has total?**\n\n[[☃ radio 1]]\n\n**How many blocks does Cara&#39;s tower have now?**\n\n[[☃ numeric-input 1]] blocks&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Mrs. Bain gave away $\\goldE{30}$ awards before today.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/1ff029e47b3dcd3343e05a1fcbf8382f9b93ef2c)\n\nTo add on the number line, we jump to the **right**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/1ff029e47b3dcd3343e05a1fcbf8382f9b93ef2c&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then she gave away $\\maroonD{11}$ spelling awards.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/0b2662131c96d0e21ceb1a84106c8fe15204b3c6)\n\n$\\goldE{30} + \\maroonD{11} = 41$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/0b2662131c96d0e21ceb1a84106c8fe15204b3c6&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then she gave away $\\blueE{36}$ science awards.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/9c14cd0f673675e8d3393b2409106f5e6b68a3cb)\n\n$41+  \\blueE{36} = 77$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/9c14cd0f673675e8d3393b2409106f5e6b68a3cb&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Last, she gave away $\\purpleD{18}$ math awards.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/416db8bac4c6725d9728033428b2d5b99fa5c0ba)\n\n$77+\\purpleD{18} = 95$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/416db8bac4c6725d9728033428b2d5b99fa5c0ba&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This number line represents how to find the total number of awards Mrs. Bain gave away:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/73b1023d8c52ca23de0b2a2c782e31d6dcceba2e)\n\nMrs. Bain gave $95$ total awards.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/73b1023d8c52ca23de0b2a2c782e31d6dcceba2e&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/fcb889a31abc411032418dfa04d395675abd2c72)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/73b1023d8c52ca23de0b2a2c782e31d6dcceba2e)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}, &#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 95, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Before today, Mrs. Bain had given a total of $30$ awards.  \n\nToday, Mrs. Bain gave $11$ more spelling awards,  $36$ more science awards, and $18$ more math awards.      \n\n**Which number line shows how to find how many total awards Mrs. Bain has given?**\n\n[[☃ radio 1]]\n\n\n**How many awards has Mrs. Bain now given?**  \n\n[[☃ numeric-input 1]] awards&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Ying ran $\\goldE{18}$ laps at running club.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/ee0c812ea914e50c528cfe76eb1dca0fd85bfa23)\n\nTo add on the number line, we jump to the **right**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/ee0c812ea914e50c528cfe76eb1dca0fd85bfa23&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then Ying ran $\\maroonD{14}$ more laps before school.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/aab5d43169f6ec61e18a272ead680d625f379ad1)\n\n$\\goldE{18} + \\maroonD{14} = 32$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/aab5d43169f6ec61e18a272ead680d625f379ad1&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then Ying ran $\\blueE{13}$ more laps at lunch.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/a9a6b18773d39b5807e205a4a8996913e6c5b6b1)\n\n$32+  \\blueE{13} = 45$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/a9a6b18773d39b5807e205a4a8996913e6c5b6b1&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;At recess, Ying ran $\\purpleD{20}$ laps.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/7a690df9fd07414aba55666e1c5c1e74506696bf)\n\n$45+\\purpleD{20} = 65$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/7a690df9fd07414aba55666e1c5c1e74506696bf&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This number line represents how to find total laps Ying has run:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/7e482dea8794abef55cd12964849ba2f4bd0dbf0)\n\nYing ran $65$ laps.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/7e482dea8794abef55cd12964849ba2f4bd0dbf0&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/8fc1f0f55f68d2cefc6f552c452ec50c7aa3d7f0)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/7e482dea8794abef55cd12964849ba2f4bd0dbf0)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}, &#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 65, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Ying ran $18$ laps for Running Club.  \n\nThen, Ying ran $14$ more laps before school, $13$ more laps at lunch, and $20$ more laps at recess.  \n\n**Which number line shows how to find how many total laps Ying has run?**\n\n[[☃ radio 1]]\n\n**How many laps has Ying run?**  \n\n[[☃ numeric-input 1]] laps\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The cowboys scored $\\goldE{13}$ points at halftime.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/ba74fc4d1d3edcfe60c862c78492bacf3afa400b)\n\nTo add on the number line, we jump to the **right**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/ba74fc4d1d3edcfe60c862c78492bacf3afa400b&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then the Cowboys scored $\\maroonD{14}$ points in the third quarter.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/9df842e3c7aab4ae1f206d60837701e26166a012)\n\n$\\goldE{13} + \\maroonD{14} = 27$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/9df842e3c7aab4ae1f206d60837701e26166a012&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The cowboys scored $\\blueE{21}$ points in the fourth quarter.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/6c98f8f45a19f32adf06a5f52d45251544da210b)\n\n$27+  \\blueE{21} = 48$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/6c98f8f45a19f32adf06a5f52d45251544da210b&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This number line represents how to find the total points the Cowboys scored:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/0c9c364aa09c1bd5c773d8a2f2a09415f84c3f2c)\n\nThe Cowboys scored $48$ points.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/0c9c364aa09c1bd5c773d8a2f2a09415f84c3f2c&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/fba491eb1351fc6a92bb71b4794f4041c2e6f3d2)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/0c9c364aa09c1bd5c773d8a2f2a09415f84c3f2c)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}, &#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 48, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;The Dallas Cowboys had $13$ points at halftime.\n\nThen, the Cowboys scored $14$ more points in the third quarter and $21$ more points in the fourth quarter.  \n\n**Which number line shows how to find how many total points the Cowboys scored in the game?**\n\n[[☃ radio 1]]\n\n**How many total points did the Cowboys score in the game?** \n \n[[☃ numeric-input 1]] points&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Anna caught $\\goldE{27}$ fish before lunch.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/5ccd3baf18041074f86374dad6f5b4881dc62305)\n\nTo add on the number line, we jump to the **right**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/5ccd3baf18041074f86374dad6f5b4881dc62305&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then Anna caught $\\maroonD{19}$ more fish after lunch.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/e7ca01f1180c5314354db46c67ebc42e32d1a8d2)\n\n$\\goldE{27} + \\maroonD{19} = 46$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/e7ca01f1180c5314354db46c67ebc42e32d1a8d2&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;After dinner, Anna caught $\\blueE{28}$ fish.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/9d9e56b90c7ac0b6f933e6bdaa9544e46bb95713)\n\n$46+  \\blueE{28} = 74$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/9d9e56b90c7ac0b6f933e6bdaa9544e46bb95713&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This number line represents how to find the total number of fish that Anna caught:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/1bf1032ab550b766e3e42e36b6797e944714e3c1)\n\nAnna caught $74$ fish.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/1bf1032ab550b766e3e42e36b6797e944714e3c1&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/6976812c0bb2a258323b7a6ad71db2d91f31a70b)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/1bf1032ab550b766e3e42e36b6797e944714e3c1)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}, &#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 74, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Before lunch time, Anna caught $27$ fish.  \n\nAnna caught $19$ more fish after lunch and $28$ more fish after dinner.  \n\n**Which number line shows how to find how many total fish Anna caught by the end of the day?**\n\n[[☃ radio 1]]\n\n**How many total fish had Anna caught by the end of the day?**  \n\n[[☃ numeric-input 1]] fish&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Mom had $\\goldE{19}$ pennies.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/04a36fde7fe12ee2c83c7e0b163190baf06c3d65)\n\nTo add on the number line, we jump to the **right**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/04a36fde7fe12ee2c83c7e0b163190baf06c3d65&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then she found $\\maroonD{23}$ pennies in the couch. \n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/983a9f63592c47d650dca84bf9f7977b7e449789)\n\n$\\goldE{19} + \\maroonD{23}= 42$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/983a9f63592c47d650dca84bf9f7977b7e449789&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Mom found $\\blueE{31}$ pennies in the car.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/adb0d67303b56530cd2b54201991c3dbadcbe6ad)\n\n$27+  \\blueE{21} = 48$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/adb0d67303b56530cd2b54201991c3dbadcbe6ad&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then mom found $\\purpleD{15}$ pennies under the rug. \n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/26db789d9b3aee899390ca943dae8e3f1cd95b02)\n\n$73+\\purpleD{15} = 88$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/26db789d9b3aee899390ca943dae8e3f1cd95b02&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This number line represents how to find the total pennies mom has now:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/f0b46dff3dbfdcb7fbcac773562176d85e21131e)\n\nMom has $88$ pennies.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/f0b46dff3dbfdcb7fbcac773562176d85e21131e&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/fb0974f4c61cce8fd4615f105dc5277f06bd9d73)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/f0b46dff3dbfdcb7fbcac773562176d85e21131e)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}, &#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 88, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Mom had $19$ pennies.   \n\nThen, Mom found $23$ more pennies in the couch, $31$ more pennies in the car, and $15$ more pennies under the rug.    \n\n**Which number line shows how to find how many total pennies Mom has now?**\n\n[[☃ radio 1]]\n\n\n**How many pennies does Mom have now?**  \n\n[[☃ numeric-input 1]] pennies &#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Jack has $\\goldE{89}$ magic beans.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/c42d62a1d7bcdaf7392775b7eac47e69d3287d21)\n\nTo subtract on the number line, we jump to the **left**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/c42d62a1d7bcdaf7392775b7eac47e69d3287d21&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;He gave $\\maroonD{32}$ magic beans to his sister.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/8b2753cc23138e3338e31591114562565e9e6a00)\n\n$\\goldE{89} - \\maroonD{32} = 57$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/8b2753cc23138e3338e31591114562565e9e6a00&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;He gave $\\purpleD{24}$ magic beans to his best friend.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/edae8627d36683414e43a244e56114b1a9516219)\n\n$57 - \\purpleD{24} =33$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/edae8627d36683414e43a244e56114b1a9516219&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blueE{18}$ magic beans got planted.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/2854d739ccf72a57da0593ca5641bb671dc8d18e)\n\n$33 - \\blueE{18} = 15$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/2854d739ccf72a57da0593ca5641bb671dc8d18e&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Here is the correct number line:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/d3103354808e4853ab23d692cd4b96c7d7ccfd17)\n\nJack has ${15}$ magic beans left.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/d3103354808e4853ab23d692cd4b96c7d7ccfd17&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 15, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}, &#34;radio 2&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/d3103354808e4853ab23d692cd4b96c7d7ccfd17)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/03668a9894784fd37455b4cf46d93cd8c29c2fb8)&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Jack had $89$ magic beans.  \n\nHe gave $32$ magic beans to his sister, $24$ to his best friend, and he planted $18$ magic beans.  \n\n**Which number line shows how to find how many magic beans Jack has left?**  \n\n[[☃ radio 2]]  \n\n**How many magic beans does Jack have left?**\n\n[[☃ numeric-input 1]] magic beans&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Max started with $\\goldE{60}$ balloons.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/a7d111f00e6b3caf1ca74e3c56b0bb41c996a205)\n\nTo subtract on the number line, we jump to the **left**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/a7d111f00e6b3caf1ca74e3c56b0bb41c996a205&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;He gave away $\\maroonD{15}$ balloons to his friend.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/40baaa6099476657a88681231fe2f485e077e0e2)\n\n$\\goldE{60} - \\maroonD{15} = 45$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/40baaa6099476657a88681231fe2f485e077e0e2&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then he gave away $\\purpleD{15}$ balloons to his sister.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/b7d7514a12d499526dd82e33dce4f2e4362431f5)\n\n$45 - \\purpleD{15} =30$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/b7d7514a12d499526dd82e33dce4f2e4362431f5&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Last, he gave $\\blueE{11}$ balloons to his dog.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/08812de35371b6b1d755f07c9bac96be862b780e)\n\n$30 - \\blueE{11} = 19$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/08812de35371b6b1d755f07c9bac96be862b780e&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Here is the correct number line:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/da4a6100ff5fce67b7aeabcf018a1ae419795aee)\n\nMax had ${19}$ balloons left.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/da4a6100ff5fce67b7aeabcf018a1ae419795aee&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/da4a6100ff5fce67b7aeabcf018a1ae419795aee)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/8514b4f0861a714edcede92d54a1375cfa21c326)&#34;, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}, &#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 19, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;For his birthday, Max had $60$ balloons.  \n\nHe gave $15$ balloons to a friend, $15$ balloons to his sister, and $11$ balloon to a dog.         \n\n**Which number line shows how to find how many balloons Max has left?**\n\n[[☃ radio 1]]  \n\n**How many balloons does Max have left?**\n\n[[☃ numeric-input 1]] balloons &#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;The dragon ninja started with $\\goldE{70}$ rubber stars.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/3fe8878fa2de02c8b3c42de100f5d5a9cab4e674)\n\nTo subtract on the number line, we jump to the **left**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/3fe8878fa2de02c8b3c42de100f5d5a9cab4e674&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;He threw $\\maroonD{12}$ rubber stars at the a tree.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/fbc38cd3058a6d81b1cf88f3559b08c18f74da70)\n\n$\\goldE{70} - \\maroonD{12} = 58$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/fbc38cd3058a6d81b1cf88f3559b08c18f74da70&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then he threw $\\purpleD{33}$ rubber stars at a target.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/6960fd98824b44a691208826058eaae489291e0c)\n\n$58 - \\purpleD{33} =25$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/6960fd98824b44a691208826058eaae489291e0c&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Last, he threw $\\blueE{22}$ stars in the sky.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/f6d146c152d7a30d8a7005a5d71123ac932b66fe)\n\n$25 - \\blueE{22} = 3$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/f6d146c152d7a30d8a7005a5d71123ac932b66fe&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Here is the correct number line:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/0ec8acfd003b8c0415d7192fcd7240d0623771d5)\n\nThe dragon ninja had ${3}$ rubber stars left.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/0ec8acfd003b8c0415d7192fcd7240d0623771d5&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/e5ce2493c546429bd4276941fd05c6de88ae14c0)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/0ec8acfd003b8c0415d7192fcd7240d0623771d5)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}, &#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 3, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;The dragon ninja had $70$ total rubber stars.  \n\nThen, the dragon ninja threw $12$ stars at a tree, $33$ stars at a target, and $22$ stars into the sky.       \n\n**Which number line shows how to find how many rubber stars the dragon ninja has left?**\n\n[[☃ radio 1]]  \n\n\n**How many rubber stars does the dragon ninja have now?**  \n\n[[☃ numeric-input 1]] rubber stars&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Grandpa started with $\\goldE{79}$ pieces of food.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/83fbb9c12a1bfd9d204dcdde5fd28b485583c5c1)\n\nTo subtract on the number line, we jump to the **left**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/83fbb9c12a1bfd9d204dcdde5fd28b485583c5c1&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;He fed $\\maroonD{14}$ pieces of food to the ducklings.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/7fb48ae7cb0b8a2342bcd0abfb5cebabcf2ad096)\n\n$\\goldE{79} - \\maroonD{14} = 65$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/7fb48ae7cb0b8a2342bcd0abfb5cebabcf2ad096&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Then he fed $\\purpleD{17}$ pieces of food to the seagulls.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/ef5c43c50a76a5296334614daba71b01b8298d0b)\n\n$65 - \\purpleD{17} =48$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/ef5c43c50a76a5296334614daba71b01b8298d0b&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Last, he fed $\\blueE{32}$ pieces of food to the swans.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/7299e6bd99e71f98fc6fddb590083d079325d43b)\n\n$48 - \\blueE{32} = 16$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/7299e6bd99e71f98fc6fddb590083d079325d43b&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Here is the correct number line:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/5b0e4e4fcd49a5420d46ad1e7f364f8e8f909488)\n\nGrandpa had ${16}$ pieces of food left.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/5b0e4e4fcd49a5420d46ad1e7f364f8e8f909488&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/7af71456d6425acb1e5450a9a5b98a8a95976b20)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/5b0e4e4fcd49a5420d46ad1e7f364f8e8f909488)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}, &#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 16, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Grandpa brought a bag with $79$ pieces of food to feed the birds at the pond.   \n\nGrandpa fed $14$ pieces of food to ducklings, $17$ pieces to seagulls, and $32$ pieces to swans.   \n\n**Which number line shows how to find how many pieces of food Grandpa has left?**\n\n[[☃ radio 1]]  \n\n**How many pieces of food does Grandpa have left?**\n\n[[☃ numeric-input 1]] pieces of food &#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Dian made $\\goldE{83}$ paper boats.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/d0291a6f26dd1442865bf2ccfb5405aff4a2d98f)\n\nTo subtract on the number line, we jump to the **left**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/d0291a6f26dd1442865bf2ccfb5405aff4a2d98f&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\maroonD{25}$ of Dian&#39;s boats sank.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/8b657037e094c8526b2e53296dc39cc2ae86ece7)\n\n$\\goldE{83} - \\maroonD{25} = 58$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/8b657037e094c8526b2e53296dc39cc2ae86ece7&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purpleD{33}$ boats had a rip in them.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/906e467ee90f92c7ffc1cc0c0fda37b35a2c831a)\n\n$58 - \\purpleD{33} =25$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/906e467ee90f92c7ffc1cc0c0fda37b35a2c831a&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blueE{13}$ boats were eaten by fish.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/0112da3f862586567c830d1d07c56aa2742d2965)\n\n$25 - \\blueE{13} = 12$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/0112da3f862586567c830d1d07c56aa2742d2965&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Here is the correct number line:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/fade79cc0cf2df0b4c418cad7351b409e79522c0)\n\nDian has ${12}$ boats left.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/fade79cc0cf2df0b4c418cad7351b409e79522c0&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/08d1b8a38c8ae7c3cccdd9b7d5c83dbde376d996)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/fade79cc0cf2df0b4c418cad7351b409e79522c0)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}, &#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 12, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;Dian made $83$ paper boats and then set them afloat on a lake.\n\n$25$ of Dian&#39;s boats sank, $33$ boats were ripped, and $13$ were eaten by fish.    \n\n**Which number line shows how to find how many boats Dian has left?**\n\n[[☃ radio 1]]  \n\n**How many boats does Dian have left?**\n\n[[☃ numeric-input 1]] boats&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;A palm tree had $\\goldE{92}$ coconuts.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/707d61890a1fa603d703ebef7d1cc3adc6b3e0ec)\n\nTo subtract on the number line, we jump to the **left**.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/707d61890a1fa603d703ebef7d1cc3adc6b3e0ec&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\maroonD{45}$ of the coconuts were lost during a storm.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/d17f50199d8b822765860cddae19bf09dee8e8e1)\n\n$\\goldE{92} - \\maroonD{45} = 47$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/d17f50199d8b822765860cddae19bf09dee8e8e1&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\purpleD{12}$ coconuts were eaten by animals.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/54b22e30e49d07ce1fe767dbe27243e4d78a7355)\n\n$47 - \\purpleD{12} =35$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/54b22e30e49d07ce1fe767dbe27243e4d78a7355&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blueE{14}$ coconuts fell off the tree.\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/bd7818418d5aefe5c05cd986ff47d5ae3ad14ea9)\n\n$35 - \\blueE{14} = 21$&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/bd7818418d5aefe5c05cd986ff47d5ae3ad14ea9&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Here is the correct number line:\n\n![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/49b254b43d069a505da2dd89e3379575c7f22a40)\n\nThere are ${21}$ coconuts on the palm tree.&#34;, &#34;images&#34;: {&#34;web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/49b254b43d069a505da2dd89e3379575c7f22a40&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 100}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;countChoices&#34;: false, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/9e231a6886353deefe17d7fe53547340b2f464dc)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:9eca99fccf5d93c51a0df0edb3cb2a47/images/49b254b43d069a505da2dd89e3379575c7f22a40)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}, &#34;numeric-input 1&#34;: {&#34;options&#34;: {&#34;multipleNumberInput&#34;: false, &#34;coefficient&#34;: false, &#34;static&#34;: false, &#34;answers&#34;: [{&#34;strict&#34;: false, &#34;value&#34;: 21, &#34;status&#34;: &#34;correct&#34;, &#34;maxError&#34;: null, &#34;simplify&#34;: &#34;required&#34;, &#34;message&#34;: &#34;&#34;}], &#34;size&#34;: &#34;normal&#34;, &#34;rightAlign&#34;: false, &#34;labelText&#34;: &#34;&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;numeric-input&#34;}}, &#34;content&#34;: &#34;A palm tree had $92$ coconuts.  \n\nThen, the palm tree lost $45$ coconuts in a storm, and $12$ coconuts were eaten by wild animals. $14$ coconut fell off the tree.      \n\n**Which number line shows how to find how many coconuts are left on the palm tree?**\n\n[[☃ radio 1]]  \n\n**How many coconuts does the palm tree have left?**\n\n[[☃ numeric-input 1]] coconuts&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

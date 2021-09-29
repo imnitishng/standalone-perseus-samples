@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="20" data-dump="[{&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We started with $9$ sharks.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We took $5$ away so we *subtract* $5$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$9 - 5$\n&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/8dc88644857f34e99eb8bdfd670a3ad3.png&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 38}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$9 - 5$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$5 + 9$ &#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$9 + 5$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5 - 9$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;AJ saw $9$ sharks.  \n![](/74178b5caefc667da9442a02738364da/images/d6d66279002845c45b9ec22ac9bfccbd.png)  \n$5$ of them swam away. \n\n**How do we find the number of sharks that are left?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/d6d66279002845c45b9ec22ac9bfccbd.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 51}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We started with $10$ mice.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We took $6$ away, so we *subtract* $6$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$10 - 6$\n&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/77d6bddc27291b4d559c66a4c5786533.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 45}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$10 - 6$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$6 + 10$ &#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$10 + 6$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$6 - 10$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Jack had $10$ mice.  \n![](/74178b5caefc667da9442a02738364da/images/afc7b1d1832fdf137e461430ec740bb6.png)  \n$6$ mice ran away. \n\n\n**How do we find the number of mice that are left?**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/afc7b1d1832fdf137e461430ec740bb6.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 47}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We started with $7$ flowers.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We took $4$ away so we *subtract* $4$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$7 - 4$&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/655a83094ab92828187295bc8afaea4f.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 55}}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$7 - 4$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$4 + 7$ &#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$7 + 4$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$4 - 7$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Ming put $7$ flowers on his porch.  \n![](/74178b5caefc667da9442a02738364da/images/e6ea164c12c285f7d6334865c32096e4.png)  \nA rabbit ate $4$ of them. \n\n**How do we find the number of flowers that are left?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/e6ea164c12c285f7d6334865c32096e4.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 54}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We started with $8$ foxes.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We took $3$ away so we *subtract* $3$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$8 - 3$&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/f17c25ebe256499a302a39a0c3b87f41.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 60}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$8 - 3$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$3 + 8$ &#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$8 + 3$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$3 - 8$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Dana saw $8$ foxes.  \n$3$ of them ran away.\n\n**How do we find the number of foxes that are left?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/2af803f7634738ab2210f225e2556032.png&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 48}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We started with $5$ horses.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We took $2$ away so we *subtract* $2$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$5 - 2$&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/74aeb12dc82a995d0ec31f97fd37878e.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 69}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$5 - 2$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$2 + 5$ &#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$5 + 2$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$2 - 5$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Carol saw $5$ horses.  \n$2$ of them ran away. \n\n**How do we find the number of horses that are left?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/5922bc84b71c095840d2d8c913b74e36.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 66}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;We started with $6$ cherries.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Hal&#39;s sister ate $3$ away so we *subtract* $3$.&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$6-3$&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/74aeb12dc82a995d0ec31f97fd37878e.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 69}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$6-3$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$3+6$ &#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$6+3$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$3-6$&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;Hal had $6$ cherries.  \nHis sister ate $3$ of them. \n\n**How do we find the number of cherries that are left?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/5922bc84b71c095840d2d8c913b74e36.png&#34;: {&#34;width&#34;: 300, &#34;height&#34;: 66}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $2$ monkeys left.   \n\n![](/74178b5caefc667da9442a02738364da/images/ea32ca3b5a3876941368b71a773c3765.png)&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/ea32ca3b5a3876941368b71a773c3765.png&#34;: {&#34;width&#34;: 125, &#34;height&#34;: 62}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:74178b5caefc667da9442a02738364da/images/749c019d0483fb8f4b1d5d98ff99614953829167)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:74178b5caefc667da9442a02738364da/images/f1f938181075bb6acc38d4c5f86e84e6693aed23)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:74178b5caefc667da9442a02738364da/images/54ec9a57296a601030f8ffbca21b4f17013dcc47)&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;There are $10$ monkeys in a tree.  \n$8$ of the monkeys leave.\n\n**How many monkeys are left?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $3$ acorns left.   \n\n![](/74178b5caefc667da9442a02738364da/images/050c142165fcb5afb52cbf220be0ee32.png)&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/050c142165fcb5afb52cbf220be0ee32.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 50}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/7351ca0f6e8aadc840bfd03ac714615b.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/eae9ce89847a8accc8b7e65319ee636e.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/050c142165fcb5afb52cbf220be0ee32.png)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;A tree had $6$ acorns.  \nThe wind blew $3$ acorns off.\n\n**How many acorns are left?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $5$ apples left.   \n\n![](/74178b5caefc667da9442a02738364da/images/ffb564de6cac28d8d5f66680138aabc2.png)&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/ffb564de6cac28d8d5f66680138aabc2.png&#34;: {&#34;width&#34;: 225, &#34;height&#34;: 50}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/ffb564de6cac28d8d5f66680138aabc2.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/ff71e8d425bf2a06e42e842ead86fc97.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/5c5483668e93339e50f3a75ee137de17.png)&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;Riley had $7$ apples in a basket.  \n$2$ apples fell out.\n\n**How many apples are left?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $2$ bananas left.  \n\n![](/74178b5caefc667da9442a02738364da/images/bf0c04b39f09ec6f02d67e8d97af09c5.png)&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/bf0c04b39f09ec6f02d67e8d97af09c5.png&#34;: {&#34;width&#34;: 100, &#34;height&#34;: 50}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:74178b5caefc667da9442a02738364da/images/a25586bb4664636f620add1a4077c02234377df6)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:74178b5caefc667da9442a02738364da/images/8e3d83a9d05d54524dd1a3f32c76613888556a78)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:74178b5caefc667da9442a02738364da/images/7b3773ee9a1cfd6798467fcd83edba397bd31043)&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;Mom bought $5$ bananas.  \nMax ate $3$ of them.\n\n**How many bananas are left?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$3$ elephants kept walking.   \n\n![](/74178b5caefc667da9442a02738364da/images/be83ce902c2eae4bdb9b9502d18d9f18.png)&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/be83ce902c2eae4bdb9b9502d18d9f18.png&#34;: {&#34;width&#34;: 150, &#34;height&#34;: 56}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/62ea013e98fc0eac7705f79271089c25.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/be83ce902c2eae4bdb9b9502d18d9f18.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/0852322db45a864679f693c1e986f5ca.png)&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$8$ elephants were walking.  \n$5$ of the elephants stopped to rest.\n\n**How many kept walking?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;There are $5$ ladybugs left.   \n\n![](/74178b5caefc667da9442a02738364da/images/e768d259e530342a65e236042994a062.png)&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/e768d259e530342a65e236042994a062.png&#34;: {&#34;width&#34;: 200, &#34;height&#34;: 42}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/e768d259e530342a65e236042994a062.png)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/fe3ab82004288d25b532758d81179106.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/3b0c6e5fbf67dac6eba3602cd63bc37f.png)&#34;, &#34;correct&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;A daisy had $9$ ladybugs on it.  \n$4$ of the ladybugs flew away.\n\n**How many ladybugs are left?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$1$ squirrel kept running.   \n\n![](/74178b5caefc667da9442a02738364da/images/fa389a673682def4dcc08b994c678170.png)&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/fa389a673682def4dcc08b994c678170.png&#34;: {&#34;width&#34;: 50, &#34;height&#34;: 50}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;noneOfTheAbove&#34;: false, &#34;displayCount&#34;: null, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/4e3266cf870c6daf12dcd00baef1b058.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/dd412dfcad84504cadfba4d5d2e2a1ba.png)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](/74178b5caefc667da9442a02738364da/images/fa389a673682def4dcc08b994c678170.png)&#34;, &#34;correct&#34;: true}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;onePerLine&#34;: true}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;$3$ squirrels were running.  \n$2$ of the squirrels stopped.\n\n**How many squirrels kept running?**\n\n[[☃ radio 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{10}-\\pink{5}=\\green{\\text{?}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count how many are left.\n\n![](web+graphie:74178b5caefc667da9442a02738364da/images/2003b72b121feab5b5cff2b6e0dd03e13df0b2a4)&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/2003b72b121feab5b5cff2b6e0dd03e13df0b2a4&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 48}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{10}-\\pink{5}=\\green{5}$\n\nHe has $\\green5$ flowers left.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 5, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;Shota had $10$ flowers. \n![](web+graphie:74178b5caefc667da9442a02738364da/images/bef5dca35ecf91c6a5f7f5aa4938860e9f54c049)\n\nHis rabbit ate $5$ flowers.\n\n**How many flowers are left?**  \n[[☃ input-number 1]] flowers\n\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/bef5dca35ecf91c6a5f7f5aa4938860e9f54c049&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 48}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{3}-\\pink{2}=\\green{\\text{?}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count how many are left.  \n![](web+graphie:74178b5caefc667da9442a02738364da/images/72d59c577e3e1e2ab0daedccde3de9f728dba34f)&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/72d59c577e3e1e2ab0daedccde3de9f728dba34f&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{3}-\\pink{2}=\\green{1}$\n\nShe has $\\green1$ good banana left.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;periodicTable&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;tTable&#34;: false, &#34;calculator&#34;: false, &#34;type&#34;: &#34;multiple&#34;, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 1, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Mrs. Telly bought $3$ bananas.  \n![](web+graphie:74178b5caefc667da9442a02738364da/images/c2c1df340c8bf89add3d6b80201e8fc0270c24ed)\n\nShe stepped on $2$ bananas. Yuck! \n\n**How many bananas are still good?**  \n[[☃ input-number 1]] bananas\n\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/c2c1df340c8bf89add3d6b80201e8fc0270c24ed&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{4}-\\pink{1}=\\green{\\text{?}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count how many are left.\n\n![](web+graphie:74178b5caefc667da9442a02738364da/images/7d698862d3dcfb06b0f0ac1fa3b3e79b54aa8303)\n&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/7d698862d3dcfb06b0f0ac1fa3b3e79b54aa8303&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Diego has $\\green3$ apples now.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;Diego bought $4$ apples.  \n![](web+graphie:74178b5caefc667da9442a02738364da/images/deea294986a46ddbc1571a49074754e2567cc952)\n\nHe gave $1$ apple away.\n\n**How many apples does he have now?**  \n[[☃ input-number 1]] apples\n\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/deea294986a46ddbc1571a49074754e2567cc952&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{6}-\\pink{4}=\\green{\\text{?}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count how many are left.  \n![](web+graphie:74178b5caefc667da9442a02738364da/images/f03083417b975c448ef0d4d5673546d91e065605)&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/f03083417b975c448ef0d4d5673546d91e065605&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 75}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{6}-\\pink{4}=\\green{2}$\n\n$\\green2$ blocks of cheese are left.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 2, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;type&#34;: &#34;input-number&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}}}, &#34;content&#34;: &#34;Lola had $6$ blocks of cheese.  \n![](web+graphie:74178b5caefc667da9442a02738364da/images/81d9627592e4cdc2b7c47c5a7a38429d99728701)\n\nA mouse ate $4$ of them.\n \n**How many are left?**  \n[[☃ input-number 1]]\n\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/81d9627592e4cdc2b7c47c5a7a38429d99728701&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 75}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{10}-\\pink{2}=\\green{\\text{?}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count how many are left.  \n![](web+graphie:74178b5caefc667da9442a02738364da/images/396c5c629d60e88f8a6fc467fbf4ed06b14b4946)&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/396c5c629d60e88f8a6fc467fbf4ed06b14b4946&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 48}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{10}-\\pink{2}=\\green{8}$  \n\nThere are $\\green8$ sharks left.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 8, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;There were $10$ sharks at the reef.  \n$2$ sharks swam away.\n\n**How many sharks are left?**  \n[[☃ input-number 1]]\n\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/551d63e87c02ca243c43da8a30175bbe79a126ce&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 48}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{7}-\\pink{3}=\\green{\\text{?}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count how many are left.  \n![](web+graphie:74178b5caefc667da9442a02738364da/images/f63e8d2234a0bc3b071c9759f59f652a333bceda)&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/f63e8d2234a0bc3b071c9759f59f652a333bceda&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 67}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue{7}-\\pink{3}=\\green{4}$\n\n$\\green4$ mice are in the wagon now.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 4, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;$7$ mice were in a wagon.  \n$3$ mice jumped out.\n \n**How many mice are in the wagon now?**  \n\n[[☃ input-number 1]]\n\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/e73157039f24cbbd500265126f55e09933e025a9&#34;: {&#34;width&#34;: 400, &#34;height&#34;: 67}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue5-\\pink2=\\green{\\text{?}}$&#34;, &#34;images&#34;: {}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;Count how many are left.  \n![](web+graphie:74178b5caefc667da9442a02738364da/images/f0257333ea29dee3d8b6e60bc622edfba86aeef6)\n&#34;, &#34;images&#34;: {&#34;web+graphie:74178b5caefc667da9442a02738364da/images/f0257333ea29dee3d8b6e60bc622edfba86aeef6&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 78}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$\\blue5-\\pink2=\\green3$\n\nThere are $\\green3$ whales left.  &#34;, &#34;images&#34;: {}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;input-number 1&#34;: {&#34;options&#34;: {&#34;value&#34;: 3, &#34;inexact&#34;: false, &#34;maxError&#34;: 0.1, &#34;size&#34;: &#34;normal&#34;, &#34;simplify&#34;: &#34;required&#34;, &#34;answerType&#34;: &#34;number&#34;}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;input-number&#34;}}, &#34;content&#34;: &#34;Captain Blue saw $5$ whales.  \n$2$ of the whales swam away.\n\n**How many whales were left?**  \n\n[[☃ input-number 1]] whales\n\n\n&#34;, &#34;images&#34;: {&#34;/74178b5caefc667da9442a02738364da/images/c795bfa99237d0719b63a0d884dfc545.png&#34;: {&#34;width&#34;: 350, &#34;height&#34;: 77}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>

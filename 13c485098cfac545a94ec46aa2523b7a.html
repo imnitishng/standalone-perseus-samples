@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/perseus.css">
+  <link rel="stylesheet/less" type="text/css" href="./assets/perseus/stylesheets/exercise.css">
+
+
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+
+  <script>less = { env: 'development', logLevel: 1 };</script>
+  <script src="./assets/perseus/lib/less.js"></script>
+  <script src="./assets/perseus/lib/babel-polyfills.min.js"></script>
+  <script src="./assets/perseus/lib/jquery.js"></script>
+  <script src="./assets/perseus/lib/underscore.js"></script>
+  <script src="./assets/perseus/lib/react-with-addons.js"></script>
+  <script src="./assets/perseus/lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="./assets/perseus/lib/katex/katex.js"></script>
+  <script src="./assets/perseus/lib/mathquill/mathquill-basic.js"></script>
+  <script src="./assets/perseus/lib/kas.js"></script>
+  <script src="./assets/perseus/lib/vue.js"></script>
+  <script src="./assets/perseus/lib/i18n.js"></script>
+  <script src="./assets/perseus/lib/jquery.qtip.js"></script>
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <script src="./assets/perseus/build/frame-perseus.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {
+      border-radius: .25em;
+      -webkit-border-radius: .25em;
+      -moz-border-radius: .25em;
+      -khtml-border-radius: .25em;
+      box-shadow: 0px 0px 15px #83A;
+      -webkit-box-shadow: 0px 0px 15px #83A;
+      -moz-box-shadow: 0px 0px 15px #83A;
+      -khtml-box-shadow: 0px 0px 15px #83A;
+      border: 1px solid #A6D ! important;
+      display: inline-block;
+      position: absolute
+    }
+
+    .MathJax_Hover_Arrow {
+      position: absolute;
+      width: 15px;
+      height: 11px;
+      cursor: pointer
+    }
+  </style>
+
+  <style type="text/css">
+    #MathJax_About {
+      position: fixed;
+      left: 50%;
+      width: auto;
+      text-align: center;
+      border: 3px outset;
+      padding: 1em 2em;
+      background-color: #DDDDDD;
+      color: black;
+      cursor: default;
+      font-family: message-box;
+      font-size: 120%;
+      font-style: normal;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -khtml-border-radius: 15px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_Menu {
+      position: absolute;
+      background-color: white;
+      color: black;
+      width: auto;
+      padding: 5px 0px;
+      border: 1px solid #CCCCCC;
+      margin: 0;
+      cursor: default;
+      font: menu;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      z-index: 201;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -khtml-border-radius: 5px;
+      box-shadow: 0px 10px 20px #808080;
+      -webkit-box-shadow: 0px 10px 20px #808080;
+      -moz-box-shadow: 0px 10px 20px #808080;
+      -khtml-box-shadow: 0px 10px 20px #808080;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    .MathJax_MenuItem {
+      padding: 1px 2em;
+      background: transparent
+    }
+
+    .MathJax_MenuTitle {
+      background-color: #CCCCCC;
+      margin: -5px 0 0 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 80%;
+      color: #444444;
+      padding: 2px 0;
+      overflow: hidden
+    }
+
+    .MathJax_MenuArrow {
+      position: absolute;
+      right: .5em;
+      color: #666666
+    }
+
+    .MathJax_MenuActive .MathJax_MenuArrow {
+      color: white
+    }
+
+    .MathJax_MenuCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuRadioCheck {
+      position: absolute;
+      left: .7em
+    }
+
+    .MathJax_MenuLabel {
+      padding: 1px 2em 3px 1.33em;
+      font-style: italic
+    }
+
+    .MathJax_MenuRule {
+      border-top: 1px solid #DDDDDD;
+      margin: 4px 3px
+    }
+
+    .MathJax_MenuDisabled {
+      color: GrayText
+    }
+
+    .MathJax_MenuActive {
+      background-color: #606872;
+      color: white
+    }
+
+    .MathJax_Menu_Close {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      top: -15px;
+      left: -15px
+    }
+  </style>
+  <style type="text/css">
+    #MathJax_Zoom {
+      position: absolute;
+      background-color: #F0F0F0;
+      overflow: auto;
+      display: block;
+      z-index: 301;
+      padding: .5em;
+      border: 1px solid black;
+      margin: 0;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      text-indent: 0;
+      text-transform: none;
+      line-height: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      float: none;
+      box-shadow: 5px 5px 15px #AAAAAA;
+      -webkit-box-shadow: 5px 5px 15px #AAAAAA;
+      -moz-box-shadow: 5px 5px 15px #AAAAAA;
+      -khtml-box-shadow: 5px 5px 15px #AAAAAA;
+      filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
+    }
+
+    #MathJax_ZoomOverlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 300;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+
+    #MathJax_ZoomEventTrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 302;
+      display: inline-block;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: white;
+      opacity: 0;
+      filter: alpha(opacity=0)
+    }
+  </style>
+  <style type="text/css">
+    .MathJax_Preview {
+      color: #888
+    }
+
+    #MathJax_Message {
+      position: fixed;
+      left: 1em;
+      bottom: 1.5em;
+      background-color: #E6E6E6;
+      border: 1px solid #959595;
+      margin: 0px;
+      padding: 2px 8px;
+      z-index: 102;
+      color: black;
+      font-size: 80%;
+      width: auto;
+      white-space: nowrap
+    }
+
+    #MathJax_MSIE_Frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      z-index: 101;
+      border: 0px;
+      margin: 0px;
+      padding: 0px
+    }
+
+    .MathJax_Error {
+      color: #CC0000;
+      font-style: italic
+    }
+  </style>
+  <style type="text/css" data-aphrodite="">
+    .buttonStyle_1quqytj {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj:focus {
+      z-index: 2 !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka {
+      background-color: #ddd !important;
+      border: 1px solid #ccc !important;
+      border-left: 0 !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      padding: 5px 10px !important;
+      position: relative !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child {
+      border-left: 1px solid #ccc !important;
+      border-top-left-radius: 3px !important;
+      border-bottom-left-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child {
+      border-right: 1px solid #ccc !important;
+      border-top-right-radius: 3px !important;
+      border-bottom-right-radius: 3px !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover {
+      background-color: #ccc !important;
+    }
+
+    .buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus {
+      z-index: 2 !important;
+    }
+
+    .icon_zylrid {
+      width: 24px !important;
+      height: 24px !important;
+      margin-right: 8px !important;
+      margin-top: -3px !important;
+      vertical-align: middle !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7 {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 20px !important;
+      box-sizing: border-box !important;
+      height: 36px !important;
+      padding: 9px 16px !important;
+      border-radius: 18px !important;
+      font-family: 'Proxima Nova Semibold', sans-serif !important;
+      font-size: 15px !important;
+      line-height: 18px !important;
+      color: #FFFFFF !important;
+      user-select: none !important;
+      border-width: 0px !important;
+      background-color: #f86700 !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:hover {
+      background-color: #df5c00 !important;
+    }
+
+    .hud_j3igwl-o_O-enabled_k3uiq7:active {
+      background-color: #c75300 !important;
+    }
+
+    .infoTip_1ib9rpr {
+      display: inline-block !important;
+      margin-left: 5px !important;
+      position: relative !important;
+    }
+
+    .infoTipContainer_agadz4 {
+      position: absolute !important;
+      top: -12px !important;
+      left: 22px !important;
+      z-index: 1000 !important;
+    }
+
+    .infoTipTriangle_1qit3it {
+      height: 10px !important;
+      left: 0 !important;
+      position: absolute !important;
+      top: 8px !important;
+      width: 0 !important;
+      z-index: 1 !important;
+    }
+
+    .infoTipTriangle_1qit3it:before {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #bbb !important;
+      right: 0 !important;
+    }
+
+    .infoTipTriangle_1qit3it:after {
+      border-bottom: 9px solid transparent !important;
+      border-top: 9px solid transparent !important;
+      content: " " !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 0 !important;
+      border-right: 9px solid #fff !important;
+      right: -1px !important;
+    }
+
+    .verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf {
+      border: 1px solid #ccc !important;
+      box-shadow: 0 1px 3px #ccc !important;
+      border-bottom: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 5px 10px !important;
+      width: 240px !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content-container">
+  <div class="framework-perseus" id="framework-perseus">
+    <div id="perseus" ref="perseus" style="background-color: white;">
+
+      <meta id="my-data" data-total="15" data-dump="[{&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$243 +\\purpleC4\\blueD1\\greenD2 = 243 +\\purpleC{400}+\\blueD{10}+\\greenD2$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $243$ and move **right** $\\purpleC{400}$, then $\\blueD{10}$, and finally $\\greenD2$ more.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer:\n\n![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/45eaa1ed38b8dbe7d052d001b1214f985aa937d5)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/45eaa1ed38b8dbe7d052d001b1214f985aa937d5&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/45eaa1ed38b8dbe7d052d001b1214f985aa937d5)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/59961528222be5e89c1b1ac9a07853006be46772)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/1f73085fe2ae56fc146a35813a678be4ce2fd1fb)&#34;, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which number line shows $243 + 412?$**\n\n[[☃ radio 1]] \n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$361 +\\purpleC5\\blueD4\\greenD4 = 361 +\\purpleC{500}+\\blueD{40}+\\greenD4$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $361$ and move **right** $\\purpleC{500}$, then $\\blueD{40}$, and finally $\\greenD4$ more.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer:\n\n![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/fd830964262cc832f5b7fd045c46b5c93aed967d)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/fd830964262cc832f5b7fd045c46b5c93aed967d&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/1f36bab735e7053d751884b0c879c0a6b553ae50)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/fd830964262cc832f5b7fd045c46b5c93aed967d)&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/5e564291264c9eb0dfc1d145e01c1a372adaa5bb)&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which number line shows $361+544?$**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$147 +\\purpleC7\\blueD6\\greenD0 = 147 +\\purpleC{700}+\\blueD{60}$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $147$ and move **right** $\\purpleC{700}$, then $\\blueD{60}$ more.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer:\n\n![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/881bf35386e59c06d01c0c4fb5f0e91858c1509e)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/881bf35386e59c06d01c0c4fb5f0e91858c1509e&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/d73a76ac11ecd307e2bb2b409a552ca44dcb4a1d)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/a3b7b12c0b021cecfa9be8599293a302d515bd9a)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/881bf35386e59c06d01c0c4fb5f0e91858c1509e)&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which number line shows $147+760?$**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$485 +\\purpleC4\\blueD0\\greenD8 = 485 +\\purpleC{400}+\\greenD8$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $485$ and move **right** $\\purpleC{400}$, then $\\greenD8$ more.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer:\n\n![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/a58cc45dbf28e029c389015008bfda70c2180157)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/a58cc45dbf28e029c389015008bfda70c2180157&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/55462692f49a10784d27e0b8562ee7f018b778ce)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/a962a268488469ed2df951d9c7c48e33fcbffc71)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/a58cc45dbf28e029c389015008bfda70c2180157)&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which number line shows $485+408?$**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$259 +\\purpleC6\\blueD2\\greenD7 = 259 +\\purpleC{600}+\\blueD{20}+\\greenD7$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $259$ and move **right** $\\purpleC{600}$, then $\\blueD{20}$, and finally $\\greenD7$ more.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer:\n\n![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/23350b35d9b1b3c1a5595a025059c202b7ebb519)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/23350b35d9b1b3c1a5595a025059c202b7ebb519&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/6298c9ea583255997c1a1786400b0f5925c2396a)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/282f2e0a18d85130a53f2b03cda91eae13dc9c55)&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/23350b35d9b1b3c1a5595a025059c202b7ebb519)&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which number line shows $259+627?$**\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $571$ and move **right** $\\blueD{90}$, then $\\greenD2$ more.\n\nWe can represent this as  $571 +\\blueD{90}+\\greenD2$.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$571 +\\blueD{90}+\\greenD2=571 +\\blueD9\\greenD2$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer:\n\n$571+92$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$517+92$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$571+902$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$571+92$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which expression can be solved with the following number line?**\n\n![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/5ec8b3b8fee87a23c9d181a6ac047166f4cafa28)\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/5ec8b3b8fee87a23c9d181a6ac047166f4cafa28&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $718$ and move **right** $\\purpleC{200}$, then $\\blueD{40}$ more.\n\nWe can represent this as $718 +\\purpleC{200}+\\blueD{40}$.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$718 +\\purpleC{200}+\\blueD{40}=718 +\\purpleC2\\blueD4\\greenD0$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer:\n\n $718+240$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34; $718+240$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34; $718+2040$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34; $718+204$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which expression can be solved with the following number line?**\n\n![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/5f2d550141cc3815c7e8f3e126c1d7a955c71231)\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/5f2d550141cc3815c7e8f3e126c1d7a955c71231&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $832$ and move **right** $\\blueD{70}$, then $\\greenD9$ more.\n\nWe can represent this as $832 +\\blueD{70}+\\greenD9$.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$832 +\\blueD{70}+\\greenD9=832 +\\blueD7\\greenD9$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer:\n\n$832+79$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$832+709$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$832+79$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34;$823+709$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which expression can be solved with the following number line?**\n\n![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/868e40f4a1ec004c11b02293600f7495723b2fc1)\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/868e40f4a1ec004c11b02293600f7495723b2fc1&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $655$ and move **right** $\\purpleC{100}$, then $\\blueD{80}$, and finally $\\greenD4$ more.\n\nWe can represent this as $655 +\\purpleC{100}+\\blueD{80}+\\greenD4$.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$655 +\\purpleC{100}+\\blueD{80}+\\greenD4=655 +\\purpleC1\\blueD8\\greenD4$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer:\n\n $655+184$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34; $655+184$&#34;, &#34;correct&#34;: true}, {&#34;content&#34;: &#34; $655-148$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34; $655+148$&#34;, &#34;correct&#34;: false, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;radio&#34;}}, &#34;content&#34;: &#34;**Which expression can be solved with the following number line?**\n\n![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/33394b09ac0f6ca76e0dbf5dc52636d0d296276b)\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/33394b09ac0f6ca76e0dbf5dc52636d0d296276b&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;widgets&#34;: {}, &#34;content&#34;: &#34;On the number line, we start at $429$ and move **right** $\\purpleC{300}$, then $\\blueD{60}$, and finally $\\greenD3$ more.\n\nWe can represent this as $429 +\\purpleC{300}+\\blueD{60}+\\greenD3$.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;$429 +\\purpleC{300}+\\blueD{60}+\\greenD3=429 +\\purpleC3\\blueD6\\greenD3$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;The answer:\n\n$429+363$&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e9d943b97ffc5f0e09a18d25d725cde8aac26da0&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;options&#34;: {&#34;widgets&#34;: {}, &#34;content&#34;: &#34;&#34;, &#34;images&#34;: {}}, &#34;type&#34;: &#34;multiple&#34;, &#34;periodicTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;radio 1&#34;: {&#34;options&#34;: {&#34;displayCount&#34;: null, &#34;onePerLine&#34;: true, &#34;choices&#34;: [{&#34;content&#34;: &#34;$429+3603$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$429+903$&#34;, &#34;correct&#34;: false}, {&#34;content&#34;: &#34;$429+363$&#34;, &#34;correct&#34;: true, &#34;isNoneOfTheAbove&#34;: false}], &#34;multipleSelect&#34;: false, &#34;deselectEnabled&#34;: false, &#34;randomize&#34;: true, &#34;hasNoneOfTheAbove&#34;: false}, &#34;type&#34;: &#34;radio&#34;, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 1}}}, &#34;content&#34;: &#34;**Which expression can be solved with the following number line?**\n\n![](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/4c54378526fe430cd1daeec66bb402b61a1c329b)\n\n[[☃ radio 1]]\n\n&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/4c54378526fe430cd1daeec66bb402b61a1c329b&#34;: {&#34;width&#34;: 460, &#34;height&#34;: 80}}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Every time we move right on the number line, we add the distance we move.\n\n$480\\redD{+20}=500$\n\n![The same number line as above, with the second point labeled 500](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/8b67a44365e038db8132bfa94f7aa8c5c1f68e58)\n\nLet&#39;s keep adding to label the other points on the number line.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/8b67a44365e038db8132bfa94f7aa8c5c1f68e58&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$500\\purpleD{+139}=639$\n\n![The same number line as above, with the third point labeled 639](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/0a81a02242df6b517f4faa13f53b56bf78ae6079)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/0a81a02242df6b517f4faa13f53b56bf78ae6079&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This leads to the same sum because, altogether, that is a distance of:\n\n$\\redD{20}+\\purpleD{139}= \\blueD{159}$\n\n![The same number line as above, with the long arrow labeled plus 159 pointing from 480 to 639](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e38072d2ebc782ac233b5dc6a8ebbd7ba2026aab)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e38072d2ebc782ac233b5dc6a8ebbd7ba2026aab&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is Miriam&#39;s completed number line:\n\n![The completed number line labeled, from left to right: 480, 500, and 639](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e38072d2ebc782ac233b5dc6a8ebbd7ba2026aab)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e38072d2ebc782ac233b5dc6a8ebbd7ba2026aab&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;label-image 1&#34;: {&#34;options&#34;: {&#34;hideChoicesFromInstructions&#34;: true, &#34;imageWidth&#34;: 380, &#34;imageHeight&#34;: 160, &#34;imageUrl&#34;: &#34;web+graphie://ka-perseus-graphie.s3.amazonaws.com/435c1b3808856055667b2e91a4e38c62c4781763&#34;, &#34;static&#34;: false, &#34;choices&#34;: [&#34;$460$&#34;, &#34;$500$&#34;, &#34;$639$&#34;, &#34;$5139$&#34;], &#34;multipleAnswers&#34;: false, &#34;imageAlt&#34;: &#34;A number line with 3 marked points. The first and leftmost point is labeled 480. An arrow labeled plus 20 goes from the first point to the second point. An arrow labeled plus 139 goes from the second point to the third point. &#34;, &#34;markers&#34;: [{&#34;x&#34;: 18.2, &#34;answers&#34;: [&#34;$500$&#34;], &#34;label&#34;: &#34;second point&#34;, &#34;y&#34;: 86.2}, {&#34;x&#34;: 91.7, &#34;answers&#34;: [&#34;$639$&#34;], &#34;label&#34;: &#34;third point&#34;, &#34;y&#34;: 86.2}]}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;label-image&#34;}}, &#34;content&#34;: &#34;Miriam thinks about $480+\\blueD{159}$ as $480+\\redD{20}+\\purpleD{139}$ to solve in her head.\n\n**Label the missing values on Miriam&#39;s number line to justify her thinking.** \n\n[[☃ label-image 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Every time we move right on the number line, we add the distance we move.\n\nWhen we move left, we subtract.&#34;, &#34;images&#34;: {}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {&#34;explanation 1&#34;: {&#34;options&#34;: {&#34;showPrompt&#34;: &#34;Why 400?&#34;, &#34;hidePrompt&#34;: &#34;Got it, thanks!&#34;, &#34;widgets&#34;: {}, &#34;explanation&#34;: &#34;The number $\\redD{400}$ is close to $393$, and Edwin can add it without regrouping.&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;explanation&#34;}}, &#34;content&#34;: &#34;$259\\redD{+400}=659$\n\n![The same number line as above, with the topmost arrow labeled plus 400](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/ef297a42aa344def61b64b82fb9aeb9f1cf4570a)\n\n[[☃ explanation 1]]\n\nLet&#39;s keep adding or subtracting to label the other points on the number line.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/ef297a42aa344def61b64b82fb9aeb9f1cf4570a&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {&#34;explanation 1&#34;: {&#34;options&#34;: {&#34;showPrompt&#34;: &#34;Why 7?&#34;, &#34;hidePrompt&#34;: &#34;Got it, thanks!&#34;, &#34;widgets&#34;: {}, &#34;explanation&#34;: &#34;The number $\\redD{400}$ is $\\purpleD{7}$ more than $393$.\n\nEdwin has to subtract (go back) because he added more than $393$.&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;explanation&#34;}}, &#34;content&#34;: &#34;$659\\purpleD{-7}=652$\n\n![The same number line as above, with the second arrow labeled minus 7](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/d1b07c8e8b9ff1a1e0213dd9811daa1de65c14d1)\n\n[[☃ explanation 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/d1b07c8e8b9ff1a1e0213dd9811daa1de65c14d1&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Altogether, that is a distance of:\n\n$\\redD{400}\\purpleD{-7}= \\goldE{393}$\n\n![The same number line as above, with the lowest arrow labeled plus 393](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/3e5c51ad3594ff4ec96b5f61008735aae6f04167)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/3e5c51ad3594ff4ec96b5f61008735aae6f04167&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 120}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is Edwin&#39;s completed number line:\n\n![The completed number line with the arrows labeled, from top to bottom: plus 400, minus 7, and plus 393](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/3e5c51ad3594ff4ec96b5f61008735aae6f04167)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/3e5c51ad3594ff4ec96b5f61008735aae6f04167&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 120}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;label-image 1&#34;: {&#34;options&#34;: {&#34;hideChoicesFromInstructions&#34;: true, &#34;imageWidth&#34;: 380, &#34;imageHeight&#34;: 120, &#34;imageUrl&#34;: &#34;web+graphie://ka-perseus-graphie.s3.amazonaws.com/87dc3b5f77507633dd4e36a77de5cd52553da190&#34;, &#34;static&#34;: false, &#34;choices&#34;: [&#34;$+134$&#34;, &#34;$+259$&#34;, &#34;$+393$&#34;, &#34;$+400$&#34;], &#34;multipleAnswers&#34;: false, &#34;imageAlt&#34;: &#34;A number line with points at 259, 652, and 659. The topmost, unlabeled arrow goes from 259 to 659. The next arrow labeled minus 7 goes from 659 back to 652. The lowest, unlabeled arrow goes from 259 to 652.&#34;, &#34;markers&#34;: [{&#34;x&#34;: 48.5, &#34;answers&#34;: [&#34;$+400$&#34;], &#34;label&#34;: &#34;Topmost arrow with addend to go from 259 to 659&#34;, &#34;y&#34;: 11.3}, {&#34;x&#34;: 48.2, &#34;answers&#34;: [&#34;$+393$&#34;], &#34;label&#34;: &#34;Lowest arrow with addend to go from 259 to 652&#34;, &#34;y&#34;: 93.3}]}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;label-image&#34;}}, &#34;content&#34;: &#34;Edwin thinks about $259+\\blueD{393}$ as $259+\\blueD{400-7}$ to solve in his head.\n\n**Label the missing values on Edwin&#39;s number line to show his thinking.** \n\n[[☃ label-image 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;Every time we move right on the number line, we add the distance we move.\n\n$387\\redD{+3}=390$\n\n![The same number line as above, with the first arrow labeled plus 3](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/71070f38769e4ae2c37a01651d8529b0a2320499)\n\nLet&#39;s keep adding to label the other points on the number line.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/71070f38769e4ae2c37a01651d8529b0a2320499&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {&#34;explanation 1&#34;: {&#34;options&#34;: {&#34;showPrompt&#34;: &#34;Why 10?&#34;, &#34;hidePrompt&#34;: &#34;Got it, thanks!&#34;, &#34;widgets&#34;: {}, &#34;explanation&#34;: &#34;The distance between $390$ and $400$ is $\\purpleD{10}$.&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;explanation&#34;}}, &#34;content&#34;: &#34;$390\\purpleD{+10}=400$\n\n![The same number line as above, with the second arrow labeled plus 10](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/6b23596d5d9ce9f126c2c39a4c74752c925a63e6)\n\n[[☃ explanation 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/6b23596d5d9ce9f126c2c39a4c74752c925a63e6&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {&#34;explanation 1&#34;: {&#34;options&#34;: {&#34;showPrompt&#34;: &#34;Why 20?&#34;, &#34;hidePrompt&#34;: &#34;Got it, thanks!&#34;, &#34;widgets&#34;: {}, &#34;explanation&#34;: &#34;The distance between $400$ and $420$ is $\\greenD{20}$.&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;explanation&#34;}}, &#34;content&#34;: &#34;$400\\greenD{+20}=420$\n\n![The same number line as above, with the third arrow labeled plus 20](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/539e1e38c7e6d19a54cb994b9049470ac299203f)\n\n[[☃ explanation 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/539e1e38c7e6d19a54cb994b9049470ac299203f&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This leads to the same sum because, altogether, that is a distance of:\n\n$\\redD{3}+\\purpleD{10}+\\greenD{20}= \\blueD{33}$\n\n![The same number line as above, with the long arrow labeled plus 33 pointing from 387 to 420](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/6bacffcd3b03178831b7992f4dd13442c3c6a385)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/6bacffcd3b03178831b7992f4dd13442c3c6a385&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is the completed number line:\n\n![The completed number line with the arrows labeled, from left to right: plus 3, plus 10, and plus 20, and the long arrow labeled plus 33](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/6bacffcd3b03178831b7992f4dd13442c3c6a385)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/6bacffcd3b03178831b7992f4dd13442c3c6a385&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;label-image 1&#34;: {&#34;options&#34;: {&#34;hideChoicesFromInstructions&#34;: true, &#34;imageWidth&#34;: 380, &#34;imageHeight&#34;: 160, &#34;imageUrl&#34;: &#34;web+graphie://ka-perseus-graphie.s3.amazonaws.com/53036a096954df33cc02c1fcbd6d8116d0b4396b&#34;, &#34;static&#34;: false, &#34;choices&#34;: [&#34;$+10$&#34;, &#34;$+20$&#34;, &#34;$+30$&#34;, &#34;$+33$&#34;], &#34;multipleAnswers&#34;: false, &#34;imageAlt&#34;: &#34;A number line with points at 387, 390, 400, and 420. The first and leftmost arrow, labeled plus 3, goes from 387 to 390. The second, unlabeled, arrow goes from 390 to 400. The third, unlabeled, arrow goes from 400 to 420. A longer arrow labeled plus 33 spans the other three arrows, from 387 to 420.&#34;, &#34;markers&#34;: [{&#34;x&#34;: 31, &#34;answers&#34;: [&#34;$+10$&#34;], &#34;label&#34;: &#34;The addend for the second arrow from 390 to 400&#34;, &#34;y&#34;: 51.6}, {&#34;x&#34;: 68.5, &#34;answers&#34;: [&#34;$+20$&#34;], &#34;label&#34;: &#34;The addend for the third arrow from 400 to 420&#34;, &#34;y&#34;: 50.2}]}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;label-image&#34;}}, &#34;content&#34;: &#34;The following number line models $387+33$.  \n\n**Label the missing addends on the number line.**\n\n[[☃ label-image 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {&#34;explanation 1&#34;: {&#34;options&#34;: {&#34;showPrompt&#34;: &#34;Why 200?&#34;, &#34;hidePrompt&#34;: &#34;Got it, thanks!&#34;, &#34;widgets&#34;: {}, &#34;explanation&#34;: &#34;The number $229$ has $\\redD{2\\,\\text{hundreds}}$.&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;explanation&#34;}}, &#34;content&#34;: &#34;Every time we move right on the number line, we add the distance we move.\n\nWhen we move left, we subtract.\n\n$642\\redD{+200}=842$\n\n![The same number line as above, with the second point labeled 842](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/0b9179f1cfe56210f689e9892d0efb2a226d5902)\n\n[[☃ explanation 1]]\n\nLet&#39;s keep adding or subtracting to label the other points on the number line.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/0b9179f1cfe56210f689e9892d0efb2a226d5902&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {&#34;explanation 1&#34;: {&#34;options&#34;: {&#34;showPrompt&#34;: &#34;Why 30?&#34;, &#34;hidePrompt&#34;: &#34;Got it, thanks!&#34;, &#34;widgets&#34;: {}, &#34;explanation&#34;: &#34;The number $\\purpleD{30}$ is close to $29$, and Lyra can add it without regrouping.&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;explanation&#34;}}, &#34;content&#34;: &#34;$842\\purpleD{+30}=872$\n\n![The same number line as above, with the fourth point labeled 872](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/18ce716b51ee764d7248bac87024396ebb5a74cd)\n\n[[☃ explanation 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/18ce716b51ee764d7248bac87024396ebb5a74cd&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {&#34;explanation 1&#34;: {&#34;options&#34;: {&#34;showPrompt&#34;: &#34;Why 1?&#34;, &#34;hidePrompt&#34;: &#34;Got it, thanks!&#34;, &#34;widgets&#34;: {}, &#34;explanation&#34;: &#34;The number $\\purpleD{30}$ is $\\greenD{1}$ more than $29$.\n\nLyra has to subtract (go back) because she added more than $29$.&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;explanation&#34;}}, &#34;content&#34;: &#34;$872\\greenD{-1}=871$\n\n![The same number line as above, with the third point labeled 871](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e3759013af0e0b94b27b0d320946a828d27cb0f7)\n\n[[☃ explanation 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/e3759013af0e0b94b27b0d320946a828d27cb0f7&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This leads to the same sum because, altogether, that is a distance of:\n\n$\\redD{200}+\\purpleD{30}\\greenD{-1}= \\blueD{229}$\n\n![The same number line as above, with the long arrow labeled plus 229](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/770ec56f8c7bd6daf0e55d8b37a9dd2ab7114f89)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/770ec56f8c7bd6daf0e55d8b37a9dd2ab7114f89&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is Lyra&#39;s completed number line:\n\n![The completed number line labeled, from left to right: 642, 842, 871, and 872](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/a453e43f5e9cc0a892b71d699b965ab003a13cae)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/a453e43f5e9cc0a892b71d699b965ab003a13cae&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;label-image 1&#34;: {&#34;options&#34;: {&#34;hideChoicesFromInstructions&#34;: true, &#34;imageWidth&#34;: 380, &#34;imageHeight&#34;: 160, &#34;imageUrl&#34;: &#34;web+graphie://ka-perseus-graphie.s3.amazonaws.com/517da469a54acb1532514bdd8a60abc1cc7e6cbb&#34;, &#34;static&#34;: false, &#34;choices&#34;: [&#34;$870$&#34;, &#34;$871$&#34;, &#34;$872$&#34;, &#34;$873$&#34;], &#34;multipleAnswers&#34;: false, &#34;imageAlt&#34;: &#34;A number line with 4 marked points. The first and leftmost point is labeled 642. An arrow labeled plus 200 goes from the first point to the second point, labeled 842. An arrow labeled plus 30 goes from the second point to the fourth and rightmost point. An arrow labeled minus 1 goes back from the fourth point to the third point. A long arrow labeled plus 229 goes from 642 to the third point.&#34;, &#34;markers&#34;: [{&#34;x&#34;: 83.6, &#34;answers&#34;: [&#34;$871$&#34;], &#34;label&#34;: &#34;third point&#34;, &#34;y&#34;: 84.1}, {&#34;x&#34;: 92.9, &#34;answers&#34;: [&#34;$872$&#34;], &#34;label&#34;: &#34;fourth point&#34;, &#34;y&#34;: 84.1}]}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;label-image&#34;}}, &#34;content&#34;: &#34;Lyra thinks about $642+229$ as $642+200+30-1$ to solve in her head.\n\n**Label the missing numbers on Lyra&#39;s number line to justify her thinking.** \n\n[[☃ label-image 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+, {&#34;hints&#34;: [{&#34;replace&#34;: false, &#34;widgets&#34;: {&#34;explanation 1&#34;: {&#34;options&#34;: {&#34;showPrompt&#34;: &#34;Why 200?&#34;, &#34;hidePrompt&#34;: &#34;Got it, thanks!&#34;, &#34;widgets&#34;: {}, &#34;explanation&#34;: &#34;The distance between $416$ and $616$ is $\\redD{200}$.\n\nAlso, Baylor is adding using place value. The number $273$ has $\\redD{2\\,\\text{hundreds}}$. \n\nWhat place value would we add next?&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;explanation&#34;}}, &#34;content&#34;: &#34;We start at $416$.\n\nEvery time we move right on the number line, we add the distance we move.\n\n$416\\redD{+200}=616$\n\n![The same number line as above, with the first arrow labeled plus 200](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/4af7b7bd7faeef4c1a4acabc4fca5e4e57672b56)\n\n[[☃ explanation 1]]\n\nLet&#39;s keep adding to label the other points on the number line.&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/4af7b7bd7faeef4c1a4acabc4fca5e4e57672b56&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;$616\\purpleD{+70}=686$\n\n![The same number line as above, with the second arrow labeled plus 70](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/5ff1f4238ab0544f781d0672896ba1be0dc9c150)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/5ff1f4238ab0544f781d0672896ba1be0dc9c150&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {&#34;explanation 1&#34;: {&#34;options&#34;: {&#34;showPrompt&#34;: &#34;Why 3?&#34;, &#34;hidePrompt&#34;: &#34;Got it, thanks!&#34;, &#34;widgets&#34;: {}, &#34;explanation&#34;: &#34;The distance between $686$ and $689$ is $\\greenD{3}$.\n\nAlso, Baylor is adding using place value. The number $273$ has $\\greenD{3\\,\\text{ones}}$.&#34;, &#34;static&#34;: false}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;explanation&#34;}}, &#34;content&#34;: &#34;$686\\greenD{+3}=689$\n\n![The same number line as above, with the third arrow labeled plus 3](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/636678a946a17c89afe40ef1cb80f7ca1b05b436)\n\n[[☃ explanation 1]]&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/636678a946a17c89afe40ef1cb80f7ca1b05b436&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This leads to the same sum because, altogether, that is a distance of:\n\n$\\redD{200}+\\purpleD{70}+\\greenD{3}= \\blueD{273}$\n\n![The same number line as above, with the long arrow labeled plus 273 pointing from 416 to 689](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/f5c325a3fca3d578f934dac83b5e83366447e7a8)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/f5c325a3fca3d578f934dac83b5e83366447e7a8&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}, {&#34;replace&#34;: false, &#34;widgets&#34;: {}, &#34;content&#34;: &#34;This is Baylor&#39;s completed number line:\n\n![The completed number line with the arrows labeled, from left to right: plus 200, plus 70, and plus 3, and the long arrow labeled plus 273](web+graphie:13c485098cfac545a94ec46aa2523b7a/images/f5c325a3fca3d578f934dac83b5e83366447e7a8)&#34;, &#34;images&#34;: {&#34;web+graphie:13c485098cfac545a94ec46aa2523b7a/images/f5c325a3fca3d578f934dac83b5e83366447e7a8&#34;: {&#34;width&#34;: 380, &#34;height&#34;: 160}}}], &#34;answerArea&#34;: {&#34;calculator&#34;: false, &#34;periodicTable&#34;: false, &#34;chi2Table&#34;: false, &#34;zTable&#34;: false, &#34;tTable&#34;: false}, &#34;question&#34;: {&#34;widgets&#34;: {&#34;label-image 1&#34;: {&#34;options&#34;: {&#34;hideChoicesFromInstructions&#34;: true, &#34;imageWidth&#34;: 380, &#34;imageHeight&#34;: 160, &#34;imageUrl&#34;: &#34;web+graphie://ka-perseus-graphie.s3.amazonaws.com/3872e272030720269e5f2afbfdc8ff399f423738&#34;, &#34;static&#34;: false, &#34;choices&#34;: [&#34;$+2$&#34;, &#34;$+3$&#34;, &#34;$+30$&#34;, &#34;$+200$&#34;], &#34;multipleAnswers&#34;: false, &#34;imageAlt&#34;: &#34;A number line with points at 416, 616, 686, and 689. The first and leftmost arrow goes from 416 to 616. The second arrow labeled plus 70 goes from 616 to 686. The third arrow goes from 686 to 689. A longer arrow labeled plus 273 spans the other three arrows, from 416 to 689.&#34;, &#34;markers&#34;: [{&#34;x&#34;: 34.2, &#34;answers&#34;: [&#34;$+200$&#34;], &#34;label&#34;: &#34;The addend for the first arrow from 416 to 616&#34;, &#34;y&#34;: 50.9}, {&#34;x&#34;: 86.9, &#34;answers&#34;: [&#34;$+3$&#34;], &#34;label&#34;: &#34;The addend for the third arrow from 686 to 689&#34;, &#34;y&#34;: 51.6}]}, &#34;graded&#34;: true, &#34;version&#34;: {&#34;minor&#34;: 0, &#34;major&#34;: 0}, &#34;static&#34;: false, &#34;alignment&#34;: &#34;default&#34;, &#34;type&#34;: &#34;label-image&#34;}}, &#34;content&#34;: &#34;Baylor added $416+273$ using place value on a number line.  \n\n**Label the missing addends on the number line.**\n\n[[☃ label-image 1]]&#34;, &#34;images&#34;: {}}, &#34;itemDataVersion&#34;: {&#34;minor&#34;: 1, &#34;major&#34;: 0}}
+]">
+
+      <div class="loader-container">
+        <p v-show="loading" :delay="false" type="indeterminate"> Loading </p>
+      </div>
+      
+      <div id="problem-area" :dir="contentDirection()">
+        <div id="workarea" style="margin-left: 0px"></div>
+      </div>
+
+      <div id="hintsarea" :dir="contentDirection()" style="margin-left: 0px"></div>
+
+      <div style="clear: both;"></div>      
+    </div>
+
+    <div id="answer-area-wrap" :dir="contentDirection()" style="background-color: white;">
+
+      <div id="answer-area">
+        <div class="info-box">
+          <div id="solutionarea">
+            
+              <div id="statusarea">
+                <div id="question-status">
+                  <div>
+                    Question: {{ questionIndex+1 }} / {{ maxQuestionIndex }}
+                  </div>
+                </div>
+       
+                <div v-if="messageType != 'blank'" v-bind:class="[messageType == 'error' ? 'red-alert-backgroud' : 'green-alert-backgroud']">
+                  <span :class="[messageType == 'error' ? 'red-alert-text' : 'green-alert-text']">
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            
+
+            <div id="buttonsarea">
+              <div v-if="anyHints" class="hint-btn-container">
+                <button
+                  v-if=" availableHints > 0"
+                  class="interactive-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  @click="takeHint">
+                  Take Hint
+                </button>
+        
+                <button
+                  v-else
+                  class="interactive-btn dead-btn"
+                  appearance="basic-link"
+                  :primary="false"
+                  :disabled="true">
+                  No more hints available
+                </button>        
+              </div>
+              <button
+                class="interactive-btn checkanswer-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="checkAnswer"
+                v-show="!nextQuestionToggle">
+                Check
+              </button>
+              <button
+                class="interactive-btn"
+                appearance="basic-link"
+                :primary="false"
+                @click="nextQuestion"
+                v-show="nextQuestionToggle">
+                Next Question
+              </button>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    v-if="scratchpad"
+    id="scratchpad-show"
+    :primary="false"
+    :raised="false">
+      Kbutton if scratchpad  
+    </button>
+    <button
+      v-else
+      id="scratchpad-not-available"
+      :primary="false"
+      :raised="false"
+      disabled>
+      KButton else 
+    </button>
+
+    <!-- Need a DOM mount point for reactDOM to attach to,
+      but Perseus renders weirdly so doesn't use this -->
+    <div id="perseus-container" ref="perseusContainer"></div>
+  </div>
+</div>
+  <!-- <div id="perseus-area" style="margin-left: 0px"></div>
+  <div id="perseus-container" style="margin-left: 0px"></div>
+  <div id="hintsarea" style="margin-left: 0px"></div> -->
+</body>
+
+<script src='./assets/perseus/solver.js'></script>
+<script type="module" src='./assets/perseus/perseus_script.js'></script>
+
+</html>
